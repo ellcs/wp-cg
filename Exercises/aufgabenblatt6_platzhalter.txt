@@ -1,1 +1,0 @@
-Hier gibt es später als Vorgaben die TriangleMeshNode-Klassen.

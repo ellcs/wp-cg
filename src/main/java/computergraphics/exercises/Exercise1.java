@@ -8,10 +8,12 @@
 package computergraphics.exercises;
 
 import computergraphics.framework.Scene;
+import computergraphics.framework.math.Axis;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.CubeNode;
 import computergraphics.framework.scenegraph.INode;
+import computergraphics.framework.scenegraph.RotationNode;
 import computergraphics.framework.scenegraph.SphereNode;
 import computergraphics.framework.scenegraph.TranslationNode;
 import computergraphics.framework.scenegraph.INode.RenderMode;
@@ -23,6 +25,7 @@ import computergraphics.framework.scenegraph.INode.RenderMode;
  */
 public class Exercise1 extends Scene {
   private static final long serialVersionUID = 8141036480333465137L;
+  RotationNode rotationNode;
 
   public Exercise1() {
     // Timer timeout and shader mode (PHONG, TEXTURE, NO_LIGHTING)
@@ -42,8 +45,11 @@ public class Exercise1 extends Scene {
     TranslationNode cubeTranslation =
         new TranslationNode(new Vector(-1, 0.5, 0));
     CubeNode cubeNode = new CubeNode(0.5);
-    cubeTranslation.addChild(cubeNode);
+    rotationNode = new RotationNode(Axis.z, 60);
+
     getRoot().addChild(cubeTranslation);
+    cubeTranslation.addChild(rotationNode);
+    rotationNode.addChild(cubeNode);
 
     // Light geometry
     TranslationNode lightTranslation =
@@ -56,7 +62,7 @@ public class Exercise1 extends Scene {
 
   @Override
   public void keyPressed(int keyCode) {
-    // Key pressed event
+    rotationNode.inc();
   }
 
   @Override

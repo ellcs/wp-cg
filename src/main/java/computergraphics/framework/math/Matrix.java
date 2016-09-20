@@ -319,6 +319,48 @@ public class Matrix {
     return content;
   }
 
+  public static Matrix getRotationMatrix4(Axis axis, Double angle) {
+    switch (axis) {
+      case x: return getRotationMatrixX(angle);
+      case y: return getRotationMatrixY(angle);
+      case z: return getRotationMatrixZ(angle);
+      default: throw new IllegalArgumentException("Unknown axis.");
+    }
+  }
+
+  public static Matrix getRotationMatrixX(double angle) {
+    double s = Math.sin(angle);
+    double c = Math.cos(angle);
+    double t = 1.0 - c;
+
+    return new Matrix(1.0, 0.0,  0.0, 0.0,
+                      0.0, c,    s,   0.0,
+                      0.0, -s,   c,   0.0,
+                      0.0, 0.0,  0.0, 1.0);
+  }
+
+  public static Matrix getRotationMatrixY(double angle) {
+    double s = Math.sin(angle);
+    double c = Math.cos(angle);
+    double t = 1.0 - c;
+
+    return new Matrix(c,   0.0,  -s,  0.0,
+                      0.0, 1.0,  0.0, 0.0,
+                      s,   0.0,  c,   0.0,
+                      0.0, 0.0,  0.0, 1.0);
+  }
+
+  public static Matrix getRotationMatrixZ(double angle) {
+    double s = Math.sin(angle);
+    double c = Math.cos(angle);
+    double t = 1.0 - c;
+
+    return new Matrix(c,   s,    0.0, 0.0,
+                      -s,  c,    0.0, 0.0,
+                      0.0, 0.0,  1.0, 0.0,
+                      0.0, 0.0,  0.0, 1.0);
+  }
+
   public static Matrix getRotationMatrix3(Vector axis, double angle) {
 
     double s = Math.sin(angle);
@@ -328,12 +370,43 @@ public class Matrix {
     return new Matrix(t * axis.get(0) * axis.get(0) + c,
         t * axis.get(0) * axis.get(1) + s * axis.get(2),
         t * axis.get(0) * axis.get(2) - s * axis.get(1),
+
         t * axis.get(0) * axis.get(1) - s * axis.get(2),
         t * axis.get(1) * axis.get(1) + c,
         t * axis.get(1) * axis.get(2) + s * axis.get(0),
+
         t * axis.get(0) * axis.get(2) + s * axis.get(1),
         t * axis.get(2) * axis.get(2) - s * axis.get(0),
         t * axis.get(2) * axis.get(2) + c);
+  }
+
+
+  /**
+   * This rotation matrix is buggy. Rotation on x and y axis are working well. When rotating
+   * on z, the object is growing and shrinking.
+   */
+  @Deprecated
+  public static Matrix getRotationMatrix4(Vector vector, double angle) {
+    Matrix matrix3 = getRotationMatrix3(vector, angle);
+
+    // copy 3x3 into 4x4
+    Matrix matrix4 = new Matrix(4, 4);
+    for (int x = 0; x < matrix3.getNumberOfRows(); x++) {
+      for (int y = 0; y < matrix3.getNumberOfColumns(); y++) {
+        matrix4.set(x, y, matrix3.get(x, y));
+      }
+    }
+
+    // fill empty matrix fields
+    matrix4.set(0, 3, 0.0);
+    matrix4.set(1, 3, 0.0);
+    matrix4.set(2, 3, 0.0);
+
+    matrix4.set(3, 0, 0.0);
+    matrix4.set(3, 1, 0.0);
+    matrix4.set(3, 2, 0.0);
+    matrix4.set(3, 3, 1.0);
+    return matrix4;
   }
 
   /**
@@ -414,4 +487,6 @@ public class Matrix {
       return M.det();
     }
   }
+
+
 }

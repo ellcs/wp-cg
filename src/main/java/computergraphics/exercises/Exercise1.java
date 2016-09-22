@@ -13,6 +13,7 @@ import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.CubeNode;
 import computergraphics.framework.scenegraph.INode;
+import computergraphics.framework.scenegraph.PlaneNode;
 import computergraphics.framework.scenegraph.RotationNode;
 import computergraphics.framework.scenegraph.SphereNode;
 import computergraphics.framework.scenegraph.TranslationNode;
@@ -45,21 +46,27 @@ public class Exercise1 extends Scene {
     TranslationNode cubeTranslation =
         new TranslationNode(new Vector(-1, 0.5, 0));
     CubeNode cubeNode = new CubeNode(0.5);
-    rotationNode = new RotationNode(new Vector(0,1,0), 60);
+    rotationNode = new RotationNode(new Vector(0, 1, 0), Math.PI);
+
+    RotationNode planeRotation = new RotationNode(new Vector(0, 0, 1), Math.PI);
+    PlaneNode planeNode = new PlaneNode(1);
+
+    getRoot().addChild(planeRotation);
+    planeRotation.addChild(planeNode);
 
 //    getRoot().addChild(rotationNode);
 //    rotationNode.addChild(cubeTranslation);
 //    cubeTranslation.addChild(cubeNode);
 
-    getRoot().addChild(rotationNode);
-    rotationNode.addChild(cubeNode);
+//    getRoot().addChild(rotationNode);
+//    rotationNode.addChild(cubeNode);
 
 //    getRoot().addChild(cubeTranslation);
 //    cubeTranslation.addChild(cubeNode);
 
-//    getRoot().addChild(cubeTranslation);
-//    cubeTranslation.addChild(rotationNode);
-//    rotationNode.addChild(cubeNode);
+    getRoot().addChild(cubeTranslation);
+    cubeTranslation.addChild(rotationNode);
+    rotationNode.addChild(cubeNode);
 
     // Light geometry
     TranslationNode lightTranslation =
@@ -77,7 +84,7 @@ public class Exercise1 extends Scene {
 
   @Override
   public void timerTick(int counter) {
-    // Timer tick event
+    // rotationNode.inc();
   }
 
   /**

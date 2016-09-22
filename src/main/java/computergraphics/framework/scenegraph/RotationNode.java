@@ -23,15 +23,13 @@ public class RotationNode extends InnerNode {
   private Axis   axis;
   private Matrix matrix;
 
-  public RotationNode(Axis axis, double angle) {
-    this.axis  = axis;
+  public RotationNode(Vector vector, double angle) {
     this.angle = angle;
-//    this.vector = vector;
-
+    this.vector = vector;
   }
 
   public void traverse(GL2 gl, RenderMode mode, Matrix modelMatrix) {
-    this.matrix = Matrix.getRotationMatrix4(axis, angle);
+    this.matrix = Matrix.getRotationMatrix4(vector, angle);
     super.traverse(gl, mode, matrix.multiply(modelMatrix));
   }
 

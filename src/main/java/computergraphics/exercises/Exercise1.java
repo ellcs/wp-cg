@@ -45,11 +45,21 @@ public class Exercise1 extends Scene {
     TranslationNode cubeTranslation =
         new TranslationNode(new Vector(-1, 0.5, 0));
     CubeNode cubeNode = new CubeNode(0.5);
-    rotationNode = new RotationNode(Axis.z, 60);
+    rotationNode = new RotationNode(new Vector(0,1,0), 60);
 
-    getRoot().addChild(cubeTranslation);
-    cubeTranslation.addChild(rotationNode);
+//    getRoot().addChild(rotationNode);
+//    rotationNode.addChild(cubeTranslation);
+//    cubeTranslation.addChild(cubeNode);
+
+    getRoot().addChild(rotationNode);
     rotationNode.addChild(cubeNode);
+
+//    getRoot().addChild(cubeTranslation);
+//    cubeTranslation.addChild(cubeNode);
+
+//    getRoot().addChild(cubeTranslation);
+//    cubeTranslation.addChild(rotationNode);
+//    rotationNode.addChild(cubeNode);
 
     // Light geometry
     TranslationNode lightTranslation =

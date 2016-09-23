@@ -12,6 +12,7 @@ import computergraphics.framework.math.Axis;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.CubeNode;
+import computergraphics.framework.scenegraph.CylinderNode;
 import computergraphics.framework.scenegraph.INode;
 import computergraphics.framework.scenegraph.PlaneNode;
 import computergraphics.framework.scenegraph.RotationNode;
@@ -41,6 +42,9 @@ public class Exercise1 extends Scene {
     SphereNode sphereNode = new SphereNode(0.5, 20);
     sphereTranslation.addChild(sphereNode);
     getRoot().addChild(sphereTranslation);
+
+    CylinderNode cylinderNode = new CylinderNode(0.5, 1, 30);
+    getRoot().addChild(cylinderNode);
 
     // Cube geometry
     TranslationNode cubeTranslation =

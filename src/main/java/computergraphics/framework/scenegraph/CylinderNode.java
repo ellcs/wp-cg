@@ -29,7 +29,13 @@ public class CylinderNode extends LeafNode {
   private double radius;
 
   /**
+   * Cylinder height.
+   */
+  private double height;
+
+  /**
    * Resolution (in one dimension) of the mesh.
+   * Higher resolution means more quads.
    */
   private int resolution;
 
@@ -41,9 +47,10 @@ public class CylinderNode extends LeafNode {
   /**
    * Constructor.
    */
-  public CylinderNode(double radius, int resolution) {
+  public CylinderNode(double radius, double height, int resolution) {
     this.radius = radius;
     this.resolution = resolution;
+    this.height = height;
     vbo = new VertexBufferObject();
     createVbo();
   }
@@ -51,32 +58,36 @@ public class CylinderNode extends LeafNode {
   private void createVbo() {
     List<RenderVertex> renderVertices = new ArrayList<RenderVertex>();
 
-
-    Vector color = new Vector(0.25, 0.75, 0.25, 1);
-    float dTheta = (float) (Math.PI / resolution);
     float dPhi = (float) (Math.PI * 2.0 / resolution);
-    for (int i = 0; i < resolution; i++) {
-      for (int j = 0; j < resolution; j++) {
-        Vector p0 = evaluateSpherePoint(i * dTheta, j * dPhi);
-        Vector p1 = evaluateSpherePoint(i * dTheta, (j + 1) * dPhi);
-        Vector p2 = evaluateSpherePoint((i + 1) * dTheta, (j + 1) * dPhi);
-        Vector p3 = evaluateSpherePoint((i + 1) * dTheta, j * dPhi);
+    float h = (float) (height / resolution);
 
-        Vector u = p3.subtract(p0);
-        Vector t1 = p1.subtract(p0);
-        Vector t2 = p3.subtract(p2);
+    Vector color = new Vector(1,0,0,1);
+    // hs stands for height step
+    for (int hs = 0; hs < resolution; hs++) {
+      // cs stands for circle step
+      for (int cs = 0; cs < resolution; cs++) {
+        Vector p1 = evaluateCylinderPoint(dPhi * cs,        hs * h);
+        Vector p2 = evaluateCylinderPoint(dPhi * cs,       (hs + 1) * h);
+        Vector p3 = evaluateCylinderPoint(dPhi * (1 + cs), (hs + 1) * h);
+        Vector p4 = evaluateCylinderPoint(dPhi * (1 + cs),  hs * h);
+
+
+        Vector u = p4.subtract(p1);
+        Vector t1 = p2.subtract(p1);
+        Vector t2 = p4.subtract(p3);
         Vector normal;
         if (t1.getNorm() < 1e-5) {
           normal = u.cross(t2).getNormalized();
         } else {
           normal = u.cross(t1).getNormalized();
         }
-
-        AddSideVertices(renderVertices, p0, p1, p2, p3, normal, color);
+        AddSideVertices(renderVertices, p1, p2, p3, p4, normal, color);
       }
     }
     vbo.Setup(renderVertices, GL2.GL_QUADS);
   }
+
+
 
   @Override
   public void drawGL(GL2 gl, RenderMode mode, Matrix modelMatrix) {
@@ -88,10 +99,9 @@ public class CylinderNode extends LeafNode {
   /**
    * Compute a surface point for given sphere coordinates.
    */
-  private Vector evaluateSpherePoint(float theta, float phi) {
-    float x = (float) (radius * Math.sin(theta) * Math.cos(phi));
-    float y = (float) (radius * Math.sin(theta) * Math.sin(phi));
-    float z = (float) (radius * Math.cos(theta));
+  private Vector evaluateCylinderPoint(float theta, float z) {
+    float x = (float) (radius * Math.cos(theta));
+    float y = (float) (radius * Math.sin(theta));
     return new Vector(x, y, z);
   }
 

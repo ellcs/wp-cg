@@ -38,7 +38,12 @@ public class PlaneNode extends LeafNode {
    * Constructor.
    */
   public PlaneNode(double sideLength) {
+    this(sideLength, new Vector(0.25, 0.25, 0.75, 1));
+  }
+
+  public PlaneNode(double sideLength, Vector color) {
     this.sideLength = sideLength;
+    this.color = color;
     createVbo();
   }
 
@@ -51,9 +56,8 @@ public class PlaneNode extends LeafNode {
     Vector p2 = new Vector(halfSideLength, 0.0, -halfSideLength);
     Vector p3 = new Vector(-halfSideLength, 0.0, -halfSideLength);
     Vector n0 = new Vector(0, -1, 0);
-    Vector color = new Vector(0.25, 0.25, 0.75, 1);
     
-    AddSideVertices(renderVertices, p0, p1, p2, p3, n0, color);
+    AddSideVertices(renderVertices, p0, p1, p2, p3, n0, this.color);
 
     vbo.Setup(renderVertices, GL2.GL_QUADS);
   }

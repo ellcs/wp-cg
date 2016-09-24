@@ -21,9 +21,9 @@ public class TreeNode extends InnerNode {
     TranslationNode sphereTranslation =
         new TranslationNode(new Vector(0, 0, 0));
     ScaleNode trunkScaleNode = new ScaleNode(new Vector(0.5, 0.5, 1));
-    SphereNode headNode = new SphereNode(0.5, 20, Colors.green);
+    SphereNode headNode = new SphereNode(0.5, 50, Colors.green);
 
-    CylinderNode trunkNode = new CylinderNode(0.5, 1, 30, Colors.brown);
+    CylinderNode trunkNode = new CylinderNode(0.5, 1, 50, Colors.brown);
     RotationNode standUpTreeRotation = new RotationNode(new Vector(1, 0, 0), -Math.PI/2);
 
     trunkScaleNode.addChild(trunkNode);

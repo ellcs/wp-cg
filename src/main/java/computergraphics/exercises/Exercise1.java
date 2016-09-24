@@ -8,15 +8,12 @@
 package computergraphics.exercises;
 
 import computergraphics.framework.Scene;
-import computergraphics.framework.math.Axis;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.CubeNode;
-import computergraphics.framework.scenegraph.CylinderNode;
 import computergraphics.framework.scenegraph.INode;
 import computergraphics.framework.scenegraph.PlaneNode;
 import computergraphics.framework.scenegraph.RotationNode;
-import computergraphics.framework.scenegraph.ScaleNode;
 import computergraphics.framework.scenegraph.SphereNode;
 import computergraphics.framework.scenegraph.TranslationNode;
 import computergraphics.framework.scenegraph.INode.RenderMode;

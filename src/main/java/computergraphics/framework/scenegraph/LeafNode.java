@@ -3,12 +3,16 @@ package computergraphics.framework.scenegraph;
 import com.jogamp.opengl.GL2;
 
 import computergraphics.framework.math.Matrix;
+import computergraphics.framework.math.Vector;
+import computergraphics.framework.mesh.Vertex;
 import computergraphics.framework.rendering.ShaderAttributes;
 
 /**
  * A leaf node allows to draw OpenGl content.
  */
 public abstract class LeafNode extends INode {
+
+  protected Vector color =  new Vector(0.25, 0.75, 0.25, 1);
 
   @Override
   public void traverse(GL2 gl, RenderMode mode, Matrix modelMatrix) {
@@ -26,5 +30,4 @@ public abstract class LeafNode extends INode {
    * Draw GL content.
    */
   public abstract void drawGL(GL2 gl, RenderMode mode, Matrix modelMatrix);
-
 }

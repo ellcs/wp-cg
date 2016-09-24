@@ -16,9 +16,11 @@ import computergraphics.framework.scenegraph.CylinderNode;
 import computergraphics.framework.scenegraph.INode;
 import computergraphics.framework.scenegraph.PlaneNode;
 import computergraphics.framework.scenegraph.RotationNode;
+import computergraphics.framework.scenegraph.ScaleNode;
 import computergraphics.framework.scenegraph.SphereNode;
 import computergraphics.framework.scenegraph.TranslationNode;
 import computergraphics.framework.scenegraph.INode.RenderMode;
+import computergraphics.framework.scenegraph.model.TreeNode;
 
 /**
  * Application for the first exercise.
@@ -37,14 +39,21 @@ public class Exercise1 extends Scene {
     getRoot().setAnimated(true);
 
     // Sphere geometry
-    TranslationNode sphereTranslation =
-        new TranslationNode(new Vector(1, -0.5, 0));
-    SphereNode sphereNode = new SphereNode(0.5, 20);
-    sphereTranslation.addChild(sphereNode);
-    getRoot().addChild(sphereTranslation);
+//    TranslationNode sphereTranslation =
+//        new TranslationNode(new Vector(0, 0, 0));
+//    ScaleNode scaleNode = new ScaleNode(new Vector(0.5, 0.5, 1));
+//    SphereNode sphereNode = new SphereNode(0.5, 20);
+//    sphereTranslation.addChild(sphereNode);
+//
+//    getRoot().addChild(sphereNode);
+//
+//    CylinderNode cylinderNode = new CylinderNode(0.5, 1, 30);
+//
+//    getRoot().addChild(scaleNode);
+//    scaleNode.addChild(cylinderNode);
 
-    CylinderNode cylinderNode = new CylinderNode(0.5, 1, 30);
-    getRoot().addChild(cylinderNode);
+    TreeNode treeNode = new TreeNode();
+    getRoot().addChild(treeNode);
 
     // Cube geometry
     TranslationNode cubeTranslation =

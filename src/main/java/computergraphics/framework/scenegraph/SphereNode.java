@@ -42,8 +42,16 @@ public class SphereNode extends LeafNode {
    * Constructor.
    */
   public SphereNode(double radius, int resolution) {
+    this(radius, resolution, new Vector(0.25, 0.75, 0.25, 1));
+  }
+
+  /**
+   * Constructor.
+   */
+  public SphereNode(double radius, int resolution, Vector color) {
     this.radius = radius;
     this.resolution = resolution;
+    this.color = color;
     vbo = new VertexBufferObject();
     createVbo();
   }
@@ -51,7 +59,6 @@ public class SphereNode extends LeafNode {
   private void createVbo() {
     List<RenderVertex> renderVertices = new ArrayList<RenderVertex>();
 
-    Vector color = new Vector(0.25, 0.75, 0.25, 1);
     float dTheta = (float) (Math.PI / resolution);
     float dPhi = (float) (Math.PI * 2.0 / resolution);
     for (int i = 0; i < resolution; i++) {
@@ -71,7 +78,7 @@ public class SphereNode extends LeafNode {
           normal = u.cross(t1).getNormalized();
         }
 
-        AddSideVertices(renderVertices, p0, p1, p2, p3, normal, color);
+        AddSideVertices(renderVertices, p0, p1, p2, p3, normal, this.color);
       }
     }
     vbo.Setup(renderVertices, GL2.GL_QUADS);

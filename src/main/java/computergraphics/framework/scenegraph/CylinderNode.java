@@ -48,9 +48,14 @@ public class CylinderNode extends LeafNode {
    * Constructor.
    */
   public CylinderNode(double radius, double height, int resolution) {
+    this(radius, height, resolution, new Vector(0.128,0,0,1));
+  }
+
+  public CylinderNode(double radius, double height, int resolution, Vector color) {
     this.radius = radius;
     this.resolution = resolution;
     this.height = height;
+    this.color = color;
     vbo = new VertexBufferObject();
     createVbo();
   }
@@ -59,18 +64,16 @@ public class CylinderNode extends LeafNode {
     List<RenderVertex> renderVertices = new ArrayList<RenderVertex>();
 
     float dPhi = (float) (Math.PI * 2.0 / resolution);
-    float h = (float) (height / resolution);
+    float dH = (float) (height / resolution);
 
-    Vector color = new Vector(1,0,0,1);
     // hs stands for height step
     for (int hs = 0; hs < resolution; hs++) {
       // cs stands for circle step
       for (int cs = 0; cs < resolution; cs++) {
-        Vector p1 = evaluateCylinderPoint(dPhi * cs,        hs * h);
-        Vector p2 = evaluateCylinderPoint(dPhi * cs,       (hs + 1) * h);
-        Vector p3 = evaluateCylinderPoint(dPhi * (1 + cs), (hs + 1) * h);
-        Vector p4 = evaluateCylinderPoint(dPhi * (1 + cs),  hs * h);
-
+        Vector p1 = evaluateCylinderPoint(dPhi * cs,        hs * dH);
+        Vector p2 = evaluateCylinderPoint(dPhi * cs,       (hs + 1) * dH);
+        Vector p3 = evaluateCylinderPoint(dPhi * (1 + cs), (hs + 1) * dH);
+        Vector p4 = evaluateCylinderPoint(dPhi * (1 + cs),  hs * dH);
 
         Vector u = p4.subtract(p1);
         Vector t1 = p2.subtract(p1);
@@ -81,7 +84,7 @@ public class CylinderNode extends LeafNode {
         } else {
           normal = u.cross(t1).getNormalized();
         }
-        AddSideVertices(renderVertices, p1, p2, p3, p4, normal, color);
+        AddSideVertices(renderVertices, p1, p2, p3, p4, normal, this.color);
       }
     }
     vbo.Setup(renderVertices, GL2.GL_QUADS);

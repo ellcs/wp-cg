@@ -8,7 +8,6 @@ package computergraphics.framework.scenegraph;
 
 import com.jogamp.opengl.GL2;
 
-import computergraphics.framework.math.Axis;
 import computergraphics.framework.math.Matrix;
 import computergraphics.framework.math.Vector;
 
@@ -20,7 +19,6 @@ public class RotationNode extends InnerNode {
 
   private double angle;
   private Vector vector;
-  private Axis   axis;
   private Matrix matrix;
 
   public RotationNode(Vector vector, double angle) {

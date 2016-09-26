@@ -31,13 +31,10 @@ public class RotationNode extends InnerNode {
     super.traverse(gl, mode, matrix.multiply(modelMatrix));
   }
 
-  public void inc() {
-    System.out.println("DEBUG: Current angle: " + this.angle);
-    this.angle += 0.01;
-  }
-
   public void timerTick(int counter) {
-    super.timerTick(counter);
+    this.angle += 0.005;
+    // prevent over/under flow
+    this.angle = this.angle % (Math.PI*2);
   }
 
 }

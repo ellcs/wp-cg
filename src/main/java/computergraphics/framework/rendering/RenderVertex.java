@@ -11,7 +11,7 @@ public class RenderVertex {
 
   public RenderVertex(Vector position, Vector normal, Vector color) {
     if (color.getDimension() != 4) {
-      throw new IllegalArgumentException("Color needs for values.");
+      throw new IllegalArgumentException("Color needs four values.");
     }
     this.position = position;
     this.normal = normal;

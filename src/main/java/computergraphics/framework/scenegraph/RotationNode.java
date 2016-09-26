@@ -15,15 +15,21 @@ import computergraphics.framework.math.Vector;
  * Rotate all child nodes.
  *
  */
-public class RotationNode extends InnerNode {
+public class RotationNode extends InnerNode implements TimerTickable {
 
   private double angle;
+  private double animationSpeed;
   private Vector vector;
   private Matrix matrix;
 
   public RotationNode(Vector vector, double angle) {
+    this(vector, angle, 0.001);
+  }
+
+  public RotationNode(Vector vector, double angle, double animationSpeed) {
     this.angle = angle;
     this.vector = vector;
+    this.animationSpeed = animationSpeed;
   }
 
   public void traverse(GL2 gl, RenderMode mode, Matrix modelMatrix) {
@@ -31,10 +37,9 @@ public class RotationNode extends InnerNode {
     super.traverse(gl, mode, matrix.multiply(modelMatrix));
   }
 
+  @Override
   public void timerTick(int counter) {
-    this.angle += 0.005;
-    // prevent over/under flow
-    this.angle = this.angle % (Math.PI*2);
+    this.angle += animationSpeed;
   }
 
 }

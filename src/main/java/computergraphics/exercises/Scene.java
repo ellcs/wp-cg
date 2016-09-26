@@ -7,6 +7,8 @@
 
 package computergraphics.exercises;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import computergraphics.framework.math.Colors;
@@ -19,14 +21,17 @@ import computergraphics.framework.scenegraph.PlaneNode;
 import computergraphics.framework.scenegraph.RotationNode;
 import computergraphics.framework.scenegraph.ScaleNode;
 import computergraphics.framework.scenegraph.SphereNode;
+import computergraphics.framework.scenegraph.TimerTickable;
 import computergraphics.framework.scenegraph.TranslationNode;
 import computergraphics.framework.scenegraph.model.CloudNode;
+import computergraphics.framework.scenegraph.model.HelicopterNode;
 import computergraphics.framework.scenegraph.model.TreeNode;
 
 
 public class Scene extends computergraphics.framework.Scene {
 
   RotationNode cloudSpin;
+  List<TimerTickable> tickables = new ArrayList<>();
 
   public Scene() {
     // Timer timeout and shader mode (PHONG, TEXTURE, NO_LIGHTING)
@@ -38,12 +43,13 @@ public class Scene extends computergraphics.framework.Scene {
     float groundLength = 2;
     float skyHeight = 1;
     int amountOfClouds = 3;
+    float halfGroundLength = 2;
+    float helicopterHeight = 0.5f;
     int amountOfTrees = 25;
 
-
+    // Add plane same as ground
     RotationNode planeRotation = new RotationNode(new Vector(0, 0, 1), Math.PI);
     PlaneNode planeNode = new PlaneNode(groundLength, Colors.darkGreen);
-
     planeRotation.addChild(planeNode);
     getRoot().addChild(planeRotation);
 
@@ -69,12 +75,29 @@ public class Scene extends computergraphics.framework.Scene {
       translationNode.addChild(cloudNode);
     }
 
+    // add helicopter
+    HelicopterNode helicopterNode = new HelicopterNode();
+    ScaleNode scaleNode = new ScaleNode(new Vector(0.1, 0.1, 0.1));
+    Vector helicopterTranslationVector = new Vector(0.6f, helicopterHeight, 0);
+    TranslationNode helicopterTranslation = new TranslationNode(helicopterTranslationVector);
+    Vector helicopterRotationVector = new Vector(0, 1, 0);
+    RotationNode helicopterRotation = new RotationNode(helicopterRotationVector, 0, -0.09);
+
+    scaleNode.addChild(helicopterNode);
+    helicopterTranslation.addChild(scaleNode);
+    helicopterRotation.addChild(helicopterTranslation);
+    getRoot().addChild(helicopterRotation);
+
     // Light geometry
     TranslationNode lightTranslation =
             new TranslationNode(getRoot().getLightPosition());
     INode lightSphereNode = new SphereNode(0.01f, 10, Colors.yellow);
     lightTranslation.addChild(lightSphereNode);
     getRoot().addChild(lightTranslation);
+
+    tickables.add(helicopterNode);
+    tickables.add(helicopterRotation);
+    tickables.add(cloudSpin);
   }
 
   public void addTree(InnerNode rootNode, float x, float z) {
@@ -95,7 +118,9 @@ public class Scene extends computergraphics.framework.Scene {
 
   @Override
   public void timerTick(int counter) {
-    cloudSpin.timerTick(counter);
+    for (TimerTickable timerTickable : tickables) {
+      timerTickable.timerTick(counter);
+    }
   }
 
   /**

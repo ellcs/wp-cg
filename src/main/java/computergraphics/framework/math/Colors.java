@@ -13,4 +13,6 @@ public final class Colors {
   public static final Vector green = new Vector(0.25, 0.75, 0.25, 1);
   public static final Vector brown = new Vector(0.128, 0, 0, 1);
   public static final Vector yellow = new Vector(0.255, 0.255, 0, 1);
+  public static final Vector orange = new Vector(1.000, 0.647, 0.000, 1);
+  public static final Vector black = new Vector(0, 0, 0, 1);
 }

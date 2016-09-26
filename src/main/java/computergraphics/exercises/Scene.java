@@ -7,6 +7,8 @@
 
 package computergraphics.exercises;
 
+import computergraphics.framework.scenegraph.*;
+import computergraphics.framework.scenegraph.model.HelicopterNode;
 import sun.reflect.generics.tree.Tree;
 
 import java.util.Random;
@@ -14,15 +16,7 @@ import java.util.Random;
 import computergraphics.framework.math.Colors;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.Shader;
-import computergraphics.framework.scenegraph.CubeNode;
-import computergraphics.framework.scenegraph.INode;
 import computergraphics.framework.scenegraph.INode.RenderMode;
-import computergraphics.framework.scenegraph.InnerNode;
-import computergraphics.framework.scenegraph.PlaneNode;
-import computergraphics.framework.scenegraph.RotationNode;
-import computergraphics.framework.scenegraph.ScaleNode;
-import computergraphics.framework.scenegraph.SphereNode;
-import computergraphics.framework.scenegraph.TranslationNode;
 import computergraphics.framework.scenegraph.model.TreeNode;
 
 
@@ -54,6 +48,10 @@ public class Scene extends computergraphics.framework.Scene {
       addTree(getRoot(), x, y);
     }
 
+    TranslationNode helicopterTranslation = new TranslationNode(new Vector(0, 0, 1));
+    helicopterTranslation.addChild(new HelicopterNode());
+    getRoot().addChild(helicopterTranslation);
+
     // Light geometry
     TranslationNode lightTranslation =
         new TranslationNode(getRoot().getLightPosition());
@@ -68,7 +66,6 @@ public class Scene extends computergraphics.framework.Scene {
     TranslationNode translationNode = new TranslationNode(new Vector(x, 0.1, z));
     ScaleNode scaleNode = new ScaleNode(new Vector(0.1, 0.1, 0.1));
 
-
     rootNode.addChild(translationNode);
     translationNode.addChild(scaleNode);
     scaleNode.addChild(treeNode);
@@ -76,7 +73,7 @@ public class Scene extends computergraphics.framework.Scene {
 
   @Override
   public void keyPressed(int keyCode) {
-    rotationNode.inc();
+//    rotationNode.inc();
   }
 
   @Override

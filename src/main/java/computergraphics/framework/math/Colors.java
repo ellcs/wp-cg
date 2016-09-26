@@ -13,4 +13,5 @@ public final class Colors {
   public static final Vector green = new Vector(0.25, 0.75, 0.25, 1);
   public static final Vector brown = new Vector(0.128, 0, 0, 1);
   public static final Vector yellow = new Vector(0.255, 0.255, 0, 1);
+  public static final Vector transparent_azure = new Vector(240,255,255, 0.9);
 }

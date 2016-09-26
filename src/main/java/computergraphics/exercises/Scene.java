@@ -28,8 +28,8 @@ import computergraphics.framework.scenegraph.model.TreeNode;
 
 public class Scene extends computergraphics.framework.Scene {
 
-  RotationNode rotationNode;
-
+  RotationNode spin;
+  float skyHeight = 1;
   public Scene() {
     // Timer timeout and shader mode (PHONG, TEXTURE, NO_LIGHTING)
     super(100, Shader.ShaderMode.PHONG, RenderMode.REGULAR);
@@ -38,8 +38,8 @@ public class Scene extends computergraphics.framework.Scene {
     getRoot().setAnimated(true);
 
     float groundLength = 2;
-    float halfGroundLength = 2;
     int amountOfTrees = 25;
+
 
     RotationNode planeRotation = new RotationNode(new Vector(0, 0, 1), Math.PI);
     PlaneNode planeNode = new PlaneNode(groundLength, Colors.darkGreen);
@@ -48,19 +48,44 @@ public class Scene extends computergraphics.framework.Scene {
     getRoot().addChild(planeRotation);
 
     Random random = new Random(System.currentTimeMillis());
-    for (int t = 0 ; t < amountOfTrees; t++) {
-      float x = (random.nextFloat() * 2 - 1) % (halfGroundLength - 0.2f);
-      float y = (random.nextFloat() * 2 - 1) % (halfGroundLength - 0.2f);
+    for (int t = 0; t < amountOfTrees; t++) {
+      float x = (random.nextFloat() * 2 - 1) % (groundLength - 0.2f);
+      float y = (random.nextFloat() * 2 - 1) % (groundLength - 0.2f);
       addTree(getRoot(), x, y);
     }
 
     // Light geometry
     TranslationNode lightTranslation =
-        new TranslationNode(getRoot().getLightPosition());
+            new TranslationNode(getRoot().getLightPosition());
     INode lightSphereNode = new SphereNode(0.01f, 10, Colors.yellow);
     lightTranslation.addChild(lightSphereNode);
     getRoot().addChild(lightTranslation);
 
+    spin = new RotationNode(new Vector(0, 1, 0),0);
+    Random rand = new Random(System.currentTimeMillis());
+    for (int t = 0; t < 6; t++) {
+      float x = (rand.nextFloat() * 2 - 1) % (0.3f);
+      float y = (rand.nextFloat() * 2 - 1) % (0.1f);
+      float z = (rand.nextFloat() * 2 - 1) % (0.4f);
+      addSpheretoCloud(spin, x, y);
+    }
+    TranslationNode cloud2 = new TranslationNode(new Vector(0.5, 0, 0.7));
+    for (int t = 0; t < 7; t++) {
+      float x = (rand.nextFloat() * 2 - 1) % (0.25f);
+      float y = (rand.nextFloat() * 2 - 1) % (0.2f);
+      float z = (rand.nextFloat() * 2 - 1) % (0.4f);
+      addSpheretoCloud(cloud2, x, y);
+
+    }
+    getRoot().addChild(spin);
+    spin.addChild(cloud2);
+
+    //clouds position
+    TranslationNode cloudsTranslation =
+            new TranslationNode(new Vector(0,skyHeight,0));
+    INode cloudSphereNode = new SphereNode(0.2, 50, Colors.transparent_azure);
+    cloudsTranslation.addChild(cloudSphereNode);
+    getRoot().addChild(cloudsTranslation);
   }
 
   public void addTree(InnerNode rootNode, float x, float z) {
@@ -74,14 +99,24 @@ public class Scene extends computergraphics.framework.Scene {
     scaleNode.addChild(treeNode);
   }
 
+  public void addSpheretoCloud(InnerNode rootNode, float x, float z) {
+    SphereNode sphereNode = new SphereNode(0.15, 50, Colors.transparent_azure);
+    TranslationNode translationNode = new TranslationNode(new Vector(x, skyHeight, z));
+
+    rootNode.addChild(translationNode);
+    translationNode.addChild(sphereNode);
+
+  }
+
+
   @Override
   public void keyPressed(int keyCode) {
-    rotationNode.inc();
+    spin.inc();
   }
 
   @Override
   public void timerTick(int counter) {
-    // rotationNode.inc();
+    spin.inc();
   }
 
   /**

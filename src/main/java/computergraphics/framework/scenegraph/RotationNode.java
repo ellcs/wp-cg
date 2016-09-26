@@ -33,7 +33,7 @@ public class RotationNode extends InnerNode {
 
   public void inc() {
     System.out.println("DEBUG: Current angle: " + this.angle);
-    this.angle += 0.001;
+    this.angle += 0.01;
   }
 
   public void timerTick(int counter) {

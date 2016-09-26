@@ -89,7 +89,7 @@ public class Exercise1 extends Scene {
 
   @Override
   public void keyPressed(int keyCode) {
-    rotationNode.inc();
+    // handle key event
   }
 
   @Override

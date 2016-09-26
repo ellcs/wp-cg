@@ -9,8 +9,9 @@ package computergraphics.exercises;
 
 import computergraphics.framework.scenegraph.*;
 import computergraphics.framework.scenegraph.model.HelicopterNode;
-import sun.reflect.generics.tree.Tree;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import computergraphics.framework.math.Colors;
@@ -22,7 +23,7 @@ import computergraphics.framework.scenegraph.model.TreeNode;
 
 public class Scene extends computergraphics.framework.Scene {
 
-  RotationNode rotationNode;
+  List<TimerTickable> tickables = new ArrayList<>();
 
   public Scene() {
     // Timer timeout and shader mode (PHONG, TEXTURE, NO_LIGHTING)
@@ -33,6 +34,7 @@ public class Scene extends computergraphics.framework.Scene {
 
     float groundLength = 2;
     float halfGroundLength = 2;
+    float helicopterHeight = 0.5f;
     int amountOfTrees = 25;
 
     RotationNode planeRotation = new RotationNode(new Vector(0, 0, 1), Math.PI);
@@ -48,9 +50,18 @@ public class Scene extends computergraphics.framework.Scene {
       addTree(getRoot(), x, y);
     }
 
-    TranslationNode helicopterTranslation = new TranslationNode(new Vector(0, 0, 1));
-    helicopterTranslation.addChild(new HelicopterNode());
-    getRoot().addChild(helicopterTranslation);
+    // add helicopter
+    HelicopterNode helicopterNode = new HelicopterNode();
+    ScaleNode scaleNode = new ScaleNode(new Vector(0.1, 0.1, 0.1));
+    Vector helicopterTranslationVector = new Vector(0.6f, helicopterHeight, 0);
+    TranslationNode helicopterTranslation = new TranslationNode(helicopterTranslationVector);
+    Vector helicopterRotationVector = new Vector(0, 1, 0);
+    RotationNode helicopterRotation = new RotationNode(helicopterRotationVector, 0, -0.09);
+
+    scaleNode.addChild(helicopterNode);
+    helicopterTranslation.addChild(scaleNode);
+    helicopterRotation.addChild(helicopterTranslation);
+    getRoot().addChild(helicopterRotation);
 
     // Light geometry
     TranslationNode lightTranslation =
@@ -59,6 +70,8 @@ public class Scene extends computergraphics.framework.Scene {
     lightTranslation.addChild(lightSphereNode);
     getRoot().addChild(lightTranslation);
 
+    tickables.add(helicopterNode);
+    tickables.add(helicopterRotation);
   }
 
   public void addTree(InnerNode rootNode, float x, float z) {
@@ -78,7 +91,9 @@ public class Scene extends computergraphics.framework.Scene {
 
   @Override
   public void timerTick(int counter) {
-    // rotationNode.inc();
+    for (TimerTickable timerTickable : tickables) {
+      timerTickable.timerTick(counter);
+    }
   }
 
   /**

@@ -9,6 +9,7 @@ public final class Colors {
     // permit instance of Colors
   }
 
+  public static final Vector grey = new Vector(0.7, 0.7, 0.7, 1);
   public static final Vector darkGreen = new Vector(0.05, 0.45, 0.05, 1);
   public static final Vector green = new Vector(0.25, 0.75, 0.25, 1);
   public static final Vector brown = new Vector(0.128, 0, 0, 1);

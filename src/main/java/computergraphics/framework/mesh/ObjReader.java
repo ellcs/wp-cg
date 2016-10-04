@@ -48,21 +48,25 @@ public class ObjReader {
     directory = new File(AssetPath.getPathToAsset(filename)).getParent() + "/";
 
     String strLine = "";
+    int linesRead = 0;
     try {
       InputStream is = new FileInputStream(AssetPath.getPathToAsset(filename));
       DataInputStream in = new DataInputStream(is);
       BufferedReader br = new BufferedReader(new InputStreamReader(in));
       while ((strLine = br.readLine()) != null) {
         parseLine(strLine, directory, mesh);
+        linesRead++;
       }
       in.close();
     } catch (Exception e) {
-      System.out.println("Error reading from the OBJ file.");
+      System.err.println("Error reading from the OBJ file:");
+      e.printStackTrace();
     }
     mesh.computeTriangleNormals();
     System.out.println("OBJ file " + filename + " with "
         + mesh.getNumberOfVertices() + " vertices and "
-        + mesh.getNumberOfTriangles() + " triangles successfully read.");
+        + mesh.getNumberOfTriangles() + " triangles successfully read through "
+        + linesRead + " read lines.");
   }
 
   /**

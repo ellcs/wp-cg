@@ -96,13 +96,16 @@ public class TriangleMesh implements ITriangleMesh {
     throw new NotImplementedException();
   }
 
+  /**
+   * Computes and sets normal for given triangle.
+   */
   private void computeNormal(Triangle triangle) {
     Vector p0 = getTriangleVectorByIndex(triangle, 0);
     Vector p1 = getTriangleVectorByIndex(triangle, 1);
     Vector p2 = getTriangleVectorByIndex(triangle, 2);
 
-    Vector u = p0.subtract(p1);
-    Vector v = p2.subtract(p1);
+    Vector u = p1.subtract(p0);
+    Vector v = p2.subtract(p0);
     triangle.setNormal(u.cross(v));
   }
 

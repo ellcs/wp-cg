@@ -56,8 +56,8 @@ public class Scene extends computergraphics.framework.Scene {
     // Create random forest
     Random random = new Random(System.currentTimeMillis());
     for (int t = 0; t < amountOfTrees; t++) {
-      float x = (random.nextFloat() * 2 - 1) % (groundLength - 0.2f);
-      float y = (random.nextFloat() * 2 - 1) % (groundLength - 0.2f);
+      float x = (random.nextFloat() * 2 - 1) % (groundLength - 0.3f);
+      float y = (random.nextFloat() * 2 - 1) % (groundLength - 0.3f);
       addTree(getRoot(), x, y);
     }
 
@@ -65,9 +65,9 @@ public class Scene extends computergraphics.framework.Scene {
     cloudSpin = new RotationNode(new Vector(0, 1, 0),0);
     getRoot().addChild(cloudSpin);
     for (int c = 0; c < amountOfClouds; c++) {
-      CloudNode cloudNode = new CloudNode(0.3f, 0.05f, 0.3f);
-      float xCloudPosition = (random.nextFloat() * 2 - 1) % (groundLength - 0.2f);
-      float zCloudPosition = (random.nextFloat() * 2 - 1) % (groundLength - 0.2f);
+      CloudNode cloudNode = new CloudNode(0.2f, 0.05f, 0.25f);
+      float xCloudPosition = (random.nextFloat() * 2 - 1) % (groundLength - 0.3f);
+      float zCloudPosition = (random.nextFloat() * 2 - 1) % (groundLength - 0.3f);
       Vector translationVector = new Vector(xCloudPosition, skyHeight, zCloudPosition);
       TranslationNode translationNode = new TranslationNode(translationVector);
 

@@ -11,6 +11,7 @@ import com.jogamp.opengl.GL2;
 import java.util.ArrayList;
 import java.util.List;
 
+import computergraphics.framework.math.Colors;
 import computergraphics.framework.math.Matrix;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.RenderVertex;
@@ -48,7 +49,7 @@ public class CylinderNode extends LeafNode {
    * Constructor.
    */
   public CylinderNode(double radius, double height, int resolution) {
-    this(radius, height, resolution, new Vector(0.128,0,0,1));
+    this(radius, height, resolution, Colors.brown);
   }
 
   public CylinderNode(double radius, double height, int resolution, Vector color) {

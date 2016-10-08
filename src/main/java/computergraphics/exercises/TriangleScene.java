@@ -7,6 +7,7 @@ import computergraphics.framework.math.Vector;
 import computergraphics.framework.mesh.ObjReader;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.INode;
+import computergraphics.framework.scenegraph.LineNode;
 import computergraphics.framework.scenegraph.RotationNode;
 import computergraphics.framework.scenegraph.SphereNode;
 import computergraphics.framework.scenegraph.TimerTickable;
@@ -21,6 +22,7 @@ public class TriangleScene extends computergraphics.framework.Scene {
   private static final long serialVersionUID = 8141036480333465137L;
 
   List<TimerTickable> tickableList = new ArrayList<>();
+  boolean toggled = false;
 
   ObjReader objReader = new ObjReader();
 
@@ -38,6 +40,8 @@ public class TriangleScene extends computergraphics.framework.Scene {
     rotationNode.addChild(cowNode);
     getRoot().addChild(rotationNode);
 
+//    getRoot().addChild(new LineNode(new Vector(0, 0, 0), new Vector(1, 0, 0)));
+
     // Light geometry
     TranslationNode lightTranslation =
         new TranslationNode(getRoot().getLightPosition());
@@ -49,13 +53,15 @@ public class TriangleScene extends computergraphics.framework.Scene {
 
   @Override
   public void keyPressed(int keyCode) {
-    // handle key event
+    toggled = !toggled;
   }
 
   @Override
   public void timerTick(int counter) {
     for (TimerTickable timerTickable : this.tickableList) {
-      timerTickable.timerTick(counter);
+      if (toggled) {
+        timerTickable.timerTick(counter);
+      }
     }
   }
 

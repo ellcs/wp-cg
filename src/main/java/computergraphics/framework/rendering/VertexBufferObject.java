@@ -160,6 +160,7 @@ public class VertexBufferObject {
           GL2.GL_UNSIGNED_INT, indexBuffer);
     } catch (Exception e) {
       System.out.println("Fehler: " + e);
+      e.printStackTrace();
     }
 
     Shader.checkGlError(gl);

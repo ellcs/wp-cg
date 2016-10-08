@@ -87,7 +87,10 @@ public class TriangleMesh implements ITriangleMesh {
 
   @Override
   public void computeTriangleNormals() {
-    this.triangles.forEach(this::computeNormal);
+    for (Triangle triangle : this.triangles) {
+      computeNormal(triangle);
+    }
+    // this.triangles.stream().forEach(this::computeNormal);
   }
 
   @Override
@@ -106,11 +109,14 @@ public class TriangleMesh implements ITriangleMesh {
 
     Vector u = p1.subtract(p0);
     Vector v = p2.subtract(p0);
-    triangle.setNormal(u.cross(v));
+    Vector n = u.cross(v);
+//    triangle.setNormal(n);
+    triangle.setNormal(n.getNormalized());
   }
 
-  private Vector getTriangleVectorByIndex(Triangle triangle, int index) {
-    return this.verticies.get(triangle.getVertexIndex(index)).getPosition();
+  public Vector getTriangleVectorByIndex(Triangle triangle, int index) {
+    Vertex vertex = this.verticies.get(triangle.getVertexIndex(index));
+    return vertex.getPosition();
   }
 
 }

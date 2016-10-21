@@ -37,9 +37,4 @@ public class TestTriangleMesh {
   public void testTriangleCount() {
     assertEquals(triangleMesh.getNumberOfTriangles(), 3);
   }
-
-  @Test
-  public void testReadCow() {
-
-  }
 }

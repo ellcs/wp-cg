@@ -4,6 +4,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import computergraphics.datastructures.halfedge.HalfEdge;
 import computergraphics.datastructures.halfedge.HalfEdgeTriangle;
@@ -14,7 +15,7 @@ import computergraphics.framework.rendering.Texture;
 /**
  * Created by alex on 10/21/16.
  */
-public class HalfEdgeTriangleMesh implements ITriangleMesh {
+public class HalfEdgeTriangleMesh implements IHalfEdgeTriangleMesh {
 
   List<HalfEdgeVertex> vertices;
 
@@ -42,13 +43,9 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh {
     HalfEdge h2 = new HalfEdge();
     HalfEdge h3 = new HalfEdge();
 
-    HalfEdgeVertex v1 = this.vertices.get(vertexIndex1);
-    HalfEdgeVertex v2 = this.vertices.get(vertexIndex2);
-    HalfEdgeVertex v3 = this.vertices.get(vertexIndex3);
-
-    h1.setStartVertex(v1);
-    h2.setStartVertex(v2);
-    h3.setStartVertex(v3);
+    h1.setStartVertex(this.vertices.get(vertexIndex1));
+    h2.setStartVertex(this.vertices.get(vertexIndex2));
+    h3.setStartVertex(this.vertices.get(vertexIndex3));
 
     h1.setNext(h2);
     h2.setNext(h3);
@@ -59,6 +56,8 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh {
     h3.setFacet(triangle);
 
     triangle.setHalfEdge(h1);
+
+    this.triangles.add(triangle);
   }
 
   @Override
@@ -95,22 +94,13 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh {
   }
 
   @Override
-  public Vertex getVertex(int index) {
-    HalfEdgeVertex vertex = this.vertices.get(index);
-    return new Vertex(vertex.getPosition(), vertex.getNormal());
+  public HalfEdgeVertex getVertex(int index) {
+    return this.vertices.get(index);
   }
 
   @Override
-  public Triangle getTriangle(int triangleIndex) {
-    HalfEdgeTriangle triangle = this.triangles.get(triangleIndex);
-    HalfEdge h = triangle.getHalfEdge();
-    HalfEdgeVertex v1 = h.getStartVertex();
-    h = h.getNext();
-    HalfEdgeVertex v2 = h.getStartVertex();
-    h = h.getNext();
-    HalfEdgeVertex v3 = h.getStartVertex();
-//    Triangle triangle1 = new Triangle();
-    return null;
+  public HalfEdgeTriangle getTriangle(int triangleIndex) {
+    return this.triangles.get(triangleIndex);
   }
 
   @Override
@@ -123,26 +113,64 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh {
     throw new NotImplementedException();
   }
 
-  private void finishHalfEdges() {
-    // set
+  public void finishHalfEdges() {
+    // easiest way to set vertexes half edge :)
     for (HalfEdge edge : this.edges) {
       HalfEdgeVertex vertex = edge.getStartVertex();
       vertex.setHalfEgde(edge);
+    }
+
+    // we do have edge e1 and we're looking for e2.
+    // find all edges (tmp) with source of e1.next.source and tmp.next.source == e1.source
+    // then e2 is tmp
+    for (;;) {
+
     }
   }
 
   @Override
   public void computeTriangleNormals() {
+    for (HalfEdgeTriangle triangle : this.triangles) {
+      calculateTriangleNormal(triangle);
+    }
+  }
+
+  public void calculateTriangleNormal(HalfEdgeTriangle triangle) {
+    HalfEdge h = triangle.getHalfEdge();
+    HalfEdgeVertex v1 = h.getStartVertex();
+    h = h.getNext();
+    HalfEdgeVertex v2 = h.getStartVertex();
+    h = h.getNext();
+    HalfEdgeVertex v3 = h.getStartVertex();
+
+    Vector p0 = v1.getPosition();
+    Vector p1 = v2.getPosition();
+    Vector p2 = v3.getPosition();
+
+    // calculate normal
+    Vector u = p1.subtract(p0);
+    Vector v = p2.subtract(p0);
+    Vector n = (u.cross(v)).getNormalized();
+
+    triangle.setNormal(n);
+  }
+
+  public void calculateVertexNormals() {
+    for (HalfEdgeVertex vertex : this.vertices) {
+
+    }
+  }
+
+  public void calculateVertexNormal(HalfEdgeVertex vertex) {
 
   }
 
-  private void calculateTriangleNormal(HalfEdgeTriangle triangle) {
-    
+  public Set<HalfEdgeTriangle> getFacettsAroundVertex(HalfEdgeVertex vertex) {
+    return null;
   }
-
 
   @Override
   public void createShadowPolygons(Vector lightPosition, float extend, ITriangleMesh shadowPolygonMesh) {
-
+    throw new NotImplementedException();
   }
 }

@@ -26,6 +26,7 @@ public class CowNode extends InnerNode {
     TriangleMesh triangleMesh = new TriangleMesh();
     reader.read(assetPath, triangleMesh);
     addChild(new TriangleMeshNode(triangleMesh));
+
     if (SHOW_NORMALS) {
       for (int i = 0; i < triangleMesh.getNumberOfTriangles(); i++) {
         Triangle triangle = triangleMesh.getTriangle(i);
@@ -37,7 +38,7 @@ public class CowNode extends InnerNode {
         Vector middle = p0.add(p1).add(p2);
         middle.multiplySelf(1f / 3f);
         Vector end = middle.add(normal.multiply(LINE_LENGTH));
-        addChild(new LineNode(middle, end));
+        addChild(new LineNode(end, middle));
       }
     }
   }

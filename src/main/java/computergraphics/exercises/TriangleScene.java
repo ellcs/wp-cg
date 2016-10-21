@@ -28,7 +28,7 @@ public class TriangleScene extends computergraphics.framework.Scene {
 
   public TriangleScene() {
     // Timer timeout and shader mode (PHONG, TEXTURE, NO_LIGHTING)
-    super(100, Shader.ShaderMode.PHONG, INode.RenderMode.REGULAR);
+    super(25, Shader.ShaderMode.PHONG, INode.RenderMode.REGULAR);
 
     getRoot().setLightPosition(new Vector(1, 1, 1));
     getRoot().setAnimated(true);

@@ -59,7 +59,8 @@ public class LineNode extends LeafNode {
     if (mode == RenderMode.REGULAR) {
 //      vbo.draw(gl);
       gl.glLineWidth(2.5f);
-      gl.glColor3f(0.1f, 0.1f, 0.1f);
+      gl.glColor3f((float) this.color.get(0), (float) this.color.get(1), (float) this.color.get(2));
+//      gl.glEnable(GL_LINE_SMOOTH);
       gl.glBegin(GL_LINES);
       gl.glVertex3f((float) start.get(0), (float) start.get(1), (float) start.get(2));
       gl.glVertex3f((float) end.get(0), (float) end.get(1), (float) end.get(2));

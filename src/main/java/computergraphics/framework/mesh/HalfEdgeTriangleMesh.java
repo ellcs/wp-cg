@@ -182,12 +182,16 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
     throw new NotImplementedException();
   }
 
-  public Set<HalfEdgeTriangle> getFacettsAroundVertex(HalfEdgeVertex vertex) {
-    return null;
+  private Set<HalfEdgeTriangle> getFacettsAroundVertex(HalfEdgeVertex vertex) {
+    throw new NotImplementedException();
   }
 
   @Override
   public void createShadowPolygons(Vector lightPosition, float extend, ITriangleMesh shadowPolygonMesh) {
+    throw new NotImplementedException();
+  }
+
+  private void noImpl() {
     throw new NotImplementedException();
   }
 }

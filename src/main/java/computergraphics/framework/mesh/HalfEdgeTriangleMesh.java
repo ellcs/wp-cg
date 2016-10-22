@@ -123,9 +123,24 @@ public class HalfEdgeTriangleMesh implements IHalfEdgeTriangleMesh {
     // we do have edge e1 and we're looking for e2.
     // find all edges (tmp) with source of e1.next.source and tmp.next.source == e1.source
     // then e2 is tmp
-    for (;;) {
-
+    for (HalfEdge edge : this.edges) {
+      HalfEdge opposite = findOpposite(edge);
+      edge.setOpposite(opposite);
     }
+  }
+
+  public HalfEdge findOpposite(HalfEdge halfEdge) {
+    HalfEdgeVertex sourceVertex = halfEdge.getStartVertex();
+    HalfEdgeVertex targetVertex = halfEdge.getNext().getStartVertex();
+    for (HalfEdge edge : this.edges) {
+      HalfEdgeVertex oSource = edge.getStartVertex();
+      HalfEdgeVertex oTarget = edge.getNext().getStartVertex();
+      if (sourceVertex.equals(oTarget)
+          && targetVertex.equals(oSource)) {
+        return edge;
+      }
+    }
+    return null;
   }
 
   @Override
@@ -157,12 +172,12 @@ public class HalfEdgeTriangleMesh implements IHalfEdgeTriangleMesh {
 
   public void calculateVertexNormals() {
     for (HalfEdgeVertex vertex : this.vertices) {
-
+      calculateVertexNormal(vertex);
     }
   }
 
   public void calculateVertexNormal(HalfEdgeVertex vertex) {
-
+//    vertex.
   }
 
   public Set<HalfEdgeTriangle> getFacettsAroundVertex(HalfEdgeVertex vertex) {

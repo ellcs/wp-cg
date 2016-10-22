@@ -54,8 +54,5 @@ public class TestHalfEdgeTriangleMesh {
 
   @Test
   public void testBuildHalfEdgeStructure() {
-    // after this method call the opposite edges must be set.
-    halfEdgeTriangleMesh.finishHalfEdges();
-
   }
 }

@@ -115,6 +115,9 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
 
   @Override
   public void finishLoad() {
+    computeTriangleNormals();
+    computeVerticiesNormals();
+
     // easiest way to set vertexes half edge :)
     for (HalfEdge edge : this.edges) {
       HalfEdgeVertex vertex = edge.getStartVertex();
@@ -172,13 +175,15 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
   }
 
 
-  public void calculateVertecyNormals() {
+  public void computeVerticiesNormals() {
     for (HalfEdgeVertex vertex : this.vertices) {
       computeVertexNormal(vertex);
     }
   }
 
   public void computeVertexNormal(HalfEdgeVertex vertex) {
+    Set<HalfEdgeTriangle> incidents = getFacettsAroundVertex(vertex);
+    // TODO: implement me :)
     throw new NotImplementedException();
   }
 

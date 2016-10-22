@@ -5,9 +5,13 @@ import com.jogamp.opengl.GL2;
 import java.util.ArrayList;
 import java.util.List;
 
+import computergraphics.datastructures.halfedge.HalfEdge;
+import computergraphics.datastructures.halfedge.HalfEdgeTriangle;
+import computergraphics.datastructures.halfedge.HalfEdgeVertex;
 import computergraphics.framework.math.Colors;
 import computergraphics.framework.math.Matrix;
 import computergraphics.framework.math.Vector;
+import computergraphics.framework.mesh.HalfEdgeTriangleMesh;
 import computergraphics.framework.mesh.ITriangleMesh;
 import computergraphics.framework.mesh.Triangle;
 import computergraphics.framework.mesh.TriangleMesh;
@@ -20,21 +24,20 @@ import computergraphics.framework.rendering.VertexBufferObject;
  */
 public class HalfEdgeTriangleMeshNode extends LeafNode {
 
-
   /**
    * VBO.
    */
   private VertexBufferObject vbo = new VertexBufferObject();
 
-  private ITriangleMesh<Vertex, Triangle> triangleMesh;
+  private ITriangleMesh<HalfEdgeVertex, HalfEdgeTriangle> triangleMesh;
 
   private Vector color;
 
-  public HalfEdgeTriangleMeshNode(TriangleMesh triangleMesh) {
+  public HalfEdgeTriangleMeshNode(HalfEdgeTriangleMesh triangleMesh) {
     this(triangleMesh, Colors.gray);
   }
 
-  public HalfEdgeTriangleMeshNode(ITriangleMesh triangleMesh, Vector color) {
+  public HalfEdgeTriangleMeshNode(HalfEdgeTriangleMesh triangleMesh, Vector color) {
     if (triangleMesh == null) {
       throw new IllegalArgumentException("Given TriangleMesh is null.");
     }
@@ -48,10 +51,11 @@ public class HalfEdgeTriangleMeshNode extends LeafNode {
 
     int triangleIndex = 0;
     while(triangleIndex < this.triangleMesh.getNumberOfTriangles()) {
-      Triangle triangle = this.triangleMesh.getTriangle(triangleIndex);
+      HalfEdgeTriangle triangle = this.triangleMesh.getTriangle(triangleIndex);
       Vector p0 = getTriangleVectorByIndex(triangle, 0);
       Vector p1 = getTriangleVectorByIndex(triangle, 1);
       Vector p2 = getTriangleVectorByIndex(triangle, 2);
+
 
       renderVertices.add(new RenderVertex(p0, triangle.getNormal(), this.color));
       renderVertices.add(new RenderVertex(p1, triangle.getNormal(), this.color));
@@ -65,9 +69,12 @@ public class HalfEdgeTriangleMeshNode extends LeafNode {
    * Fetches position as a vector, of given triangle. The vertex is specified trough index.
    * However, given index is one of the triangle points. {0, 1, 2}
    */
-  private Vector getTriangleVectorByIndex(Triangle triangle, int index) {
-    Vertex vertex = this.triangleMesh.getVertex(triangle.getVertexIndex(index));
-    return vertex.getPosition();
+  private Vector getTriangleVectorByIndex(HalfEdgeTriangle triangle, int index) {
+    HalfEdge edge = triangle.getHalfEdge();
+    for (int i = 0; i < index; i++) {
+      edge = edge.getNext();
+    }
+    return edge.getStartVertex().getPosition();
   }
 
   @Override

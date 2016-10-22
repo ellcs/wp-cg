@@ -15,7 +15,7 @@ import computergraphics.framework.rendering.Texture;
 /**
  * Created by alex on 10/21/16.
  */
-public class HalfEdgeTriangleMesh implements IHalfEdgeTriangleMesh {
+public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfEdgeTriangle> {
 
   List<HalfEdgeVertex> vertices;
 
@@ -113,7 +113,8 @@ public class HalfEdgeTriangleMesh implements IHalfEdgeTriangleMesh {
     throw new NotImplementedException();
   }
 
-  public void finishHalfEdges() {
+  @Override
+  public void finishLoad() {
     // easiest way to set vertexes half edge :)
     for (HalfEdge edge : this.edges) {
       HalfEdgeVertex vertex = edge.getStartVertex();
@@ -129,14 +130,14 @@ public class HalfEdgeTriangleMesh implements IHalfEdgeTriangleMesh {
     }
   }
 
-  public HalfEdge findOpposite(HalfEdge halfEdge) {
+  private HalfEdge findOpposite(HalfEdge halfEdge) {
     HalfEdgeVertex sourceVertex = halfEdge.getStartVertex();
     HalfEdgeVertex targetVertex = halfEdge.getNext().getStartVertex();
     for (HalfEdge edge : this.edges) {
-      HalfEdgeVertex oSource = edge.getStartVertex();
-      HalfEdgeVertex oTarget = edge.getNext().getStartVertex();
-      if (sourceVertex.equals(oTarget)
-          && targetVertex.equals(oSource)) {
+      HalfEdgeVertex oppositeSource = edge.getStartVertex();
+      HalfEdgeVertex oppositeTarget = edge.getNext().getStartVertex();
+      if (sourceVertex.equals(oppositeTarget)
+          && targetVertex.equals(oppositeSource)) {
         return edge;
       }
     }
@@ -146,11 +147,11 @@ public class HalfEdgeTriangleMesh implements IHalfEdgeTriangleMesh {
   @Override
   public void computeTriangleNormals() {
     for (HalfEdgeTriangle triangle : this.triangles) {
-      calculateTriangleNormal(triangle);
+      computeTriangleNormal(triangle);
     }
   }
 
-  public void calculateTriangleNormal(HalfEdgeTriangle triangle) {
+  public void computeTriangleNormal(HalfEdgeTriangle triangle) {
     HalfEdge h = triangle.getHalfEdge();
     HalfEdgeVertex v1 = h.getStartVertex();
     h = h.getNext();
@@ -170,14 +171,15 @@ public class HalfEdgeTriangleMesh implements IHalfEdgeTriangleMesh {
     triangle.setNormal(n);
   }
 
-  public void calculateVertexNormals() {
+
+  public void calculateVertecyNormals() {
     for (HalfEdgeVertex vertex : this.vertices) {
-      calculateVertexNormal(vertex);
+      computeVertexNormal(vertex);
     }
   }
 
-  public void calculateVertexNormal(HalfEdgeVertex vertex) {
-//    vertex.
+  public void computeVertexNormal(HalfEdgeVertex vertex) {
+    throw new NotImplementedException();
   }
 
   public Set<HalfEdgeTriangle> getFacettsAroundVertex(HalfEdgeVertex vertex) {

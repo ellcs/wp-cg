@@ -46,7 +46,7 @@ public class TestHalfEdgeTriangleMesh {
   @Test
   public void testCalculateTriangleNormal() {
     HalfEdgeTriangle triangle = halfEdgeTriangleMesh.getTriangle(0);
-    halfEdgeTriangleMesh.calculateTriangleNormal(triangle);
+    halfEdgeTriangleMesh.computeTriangleNormal(triangle);
 
     Vector expectedNormal = new Vector(0, 1, 0);
     assertEquals(triangle.getNormal(), expectedNormal);

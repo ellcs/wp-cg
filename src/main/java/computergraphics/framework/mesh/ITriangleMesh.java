@@ -14,57 +14,63 @@ import computergraphics.framework.rendering.Texture;
  * 
  * @author Philipp Jenke
  */
-public interface ITriangleMesh {
+public interface ITriangleMesh<V, T> {
+
   /**
    * Add a new vertex (given by position) to the vertex list. The new vertex is
    * appended to the end of the list.
    */
-  public int addVertex(Vector position);
+  int addVertex(Vector position);
 
   /**
    * Add a new triangle to the mesh with the vertex indices a, b, c. The index
    * of the first vertex is 0.
    */
-  public void addTriangle(int vertexIndex1, int vertexIndex2, int vertexIndex3);
+  void addTriangle(int vertexIndex1, int vertexIndex2, int vertexIndex3);
 
   /**
    * Add triangle by vertex indices and corresponding texture coordinate
    * indices.
    */
-  public void addTriangle(int vertexIndex1, int vertexIndex2, int vertexIndex3,
+  void addTriangle(int vertexIndex1, int vertexIndex2, int vertexIndex3,
       int texCoordIndex1, int texCoordIndex2, int texCoordIndex3);
 
   /**
    * Add texture coordinate to mesh.
    */
-  public void addTextureCoordinate(Vector t);
+  void addTextureCoordinate(Vector t);
 
   /**
    * Set a texture object for the mesh.
    */
-  public void setTexture(Texture texture);
+  void setTexture(Texture texture);
 
   /**
    * Clear mesh - remove all triangles and vertices.
    */
-  public void clear();
+  void clear();
 
-  public int getNumberOfTriangles();
+  int getNumberOfTriangles();
 
-  public int getNumberOfVertices();
+  int getNumberOfVertices();
 
-  public Vertex getVertex(int index);
+  V getVertex(int index);
 
-  public Triangle getTriangle(int triangleIndex);
+  T getTriangle(int triangleIndex);
 
-  public Vector getTextureCoordinate(int index);
+  Vector getTextureCoordinate(int index);
 
-  public Texture getTexture();
+  Texture getTexture();
+
+  /**
+   * When mesh is fully loaded, call finishLoad().
+   */
+  void finishLoad();
 
   /**
    * Compute the triangles normals.
    */
-  public void computeTriangleNormals();
+  void computeTriangleNormals();
 
   /**
    * Create a mesh of the shadow polygons.
@@ -72,6 +78,6 @@ public interface ITriangleMesh {
    * lightPosition: Position of the light source. extend: Length of the polygons
    * shadowPolygonMesh: Result is put in there
    */
-  public void createShadowPolygons(Vector lightPosition, float extend,
+  void createShadowPolygons(Vector lightPosition, float extend,
       ITriangleMesh shadowPolygonMesh);
 }

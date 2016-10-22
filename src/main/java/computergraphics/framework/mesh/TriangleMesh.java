@@ -86,6 +86,11 @@ public class TriangleMesh implements ITriangleMesh {
   }
 
   @Override
+  public void finishLoad() {
+    computeTriangleNormals();
+  }
+
+  @Override
   public void computeTriangleNormals() {
     for (Triangle triangle : this.triangles) {
       computeNormal(triangle);

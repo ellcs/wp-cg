@@ -25,7 +25,7 @@ public class TriangleMeshNode extends LeafNode {
    */
   private VertexBufferObject vbo = new VertexBufferObject();
 
-  private ITriangleMesh triangleMesh;
+  private ITriangleMesh<Vertex, Triangle> triangleMesh;
 
   private Vector color;
 

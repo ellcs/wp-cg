@@ -62,7 +62,7 @@ public class ObjReader {
       System.err.println("Error reading from the OBJ file:");
       e.printStackTrace();
     }
-    mesh.computeTriangleNormals();
+    mesh.finishLoad();
     System.out.println("OBJ file " + filename + " with "
         + mesh.getNumberOfVertices() + " vertices and "
         + mesh.getNumberOfTriangles() + " triangles successfully read through "

@@ -39,7 +39,7 @@ public class HalfEdgeScene extends computergraphics.framework.Scene {
 
     ObjReader reader = new ObjReader();
     HalfEdgeTriangleMesh mesh = new HalfEdgeTriangleMesh();
-    reader.read("meshes/cow.obj", mesh);
+    reader.read("meshes/hemisphere.obj", mesh);
 
     HalfEdgeTriangleMeshNode node = new HalfEdgeTriangleMeshNode(mesh);
 

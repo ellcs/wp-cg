@@ -67,17 +67,17 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
   @Override
   public void addTriangle(int vertexIndex1, int vertexIndex2, int vertexIndex3,
                           int texCoordIndex1, int texCoordIndex2, int texCoordIndex3) {
-    throw new NotImplementedException();
+//    throw new NotImplementedException();
   }
 
   @Override
   public void addTextureCoordinate(Vector t) {
-    throw new NotImplementedException();
+//    throw new NotImplementedException();
   }
 
   @Override
   public void setTexture(Texture texture) {
-    throw new NotImplementedException();
+//    throw new NotImplementedException();
   }
 
   @Override
@@ -119,7 +119,6 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
 
   @Override
   public void finishLoad() {
-    System.out.println("edges: " + edges);
     // easiest way to set vertexes half edge :)
     for (HalfEdge edge : this.edges) {
       HalfEdgeVertex vertex = edge.getStartVertex();
@@ -203,11 +202,12 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
     HalfEdge itr = vertex.getHalfEdge();
     HalfEdge start = itr;
     do {
-      System.out.println("n: " + neighbours + ", itr: " + itr);
       neighbours.add(itr.getFacet());
       itr = itr.getNext().getOpposite();
+      // seriously, how should we handle a null itr?
+      // now, we do not get all neighbours and therefore :(
     }
-    while (!itr.equals(start));
+    while (itr != null && !itr.equals(start));
     return neighbours;
   }
 

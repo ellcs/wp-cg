@@ -195,8 +195,4 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
   public void createShadowPolygons(Vector lightPosition, float extend, ITriangleMesh shadowPolygonMesh) {
     throw new NotImplementedException();
   }
-
-  private void noImpl() {
-    throw new NotImplementedException();
-  }
 }

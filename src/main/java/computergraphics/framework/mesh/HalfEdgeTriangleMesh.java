@@ -3,6 +3,7 @@ package computergraphics.framework.mesh;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -57,6 +58,9 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
 
     triangle.setHalfEdge(h1);
 
+    this.edges.add(h1);
+    this.edges.add(h2);
+    this.edges.add(h3);
     this.triangles.add(triangle);
   }
 
@@ -115,9 +119,7 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
 
   @Override
   public void finishLoad() {
-    computeTriangleNormals();
-    computeVerticiesNormals();
-
+    System.out.println("edges: " + edges);
     // easiest way to set vertexes half edge :)
     for (HalfEdge edge : this.edges) {
       HalfEdgeVertex vertex = edge.getStartVertex();
@@ -131,6 +133,9 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
       HalfEdge opposite = findOpposite(edge);
       edge.setOpposite(opposite);
     }
+
+    computeTriangleNormals();
+    computeVerticesNormals();
   }
 
   private HalfEdge findOpposite(HalfEdge halfEdge) {
@@ -175,20 +180,35 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
   }
 
 
-  public void computeVerticiesNormals() {
+  public void computeVerticesNormals() {
     for (HalfEdgeVertex vertex : this.vertices) {
-      computeVertexNormal(vertex);
+      if (vertex.getHalfEdge() != null) {
+        computeVertexNormal(vertex);
+      }
     }
   }
 
   public void computeVertexNormal(HalfEdgeVertex vertex) {
-    Set<HalfEdgeTriangle> incidents = getFacettsAroundVertex(vertex);
-    // TODO: implement me :)
-    throw new NotImplementedException();
+    Set<HalfEdgeTriangle> incidents = getFacetsAroundVertex(vertex);
+    Vector accu = new Vector(0, 0, 0);
+    for (HalfEdgeTriangle triangle : incidents) {
+      accu.addSelf(triangle.getNormal());
+    }
+    accu.multiplySelf(1.0 / (double) incidents.size());
+    vertex.setNormal(accu.getNormalized());
   }
 
-  private Set<HalfEdgeTriangle> getFacettsAroundVertex(HalfEdgeVertex vertex) {
-    throw new NotImplementedException();
+  private Set<HalfEdgeTriangle> getFacetsAroundVertex(HalfEdgeVertex vertex) {
+    Set<HalfEdgeTriangle> neighbours = new HashSet<>();
+    HalfEdge itr = vertex.getHalfEdge();
+    HalfEdge start = itr;
+    do {
+      System.out.println("n: " + neighbours + ", itr: " + itr);
+      neighbours.add(itr.getFacet());
+      itr = itr.getNext().getOpposite();
+    }
+    while (!itr.equals(start));
+    return neighbours;
   }
 
   @Override

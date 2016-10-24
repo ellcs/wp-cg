@@ -39,7 +39,7 @@ public class HalfEdgeTriangleMeshNode extends LeafNode {
   private Vector color;
 
   public HalfEdgeTriangleMeshNode(HalfEdgeTriangleMesh triangleMesh) {
-    this(triangleMesh, NormalType.triangle, Colors.gray);
+    this(triangleMesh, NormalType.vertex, Colors.gray);
   }
 
   public HalfEdgeTriangleMeshNode(HalfEdgeTriangleMesh triangleMesh, NormalType normalType, Vector color) {

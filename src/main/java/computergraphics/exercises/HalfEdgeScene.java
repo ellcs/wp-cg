@@ -3,16 +3,12 @@ package computergraphics.exercises;
 import java.util.ArrayList;
 import java.util.List;
 
+import computergraphics.framework.math.Colors;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.mesh.HalfEdgeTriangleMesh;
 import computergraphics.framework.mesh.ObjReader;
 import computergraphics.framework.rendering.Shader;
-import computergraphics.framework.scenegraph.HalfEdgeTriangleMeshNode;
-import computergraphics.framework.scenegraph.INode;
-import computergraphics.framework.scenegraph.RotationNode;
-import computergraphics.framework.scenegraph.SphereNode;
-import computergraphics.framework.scenegraph.TimerTickable;
-import computergraphics.framework.scenegraph.TranslationNode;
+import computergraphics.framework.scenegraph.*;
 import computergraphics.framework.scenegraph.meshmodels.CowNode;
 
 /**
@@ -41,7 +37,7 @@ public class HalfEdgeScene extends computergraphics.framework.Scene {
     HalfEdgeTriangleMesh mesh = new HalfEdgeTriangleMesh();
     reader.read("meshes/hemisphere.obj", mesh);
 
-    HalfEdgeTriangleMeshNode node = new HalfEdgeTriangleMeshNode(mesh);
+    HalfEdgeTriangleMeshNode node = new HalfEdgeTriangleMeshNode(mesh, HalfEdgeTriangleMeshNode.NormalType.vertex, Colors.gray);
 
     rotationNode.addChild(node);
     getRoot().addChild(rotationNode);

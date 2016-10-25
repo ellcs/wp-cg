@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import computergraphics.datastructures.halfedge.HalfEdge;
 import computergraphics.datastructures.halfedge.HalfEdgeTriangle;
@@ -188,12 +189,12 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
   }
 
   public void computeVertexNormal(HalfEdgeVertex vertex) {
-    Set<HalfEdgeTriangle> incidents = getFacetsAroundVertex(vertex);
+    Set<HalfEdgeTriangle> neighbourFacets = getFacetsAroundVertex(vertex);
     Vector accu = new Vector(0, 0, 0);
-    for (HalfEdgeTriangle triangle : incidents) {
+    for (HalfEdgeTriangle triangle : neighbourFacets) {
       accu.addSelf(triangle.getNormal());
     }
-    accu.multiplySelf(1.0 / (double) incidents.size());
+    accu.multiplySelf(1.0 / (double) neighbourFacets.size());
     vertex.setNormal(accu.getNormalized());
   }
 
@@ -205,7 +206,7 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
       neighbours.add(itr.getFacet());
       itr = itr.getNext().getOpposite();
       // seriously, how should we handle a null itr?
-      // now, we do not get all neighbours and therefore :(
+      // no, we do not get all neighbours and therefore we don't :(
     }
     while (itr != null && !itr.equals(start));
     return neighbours;
@@ -214,5 +215,9 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
   @Override
   public void createShadowPolygons(Vector lightPosition, float extend, ITriangleMesh shadowPolygonMesh) {
     throw new NotImplementedException();
+  }
+
+  public Set<HalfEdge> getEdgesWithoutOpposite() {
+    return this.edges.stream().filter(he -> ! he.hasOpposite()).collect(Collectors.toSet());
   }
 }

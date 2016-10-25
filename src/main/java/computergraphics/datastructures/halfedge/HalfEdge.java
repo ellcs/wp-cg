@@ -57,6 +57,10 @@ public class HalfEdge {
     return facet;
   }
 
+  public boolean hasOpposite() {
+    return this.opposite != null;
+  }
+
   public void setFacet(HalfEdgeTriangle facet) {
     this.facet = facet;
   }

@@ -37,30 +37,13 @@ public class LineNode extends LeafNode {
     this.start = start;
     this.end = end;
     this.color = color;
-//    createVbo();
-  }
-
-//  glLineWidth(2.5);
-//  glColor3f(1.0, 0.0, 0.0);
-//  glBegin(GL_LINES);
-//  glVertex3f(0.0, 0.0, 0.0);
-//  glVertex3f(15, 0, 0);
-//  glEnd();
-
-  private void createVbo() {
-    List<RenderVertex> vertexList = new ArrayList<>();
-    vertexList.add(new RenderVertex(start, new Vector(0,0,0), color));
-    vertexList.add(new RenderVertex(end, new Vector(0,0,0), color));
-    vbo.Setup(vertexList, GL_LINES);
   }
 
   @Override
   public void drawGL(GL2 gl, RenderMode mode, Matrix modelMatrix) {
     if (mode == RenderMode.REGULAR) {
-//      vbo.draw(gl);
       gl.glLineWidth(2.5f);
       gl.glColor3f((float) this.color.get(0), (float) this.color.get(1), (float) this.color.get(2));
-//      gl.glEnable(GL_LINE_SMOOTH);
       gl.glBegin(GL_LINES);
       gl.glVertex3f((float) start.get(0), (float) start.get(1), (float) start.get(2));
       gl.glVertex3f((float) end.get(0), (float) end.get(1), (float) end.get(2));

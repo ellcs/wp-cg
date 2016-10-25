@@ -17,22 +17,28 @@ import computergraphics.framework.mesh.Vertex;
 import computergraphics.framework.rendering.RenderVertex;
 import computergraphics.framework.rendering.VertexBufferObject;
 
-enum NormalType {
-  triangle,
-  vertex
-}
+import static com.jogamp.opengl.GL.GL_LINES;
+
 
 /**
  * Created by alex on 10/21/16.
  */
 public class HalfEdgeTriangleMeshNode extends LeafNode {
 
+
+  public enum NormalType {
+    triangle,
+    vertex
+  }
+
+  private final static boolean DRAW_BORDERS = true;
+
   /**
    * VBO.
    */
   private VertexBufferObject vbo = new VertexBufferObject();
 
-  private ITriangleMesh<HalfEdgeVertex, HalfEdgeTriangle> triangleMesh;
+  private HalfEdgeTriangleMesh triangleMesh;
 
   private NormalType normalType;
 
@@ -80,6 +86,7 @@ public class HalfEdgeTriangleMeshNode extends LeafNode {
 
       triangleIndex++;
     }
+
     vbo.Setup(renderVertices, GL2.GL_TRIANGLES);
   }
 
@@ -99,6 +106,18 @@ public class HalfEdgeTriangleMeshNode extends LeafNode {
   public void drawGL(GL2 gl, RenderMode mode, Matrix modelMatrix) {
     if (mode == RenderMode.REGULAR) {
       vbo.draw(gl);
+      if (DRAW_BORDERS) {
+        for (HalfEdge withoutOpposite : this.triangleMesh.getEdgesWithoutOpposite()) {
+          Vector start = withoutOpposite.getStartVertex().getPosition();
+          Vector end = withoutOpposite.getNext().getStartVertex().getPosition();
+          gl.glLineWidth(2.5f);
+          gl.glColor3f((float) this.color.get(0), (float) this.color.get(1), (float) this.color.get(2));
+          gl.glBegin(GL_LINES);
+          gl.glVertex3f((float) start.get(0), (float) start.get(1), (float) start.get(2));
+          gl.glVertex3f((float) end.get(0), (float) end.get(1), (float) end.get(2));
+          gl.glEnd();
+        }
+      }
     }
   }
 }

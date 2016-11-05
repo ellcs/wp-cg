@@ -143,6 +143,10 @@ public class Vector implements Serializable {
     return result;
   }
 
+  public Vector add(double x, double y, double z) {
+    return this.add(new Vector(x, y, z));
+  }
+
   /**
    * Add other vector, return result as new vector.
    * 

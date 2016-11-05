@@ -48,7 +48,7 @@ public class Implicit {
    * @param implicitFunction
    * @param triangleMesh
    */
-  public Implicit(Double iso, Lambda implicitFunction, ITriangleMesh triangleMesh) {
+  public Implicit(Double iso, ITriangleMesh triangleMesh, Lambda implicitFunction) {
     this.iso = iso;
     this.implicitFunction = implicitFunction;
     this.triangleMesh = triangleMesh;
@@ -59,13 +59,14 @@ public class Implicit {
     double sizeY = size.get(1);
     double sizeZ = size.get(2);
 
-    double stepX = sizeX / res.get(0);
-    double stepY = sizeY / res.get(1);
-    double stepZ = sizeZ / res.get(2);
+    double stepX = sizeX * res.get(0);
+    double stepY = sizeY * res.get(1);
+    double stepZ = sizeZ * res.get(2);
 
     for(double x = -sizeX; x < sizeX - stepX; x += stepX) {
       for(double y = -sizeY; y < sizeY - stepY; y += stepY) {
         for(double z = -sizeZ; z < sizeZ - stepZ; z += stepZ) {
+//          System.out.println("Implicit.generate: " + x + ", " + y + ", " + z);
           List<Vector> points = new ArrayList<>(8);
           points.add(base.add(x, y, z));
           points.add(base.add(x + stepX, y, z));
@@ -89,7 +90,7 @@ public class Implicit {
     System.out.println("Vertices: " + this.triangleMesh.getNumberOfVertices());
     System.out.println("Triangles: " + this.triangleMesh.getNumberOfTriangles());
     this.triangleMesh.finishLoad();
-
+    return this.triangleMesh;
   }
 
   /**
@@ -120,8 +121,8 @@ public class Implicit {
     int i = 1;
     int accu = 0;
     for (Double value : values) {
-      i = i << 1;
       accu += i * bi(value);
+      i = i << 1;
     }
     return accu;
   }
@@ -132,33 +133,45 @@ public class Implicit {
    * @param values at these points.
    */
   private void createTriangles(List<Vector> points, List<Double> values) {
-    checkLength(points);
-    checkLength(values);
+    List<Integer> bs = new ArrayList<>(values.size());
+    for(Double  value : values)
+    {
+      bs.add(value > this.iso ? 1 : 0);
+    }
 
-    int caseIndex = getCaseIndex(values);
-    int minIndex = caseIndex * 15;
-    int maxIndex = (caseIndex + 1) * 15 - 1;
-    int vertexId = triangleMesh.getNumberOfVertices()-1;
-    for (int i = minIndex; i < maxIndex; i = i + 3) {
-      int edge1 = LookUpTable.lookUp(i);
-      int edge2 = LookUpTable.lookUp(i + 1);
-      int edge3 = LookUpTable.lookUp(i + 2);
+    int caseIndex = 0;
+    for(int i = 0; i < bs.size(); i++)
+    {
+      caseIndex += bs.get(i) * Math.pow(2, i);
+    }
 
-      for (Integer edge : new int[]{edge1, edge2, edge3}) {
-        // check if there are triangles at these edges
-        if (edge1 != -1 && edge2 != -1 && edge3 != -1) {
-          int[] edgePoints = EDGEPOINTS[edge];
+    int[] relevantValues = new int[15];
+    int minLookupIndex = caseIndex * 15;
+    int maxLookupIndex = minLookupIndex + 14;
+    for(int i = minLookupIndex, j = 0; i <= maxLookupIndex; i++, j++)
+    {
+      relevantValues[j] = LookUpTable.lookUp(i);
+    }
 
-          Vector v1 = points.get(edgePoints[0]);
-          Vector v2 = points.get(edgePoints[1]);
-          // interpolate
-          Vector interpolatedPosition = v1.add(v2).multiply(0.5f);
-          this.triangleMesh.addVertex(new Vector(interpolatedPosition));
-          vertexId++;
+    int vertexCount = this.triangleMesh.getNumberOfVertices();
+    for(int value : relevantValues)
+    {
+      if(value >= 0)
+      {
+        int[] edges = EDGEPOINTS[value];
+        Vector intersection/* = points.get(edges[0]).add(points.get(edges[1])).multiply(0.5)*/;
+        double teh = (this.iso - values.get(edges[0])) / (values.get(edges[1]) - values.get(edges[0]));
+        intersection = points.get(edges[0]).multiply(1 - teh).add(points.get(edges[1]).multiply(teh));
+
+        this.triangleMesh.addVertex(new Vector(intersection));
+        vertexCount++;
+        if(vertexCount % 3 == 0) {
+          this.triangleMesh.addTriangle(vertexCount - 1, vertexCount - 2, vertexCount - 3);
         }
       }
-      this.triangleMesh.addTriangle(vertexId-3, vertexId-2, vertexId-1);
     }
+
+
   }
 
   public ITriangleMesh<Vertex, Triangle> getTriangleMesh() {

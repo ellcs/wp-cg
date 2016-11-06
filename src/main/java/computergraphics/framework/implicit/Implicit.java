@@ -134,45 +134,45 @@ public class Implicit {
    */
   private void createTriangles(List<Vector> points, List<Double> values) {
     List<Integer> bs = new ArrayList<>(values.size());
-    for(Double  value : values)
-    {
-      bs.add(value > this.iso ? 1 : 0);
-    }
+    int caseIndex = getCaseIndex(values);
 
-    int caseIndex = 0;
-    for(int i = 0; i < bs.size(); i++)
-    {
-      caseIndex += bs.get(i) * Math.pow(2, i);
-    }
-
-    int[] relevantValues = new int[15];
     int minLookupIndex = caseIndex * 15;
     int maxLookupIndex = minLookupIndex + 14;
-    for(int i = minLookupIndex, j = 0; i <= maxLookupIndex; i++, j++)
-    {
-      relevantValues[j] = LookUpTable.lookUp(i);
-    }
 
     int vertexCount = this.triangleMesh.getNumberOfVertices();
-    for(int value : relevantValues)
-    {
-      if(value >= 0)
-      {
+    for(int i = minLookupIndex, j = 0; i <= maxLookupIndex; i++, j++) {
+      int value = LookUpTable.lookUp(i);
+      if(value != -1) {
         int[] edges = EDGEPOINTS[value];
-        Vector intersection/* = points.get(edges[0]).add(points.get(edges[1])).multiply(0.5)*/;
-        double teh = (this.iso - values.get(edges[0])) / (values.get(edges[1]) - values.get(edges[0]));
-        intersection = points.get(edges[0]).multiply(1 - teh).add(points.get(edges[1]).multiply(teh));
 
-        this.triangleMesh.addVertex(new Vector(intersection));
+        Vector point1 = points.get(edges[0]);
+        Vector point2 = points.get(edges[1]);
+        Double value1 = values.get(edges[0]);
+        Double value2 = values.get(edges[1]);
+
+        Vector interpolated =  interpolate(point1, point2, value1, value2);
+        this.triangleMesh.addVertex(interpolated);
         vertexCount++;
         if(vertexCount % 3 == 0) {
-          this.triangleMesh.addTriangle(vertexCount - 1, vertexCount - 2, vertexCount - 3);
+          this.triangleMesh.addTriangle(vertexCount - 3, vertexCount - 2, vertexCount - 1);
         }
       }
     }
-
-
   }
+
+  /**
+   * Interpolates a vector between two vectors point1 and point2 with the weights of value1 and value2.
+   * @param value1 is the weight of point1.
+   * @param value2 is the weight of point2.
+   */
+  private Vector interpolate(Vector point1, Vector point2, Double value1, Double value2) {
+    double teh = (this.iso - value1) / (value2 - value1);
+    return point1.multiply(1 - teh).add(point2.multiply(teh));
+  }
+
+//  private Vector interpolate(Vector point1, Vector point2, Double value1, Double value2) {
+//    return point1.add(point2).multiply(0.5);
+//  }
 
   public ITriangleMesh<Vertex, Triangle> getTriangleMesh() {
     return this.triangleMesh;

@@ -38,7 +38,7 @@ public class ImplicitFunctionScene extends computergraphics.framework.Scene {
     RotationNode rotationNode = new RotationNode(new Vector(0, 1, 0), 0, 0.015);
     tickableList.add(rotationNode);
 
-    Lambda sphere = vector -> {
+    Lambda implicitSphere = vector -> {
       return vector.x() * vector.x() +
         vector.y() * vector.y() +
         vector.z() * vector.z() -
@@ -46,9 +46,21 @@ public class ImplicitFunctionScene extends computergraphics.framework.Scene {
         0.3;
     };
 
+    Lambda implicitTorus = vector -> {
+      double x = vector.x();
+      double y = vector.y();
+      double z = vector.z();
+      double outerRadius = 1;
+      double innerRadius = 0.5;
+      double firstTerm = (x*x + y*y + z*z + outerRadius - innerRadius);
+      double secondTerm = 4 * outerRadius*outerRadius * (x*x + y*y);
+      return firstTerm*firstTerm - secondTerm;
+    };
+
+
     TriangleMesh triangleMesh = new TriangleMesh();
-    Implicit implicit = new Implicit(0.0, triangleMesh, sphere);
-    implicit.generate(new Vector(0,0,0), new Vector(1.0,1.0,1.0), new Vector(0.05, 0.05, 0.05));
+    Implicit implicit = new Implicit(0.0, triangleMesh, implicitSphere);
+    implicit.generate(new Vector(0,0,0), new Vector(2.0,2.0,2.0), new Vector(0.05, 0.05, 0.05));
 
     getRoot().addChild(new TriangleMeshNode(triangleMesh));
 

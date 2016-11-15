@@ -54,10 +54,11 @@ public class Implicit {
     this.triangleMesh = triangleMesh;
   }
 
-  public ITriangleMesh generate(Vector base, Vector size, Vector res) {
-    double sizeX = size.get(0);
-    double sizeY = size.get(1);
-    double sizeZ = size.get(2);
+  public ITriangleMesh generate(Vector size, Vector res) {
+    final Vector base = new Vector(0, 0, 0);
+    final double sizeX = size.get(0);
+    final double sizeY = size.get(1);
+    final double sizeZ = size.get(2);
 
     double stepX = sizeX * res.get(0);
     double stepY = sizeY * res.get(1);
@@ -66,7 +67,6 @@ public class Implicit {
     for(double x = -sizeX; x < sizeX - stepX; x += stepX) {
       for(double y = -sizeY; y < sizeY - stepY; y += stepY) {
         for(double z = -sizeZ; z < sizeZ - stepZ; z += stepZ) {
-//          System.out.println("Implicit.generate: " + x + ", " + y + ", " + z);
           List<Vector> points = new ArrayList<>(8);
           points.add(base.add(x, y, z));
           points.add(base.add(x + stepX, y, z));

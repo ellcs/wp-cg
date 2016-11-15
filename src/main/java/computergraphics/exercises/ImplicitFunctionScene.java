@@ -59,8 +59,8 @@ public class ImplicitFunctionScene extends computergraphics.framework.Scene {
 
 
     TriangleMesh triangleMesh = new TriangleMesh();
-    Implicit implicit = new Implicit(0.0, triangleMesh, implicitSphere);
-    implicit.generate(new Vector(0,0,0), new Vector(2.0,2.0,2.0), new Vector(0.05, 0.05, 0.05));
+    Implicit implicit = new Implicit(0.0, triangleMesh, implicitTorus);
+    implicit.generate(new Vector(2.0,2.0,2.0), new Vector(0.01, 0.01, 0.01));
 
     getRoot().addChild(new TriangleMeshNode(triangleMesh));
 

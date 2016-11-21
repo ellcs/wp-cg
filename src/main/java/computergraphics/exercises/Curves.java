@@ -14,15 +14,13 @@ import computergraphics.curves.BezierCurve;
 import computergraphics.framework.Scene;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.Shader;
-import computergraphics.framework.scenegraph.CubeNode;
 import computergraphics.framework.scenegraph.INode;
-import computergraphics.framework.scenegraph.PlaneNode;
 import computergraphics.framework.scenegraph.RotationNode;
 import computergraphics.framework.scenegraph.SphereNode;
 import computergraphics.framework.scenegraph.TranslationNode;
 import computergraphics.framework.scenegraph.INode.RenderMode;
-import computergraphics.framework.scenegraph.curvenodes.BezierCurveNode;
-import computergraphics.framework.scenegraph.model.TreeNode;
+import computergraphics.framework.scenegraph.curvenodes.CurveNode;
+import computergraphics.framework.scenegraph.curvenodes.DebugCurveNode;
 
 public class Curves extends Scene {
   private static final long serialVersionUID = 8141036480333465137L;
@@ -40,13 +38,16 @@ public class Curves extends Scene {
      {2.0, -4.0, 0.0}, {4.0, 4.0, 0.0}
      */
     List<Vector> controlPoints = new ArrayList<>();
-    controlPoints.add(new Vector(-4.0,-4.0,0));
-    controlPoints.add(new Vector(-2.0,4.0,0));
-    controlPoints.add(new Vector(2.0,-4.0,0));
-    controlPoints.add(new Vector(4.0,4.0,0));
+    controlPoints.add(new Vector(-1.0,-1.0,0));
+    controlPoints.add(new Vector(-0.5,1.0,0));
+    controlPoints.add(new Vector(0.5,-1.0,0));
+    controlPoints.add(new Vector(1.0,1.0,0));
+//    controlPoints.add(new Vector(1, 1, 0));
+//    controlPoints.add(new Vector(1 ,0, 0));
+//    controlPoints.add(new Vector(0, 1, 1));
 
     BezierCurve bezierCurve = new BezierCurve(controlPoints);
-    BezierCurveNode bezierCurveNode = new BezierCurveNode(bezierCurve);
+    DebugCurveNode bezierCurveNode = new DebugCurveNode(bezierCurve);
 
     getRoot().addChild(bezierCurveNode);
 

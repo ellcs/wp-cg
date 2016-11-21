@@ -7,9 +7,7 @@ import computergraphics.framework.math.Vector;
 /**
  * Created by alex on 11/15/16.
  */
-public class BezierCurve {
-
-  List<Vector> controlPoints;
+public class BezierCurve extends AbstractCurve {
 
   final static float h = 0.000001f;
 
@@ -22,7 +20,7 @@ public class BezierCurve {
       throw new IllegalArgumentException("t has to be between 0 and 1.");
     }
     Vector v = new Vector(0,0,0);
-    int n = controlPoints.size();
+    int n = controlPoints.size()-1;
     int i = 0;
     for (Vector controlPoint : this.controlPoints) {
       float b = b(n, i, t);

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import computergraphics.curves.BezierCurve;
+import computergraphics.curves.HermiteCurve;
 import computergraphics.framework.Scene;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.Shader;
@@ -37,19 +38,28 @@ public class Curves extends Scene {
      * { -4.0, -4.0, 0.0}, { -2.0, 4.0, 0.0},
      {2.0, -4.0, 0.0}, {4.0, 4.0, 0.0}
      */
-    List<Vector> controlPoints = new ArrayList<>();
-    controlPoints.add(new Vector(-1.0,-1.0,0));
-    controlPoints.add(new Vector(-0.5,1.0,0));
-    controlPoints.add(new Vector(0.5,-1.0,0));
-    controlPoints.add(new Vector(1.0,1.0,0));
-//    controlPoints.add(new Vector(1, 1, 0));
-//    controlPoints.add(new Vector(1 ,0, 0));
-//    controlPoints.add(new Vector(0, 1, 1));
+    List<Vector> controlPoints = new ArrayList<>();/*
+//    controlPoints.add(new Vector(-1.0,-1.0,0));
+//    controlPoints.add(new Vector(-0.5,1.0,0));
+//    controlPoints.add(new Vector(0.5,-1.0,0));
+//    controlPoints.add(new Vector(1.0,1.0,0));
+    controlPoints.add(new Vector(1, 1, 0));
+    controlPoints.add(new Vector(1 ,0, 0));
+    controlPoints.add(new Vector(0, 1, 1));
 
     BezierCurve bezierCurve = new BezierCurve(controlPoints);
-    DebugCurveNode bezierCurveNode = new DebugCurveNode(bezierCurve);
+    DebugCurveNode bezierCurveNode = new DebugCurveNode(bezierCurve);*/
 
-    getRoot().addChild(bezierCurveNode);
+
+    // Example hermite
+    controlPoints.add(new Vector(0,0,0));
+    controlPoints.add(new Vector(1,0,0));
+    controlPoints.add(new Vector(-1,0,0));
+    controlPoints.add(new Vector(1,1,0));
+    HermiteCurve hermiteCurve = new HermiteCurve(controlPoints, HermiteCurve.getBasisFunctions());
+    DebugCurveNode curve = new DebugCurveNode(hermiteCurve);
+
+    getRoot().addChild(curve);
 
     // Light geometry
     TranslationNode lightTranslation =

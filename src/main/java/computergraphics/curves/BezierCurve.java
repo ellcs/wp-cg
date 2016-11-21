@@ -9,6 +9,7 @@ import computergraphics.framework.math.Vector;
  */
 public class BezierCurve extends AbstractCurve {
 
+//  final static float h = Float.MIN_VALUE;
   final static float h = 0.000001f;
 
   public BezierCurve(List<Vector> controlPoints) {
@@ -16,9 +17,6 @@ public class BezierCurve extends AbstractCurve {
   }
 
   public Vector p(float t) {
-    if (t < 0 || 1 < t) {
-      throw new IllegalArgumentException("t has to be between 0 and 1.");
-    }
     Vector v = new Vector(0,0,0);
     int n = controlPoints.size()-1;
     int i = 0;

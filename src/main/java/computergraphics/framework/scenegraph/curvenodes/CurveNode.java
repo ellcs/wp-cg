@@ -10,11 +10,7 @@ import computergraphics.framework.math.Matrix;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.RenderVertex;
 import computergraphics.framework.rendering.VertexBufferObject;
-import computergraphics.framework.scenegraph.INode;
-import computergraphics.framework.scenegraph.InnerNode;
 import computergraphics.framework.scenegraph.LeafNode;
-import computergraphics.framework.scenegraph.SphereNode;
-import computergraphics.framework.scenegraph.TranslationNode;
 
 /**
  * Created by alex on 11/15/16.

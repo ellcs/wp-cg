@@ -22,6 +22,10 @@ public class HermiteCurve extends AbstractCurve {
     return Arrays.asList(h0, h1, h2, h3);
   }
 
+  public HermiteCurve(List<Vector> controlPoints) {
+    this(controlPoints, getBasisFunctions());
+  }
+
   public HermiteCurve(List<Vector> controlPoints, List<BasisFunction> basisFunctions) {
     this.controlPoints =  controlPoints;
     this.basisFunctions = basisFunctions;

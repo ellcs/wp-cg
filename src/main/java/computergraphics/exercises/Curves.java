@@ -38,26 +38,26 @@ public class Curves extends Scene {
      * { -4.0, -4.0, 0.0}, { -2.0, 4.0, 0.0},
      {2.0, -4.0, 0.0}, {4.0, 4.0, 0.0}
      */
-    List<Vector> controlPoints = new ArrayList<>();/*
-//    controlPoints.add(new Vector(-1.0,-1.0,0));
-//    controlPoints.add(new Vector(-0.5,1.0,0));
-//    controlPoints.add(new Vector(0.5,-1.0,0));
-//    controlPoints.add(new Vector(1.0,1.0,0));
-    controlPoints.add(new Vector(1, 1, 0));
-    controlPoints.add(new Vector(1 ,0, 0));
-    controlPoints.add(new Vector(0, 1, 1));
+    List<Vector> controlPoints = new ArrayList<>();
+    controlPoints.add(new Vector(-1.0,-1.0,0));
+    controlPoints.add(new Vector(0.5,-1.0,0));
+    controlPoints.add(new Vector(-0.5,1.0,0));
+    controlPoints.add(new Vector(1.0,1.0,0));
+//    controlPoints.add(new Vector(1, 1, 0));
+//    controlPoints.add(new Vector(1 ,0, 0));
+//    controlPoints.add(new Vector(0, 1, 1));
 
     BezierCurve bezierCurve = new BezierCurve(controlPoints);
-    DebugCurveNode bezierCurveNode = new DebugCurveNode(bezierCurve);*/
+    DebugCurveNode curve = new DebugCurveNode(bezierCurve);
 
 
     // Example hermite
-    controlPoints.add(new Vector(0,0,0));
-    controlPoints.add(new Vector(1,0,0));
-    controlPoints.add(new Vector(-1,0,0));
-    controlPoints.add(new Vector(1,1,0));
-    HermiteCurve hermiteCurve = new HermiteCurve(controlPoints, HermiteCurve.getBasisFunctions());
-    DebugCurveNode curve = new DebugCurveNode(hermiteCurve);
+//    controlPoints.add(new Vector(0,0,0));
+//    controlPoints.add(new Vector(1,0,0));
+//    controlPoints.add(new Vector(-1,0,0));
+//    controlPoints.add(new Vector(1,1,0));
+//    HermiteCurve hermiteCurve = new HermiteCurve(controlPoints, HermiteCurve.getBasisFunctions());
+//    DebugCurveNode curve = new DebugCurveNode(hermiteCurve);
 
     getRoot().addChild(curve);
 

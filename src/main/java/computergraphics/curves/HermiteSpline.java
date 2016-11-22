@@ -59,12 +59,11 @@ public class HermiteSpline extends AbstractCurve {
     int index = (int) t;
     HermiteCurve curve = this.curves.get(index);
     float hermiteT = t - index;
-    System.err.println("DEBUG: " + index + ", " + hermiteT);
     return curve.p(hermiteT);
   }
 
   @Override
   public Vector pTangent(float t) {
-    return null;
+    return new Vector(0,0,0);
   }
 }

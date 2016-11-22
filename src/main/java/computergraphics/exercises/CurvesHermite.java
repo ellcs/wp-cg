@@ -11,61 +11,37 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import computergraphics.curves.BezierCurve;
 import computergraphics.curves.HermiteCurve;
 import computergraphics.curves.HermiteSpline;
 import computergraphics.framework.Scene;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.INode;
+import computergraphics.framework.scenegraph.INode.RenderMode;
 import computergraphics.framework.scenegraph.RotationNode;
 import computergraphics.framework.scenegraph.SphereNode;
 import computergraphics.framework.scenegraph.TranslationNode;
-import computergraphics.framework.scenegraph.INode.RenderMode;
-import computergraphics.framework.scenegraph.curvenodes.CurveNode;
 import computergraphics.framework.scenegraph.curvenodes.DebugCurveNode;
 
-public class Curves extends Scene {
+public class CurvesHermite extends Scene {
   private static final long serialVersionUID = 8141036480333465137L;
   RotationNode rotationNode;
 
-  public Curves() {
+  public CurvesHermite() {
     // Timer timeout and shader mode (PHONG, TEXTURE, NO_LIGHTING)
     super(100, Shader.ShaderMode.PHONG, RenderMode.REGULAR);
 
     getRoot().setLightPosition(new Vector(1, 1, 1));
     getRoot().setAnimated(true);
 
-    /**
-     * { -4.0, -4.0, 0.0}, { -2.0, 4.0, 0.0},
-     {2.0, -4.0, 0.0}, {4.0, 4.0, 0.0}
-     */
-//    List<Vector> controlPoints = new ArrayList<>();
-//    controlPoints.add(new Vector(-1.0,-1.0,0));
-//    controlPoints.add(new Vector(0.5,-1.0,0));
-//    controlPoints.add(new Vector(-0.5,1.0,0));
-//    controlPoints.add(new Vector(1.0,1.0,0));
-////    controlPoints.add(new Vector(1, 1, 0));
-////    controlPoints.add(new Vector(1 ,0, 0));
-////    controlPoints.add(new Vector(0, 1, 1));
-//
-//    BezierCurve bezierCurve = new BezierCurve(controlPoints);
-//    DebugCurveNode curve = new DebugCurveNode(bezierCurve);
-
-
     // Example hermite
-//    controlPoints.add(new Vector(0,0,0));
-//    controlPoints.add(new Vector(1,0,0));
-//    controlPoints.add(new Vector(-1,0,0));
-//    controlPoints.add(new Vector(1,1,0));
-//    HermiteCurve hermiteCurve = new HermiteCurve(controlPoints, HermiteCurve.getBasisFunctions());
-//    DebugCurveNode curve = new DebugCurveNode(hermiteCurve);
-    Vector v1 = new Vector(0,0,0);
-    Vector v2 = new Vector(.5f,.5f,0);
-    Vector v4 = new Vector(1f,0f,0);
-    Vector v5 = new Vector(1.5f,.5f,0);
-    HermiteSpline curve = new HermiteSpline(Arrays.asList(v1, v2, v4, v5));
-    DebugCurveNode curveNode = new DebugCurveNode(curve, 3.0f);
+    List<Vector> controlPoints = new ArrayList<>();
+    controlPoints.add(new Vector(0,0,0));
+    controlPoints.add(new Vector(1,0,0));
+    controlPoints.add(new Vector(-1,0,0));
+    controlPoints.add(new Vector(1,1,0));
+    HermiteCurve hermiteCurve = new HermiteCurve(controlPoints, HermiteCurve.getBasisFunctions());
+    DebugCurveNode curveNode = new DebugCurveNode(hermiteCurve);
     getRoot().addChild(curveNode);
 
     // Light geometry
@@ -91,6 +67,6 @@ public class Curves extends Scene {
    * Program entry point.
    */
   public static void main(String[] args) {
-    new Curves();
+    new CurvesHermite();
   }
 }

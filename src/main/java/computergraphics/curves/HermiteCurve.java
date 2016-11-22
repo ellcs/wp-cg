@@ -52,7 +52,7 @@ public class HermiteCurve extends AbstractCurve {
 
   @Override
   public Vector pTangent(float t) {
-    return null;
+    return new Vector(0,0,0);
   }
 
 }

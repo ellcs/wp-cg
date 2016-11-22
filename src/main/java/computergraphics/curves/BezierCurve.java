@@ -26,14 +26,19 @@ public class BezierCurve extends AbstractCurve {
       v.addSelf(ctrl);
       i++;
     }
-    System.out.println("v: " + v);
     return v;
   }
 
+  /**
+   * Calculate tangent in point t.
+   */
   public Vector pTangent(float t) {
     return (p(t + h).subtract(p(t))).multiply(1/h);
   }
 
+  /**
+   * Static base function of bezier curves.
+   */
   private float b(int n, int i, float t) {
     float facN = fac(n);
     float facI = fac(i);

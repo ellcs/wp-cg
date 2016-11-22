@@ -9,9 +9,7 @@ import computergraphics.framework.math.Vector;
  */
 public abstract class AbstractCurve {
 
-
   protected List<Vector> controlPoints;
-
 
   public abstract Vector p(float t);
 

@@ -17,15 +17,22 @@ public class DebugCurveNode extends InnerNode {
 
   private float t = 0.1f;
 
-  public DebugCurveNode(AbstractCurve curve) {
+  private float itrMax;
+
+  public DebugCurveNode(AbstractCurve curve, float itrMax) {
     this.curve = curve;
+    this.itrMax = itrMax;
     addCurve();
 //    addTangent();
     addControlPointSpheres();
   }
 
+  public DebugCurveNode(AbstractCurve curve) {
+    this(curve, 1.0f);
+  }
+
   private void addCurve() {
-    CurveNode curve = new CurveNode(this.curve);
+    CurveNode curve = new CurveNode(this.curve, this.itrMax);
     this.addChild(curve);
   }
 

@@ -24,19 +24,28 @@ public class CurveNode extends LeafNode {
 
   private AbstractCurve curve;
 
-  public CurveNode(AbstractCurve curve) {
+  /**
+   * Amount of segments.
+   */
+  private float itrMax;
+
+  public CurveNode(AbstractCurve curve, float itrMax) {
     this.curveVbo = new VertexBufferObject();
     this.curve = curve;
+    this.itrMax = itrMax;
     createCurveVbo();
+  }
+
+  public CurveNode(AbstractCurve curve) {
+    this(curve, 1.0f);
   }
 
   private void createCurveVbo() {
     List<RenderVertex> renderVertices = new ArrayList<RenderVertex>();
 
     Vector first = curve.p(0.0f);
-    for (float t = 0.01f; t <= 1.0f; t = t + 0.01f) {
+    for (float t = 0.01f; t <= itrMax; t = t + 0.01f) {
       Vector second = curve.p(t);
-      System.out.println(t + ": " + first.toString() + ", " + second.toString());
       renderVertices.add(new RenderVertex(first, new Vector(1,1,1), new Vector(1,1,1,1)));
       renderVertices.add(new RenderVertex(second, new Vector(1,1,1), new Vector(1,1,1,1)));
       first = second;

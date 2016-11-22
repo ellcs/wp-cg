@@ -23,7 +23,6 @@ public class BezierCurve extends AbstractCurve {
     for (Vector controlPoint : this.controlPoints) {
       float b = b(n, i, t);
       Vector ctrl = controlPoint.multiply(b);
-      System.out.println("b: " + b + ", " + ctrl);
       v.addSelf(ctrl);
       i++;
     }

@@ -8,10 +8,12 @@
 package computergraphics.exercises;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import computergraphics.curves.BezierCurve;
 import computergraphics.curves.HermiteCurve;
+import computergraphics.curves.HermiteSpline;
 import computergraphics.framework.Scene;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.Shader;
@@ -38,17 +40,17 @@ public class Curves extends Scene {
      * { -4.0, -4.0, 0.0}, { -2.0, 4.0, 0.0},
      {2.0, -4.0, 0.0}, {4.0, 4.0, 0.0}
      */
-    List<Vector> controlPoints = new ArrayList<>();
-    controlPoints.add(new Vector(-1.0,-1.0,0));
-    controlPoints.add(new Vector(0.5,-1.0,0));
-    controlPoints.add(new Vector(-0.5,1.0,0));
-    controlPoints.add(new Vector(1.0,1.0,0));
-//    controlPoints.add(new Vector(1, 1, 0));
-//    controlPoints.add(new Vector(1 ,0, 0));
-//    controlPoints.add(new Vector(0, 1, 1));
-
-    BezierCurve bezierCurve = new BezierCurve(controlPoints);
-    DebugCurveNode curve = new DebugCurveNode(bezierCurve);
+//    List<Vector> controlPoints = new ArrayList<>();
+//    controlPoints.add(new Vector(-1.0,-1.0,0));
+//    controlPoints.add(new Vector(0.5,-1.0,0));
+//    controlPoints.add(new Vector(-0.5,1.0,0));
+//    controlPoints.add(new Vector(1.0,1.0,0));
+////    controlPoints.add(new Vector(1, 1, 0));
+////    controlPoints.add(new Vector(1 ,0, 0));
+////    controlPoints.add(new Vector(0, 1, 1));
+//
+//    BezierCurve bezierCurve = new BezierCurve(controlPoints);
+//    DebugCurveNode curve = new DebugCurveNode(bezierCurve);
 
 
     // Example hermite
@@ -58,8 +60,13 @@ public class Curves extends Scene {
 //    controlPoints.add(new Vector(1,1,0));
 //    HermiteCurve hermiteCurve = new HermiteCurve(controlPoints, HermiteCurve.getBasisFunctions());
 //    DebugCurveNode curve = new DebugCurveNode(hermiteCurve);
-
-    getRoot().addChild(curve);
+    Vector v1 = new Vector(0,0,0);
+    Vector v2 = new Vector(.5f,.5f,0);
+    Vector v4 = new Vector(1f,0f,0);
+    Vector v5 = new Vector(1.5f,.5f,0);
+    HermiteSpline curve = new HermiteSpline(Arrays.asList(v1, v2, v4, v5));
+    DebugCurveNode curveNode = new DebugCurveNode(curve, 3.0f);
+    getRoot().addChild(curveNode);
 
     // Light geometry
     TranslationNode lightTranslation =

@@ -1,5 +1,8 @@
 package computergraphics.datastructures.halfedge;
 
+import computergraphics.framework.math.Vector;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 /**
  * A half edge has references to the next edge within the current facet, the
  * opposite edge, its start vertex and the facet it belongs to.
@@ -59,6 +62,19 @@ public class HalfEdge {
 
   public boolean hasOpposite() {
     return this.opposite != null;
+  }
+
+  /**
+   * Calculates if edge is a orthogonal edge to given light source.
+   * @param lightPosition of light source.
+   * @return true if and only if it is orthogonal.
+   */
+  public boolean isSilhouetteEdge(Vector lightPosition) {
+    HalfEdgeTriangle triangle1 = getFacet();
+    HalfEdgeTriangle triangle2 = getOpposite().getFacet();
+    Vector n1 = triangle1.getNormal();
+    
+    throw new NotImplementedException();
   }
 
   public void setFacet(HalfEdgeTriangle facet) {

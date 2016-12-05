@@ -212,7 +212,25 @@ public class ShadowTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfEdg
 
   @Override
   public void createShadowPolygons(Vector lightPosition, float extend, ITriangleMesh shadowPolygonMesh) {
-    throw new NotImplementedException();
+    Set<HalfEdge> silhouetteEdges = getSilhouetteEdges(lightPosition);
+    for (HalfEdge silhouetteEdge : silhouetteEdges) {
+      Vector p1 = silhouetteEdge.getStartVertex().getPosition();
+      Vector p2 = silhouetteEdge.getOpposite().getStartVertex().getPosition();
+
+      Vector d1 = p1.subtract(lightPosition).getNormalized();
+      Vector d2 = p2.subtract(lightPosition).getNormalized();
+
+      Vector p3 = p1.add(d1.multiply(extend));
+      Vector p4 = p2.add(d2.multiply(extend));
+
+      int idP1 = shadowPolygonMesh.addVertex(p1);
+      int idP2 = shadowPolygonMesh.addVertex(p2);
+      int idP3 = shadowPolygonMesh.addVertex(p3);
+      int idP4 = shadowPolygonMesh.addVertex(p4);
+
+      shadowPolygonMesh.addTriangle(idP3, idP2, idP1);
+      shadowPolygonMesh.addTriangle(idP4, idP2, idP3);
+    }
   }
 
   public Set<HalfEdge> getSilhouetteEdges(Vector lightPosition) {

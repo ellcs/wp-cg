@@ -70,15 +70,18 @@ public class HalfEdge {
    * @return true if and only if it is orthogonal.
    */
   public boolean isSilhouetteEdge(Vector lightPosition) {
-    HalfEdgeTriangle triangle1 = getFacet();
-    HalfEdgeTriangle triangle2 = getOpposite().getFacet();
+    if (hasOpposite()) {
+      HalfEdgeTriangle triangle1 = getFacet();
+      HalfEdgeTriangle triangle2 = getOpposite().getFacet();
 
-    boolean triangleIsFacingLight1 = triangle1.pointsTo(lightPosition);
-    boolean triangleIsFacingLight2 = triangle2.pointsTo(lightPosition);
+      boolean triangleIsFacingLight1 = triangle1.pointsTo(lightPosition);
+      boolean triangleIsFacingLight2 = triangle2.pointsTo(lightPosition);
 
-    // when both facets are pointing to same direction (light or not light), we know they
-    // are no silhouette edges.
-    return triangleIsFacingLight1 ^ triangleIsFacingLight2;
+      // when both facets are pointing to same direction (light or not light), we know they
+      // are no silhouette edges.
+      return triangleIsFacingLight1 ^ triangleIsFacingLight2;
+    }
+    return false;
   }
 
   public void setFacet(HalfEdgeTriangle facet) {

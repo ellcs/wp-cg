@@ -55,6 +55,7 @@ public class JenkeTriangleMeshNode extends LeafNode {
    */
   private boolean showNormals = false;
 
+  private boolean showSilhouette = false;
   /**
    * VBOs
    */
@@ -62,11 +63,15 @@ public class JenkeTriangleMeshNode extends LeafNode {
   private VertexBufferObject vboSilhouette = new VertexBufferObject();
   private VertexBufferObject vboNormals = new VertexBufferObject();
 
-  public JenkeTriangleMeshNode(ShadowTriangleMesh mesh, Vector lightPosition) {
+  public JenkeTriangleMeshNode(ShadowTriangleMesh mesh, Vector lightPosition, boolean showSilhouette) {
     this.mesh = mesh;
     this.lightPosition = lightPosition;
+    this.showSilhouette = showSilhouette;
     vbo.Setup(createRenderVertices(), GL2.GL_TRIANGLES);
-    vboSilhouette.Setup(createSilhouette(), GL2.GL_LINES);
+    if (this.showSilhouette) {
+      vboSilhouette.Setup(createSilhouette(), GL2.GL_LINES);
+    }
+
 //    vboNormals.Setup(createRenderVerticesNormals(), GL2.GL_LINES);
   }
 
@@ -155,9 +160,11 @@ public class JenkeTriangleMeshNode extends LeafNode {
     Vector lightPosition =
         transformedLight.xyz().multiply(1.0f / transformedLight.w());
 
-    gl.glLineWidth(2.5f);
-    vboSilhouette.draw(gl);
     if (mode == RenderMode.REGULAR) {
+      gl.glLineWidth(2.5f);
+      if (this.showSilhouette) {
+        vboSilhouette.draw(gl);
+      }
       drawRegular(gl);
     } else if (mode == RenderMode.DEBUG_SHADOW_VOLUME) {
       drawShadowVolume(gl, modelMatrix, lightPosition);
@@ -183,7 +190,8 @@ public class JenkeTriangleMeshNode extends LeafNode {
       Vector lightPosition) {
     mesh.createShadowPolygons(lightPosition, 500, shadowPolygonMesh);
     if (shadowPolygonNode == null) {
-      shadowPolygonNode = new JenkeTriangleMeshNode(shadowPolygonMesh, lightPosition);
+      shadowPolygonMesh.computeTriangleNormals();
+      shadowPolygonNode = new JenkeTriangleMeshNode(shadowPolygonMesh, lightPosition, false);
       shadowPolygonNode.setParentNode(this);
       shadowPolygonNode.setColor(new Vector(0.25, 0.25, 0.75, 0.25));
       shadowPolygonNode.vbo.Setup(shadowPolygonNode.createRenderVertices(), GL2.GL_TRIANGLES);

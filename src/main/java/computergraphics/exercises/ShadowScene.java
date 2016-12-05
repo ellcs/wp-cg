@@ -26,7 +26,7 @@ public class ShadowScene extends computergraphics.framework.Scene {
 
   public ShadowScene() {
     // Timer timeout and shader mode (PHONG, TEXTURE, NO_LIGHTING)
-    super(25, Shader.ShaderMode.PHONG, INode.RenderMode.REGULAR);
+    super(5000, Shader.ShaderMode.PHONG, INode.RenderMode.DEBUG_SHADOW_VOLUME);
 
     Vector lightPosition = new Vector(1, 1, 1);
     getRoot().setLightPosition(lightPosition);
@@ -38,7 +38,7 @@ public class ShadowScene extends computergraphics.framework.Scene {
     ObjReader objReader = new ObjReader();
     ShadowTriangleMesh triangleMesh = new ShadowTriangleMesh();
     objReader.read("meshes/cow.obj", triangleMesh);
-    JenkeTriangleMeshNode node = new JenkeTriangleMeshNode(triangleMesh, lightPosition);
+    JenkeTriangleMeshNode node = new JenkeTriangleMeshNode(triangleMesh, lightPosition, true);
 
     getRoot().addChild(node);
 

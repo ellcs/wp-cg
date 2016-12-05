@@ -46,6 +46,8 @@ public class ComputergraphicsWindow extends GLJPanel implements GLEventListener,
 
   private final Scene scene;
 
+  private FPSAnimator fpsAnimator;
+
   /**
    * Constructor
    */
@@ -59,8 +61,8 @@ public class ComputergraphicsWindow extends GLJPanel implements GLEventListener,
     addKeyListener(this);
 
     // Start the Gl loop.
-    FPSAnimator animator = new FPSAnimator(this, 60, true);
-    animator.start();
+    fpsAnimator = new FPSAnimator(this, 60, true);
+    fpsAnimator.start();
   }
 
   @Override

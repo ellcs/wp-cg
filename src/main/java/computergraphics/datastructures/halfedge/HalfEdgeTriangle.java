@@ -1,6 +1,7 @@
 package computergraphics.datastructures.halfedge;
 
 import computergraphics.framework.math.Vector;
+import computergraphics.framework.mesh.Vertex;
 
 /**
  * A facet has a reference to one of its half edges. This datastructure
@@ -53,6 +54,19 @@ public class HalfEdgeTriangle {
     Vector v1 = halfEdge.getNext().getStartVertex().getPosition();
     Vector v2 = halfEdge.getNext().getNext().getStartVertex().getPosition();
     return v1.subtract(v0).cross(v2.subtract(v0)).getNorm() / 2.0;
+  }
+
+  /**
+   * Checks if given lightPosition points to given light source.
+   *
+   * n = normal of facet.
+   * x = any point on facet.
+   *
+   */
+  public boolean pointsTo(Vector lightPosition) {
+    Vector n = this.getNormal();
+    Vector x = getHalfEdge().getStartVertex().getPosition();
+    return 0 < (x.multiply(n) - n.multiply(lightPosition));
   }
 
   /**

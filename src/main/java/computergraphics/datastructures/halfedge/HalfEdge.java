@@ -72,9 +72,13 @@ public class HalfEdge {
   public boolean isSilhouetteEdge(Vector lightPosition) {
     HalfEdgeTriangle triangle1 = getFacet();
     HalfEdgeTriangle triangle2 = getOpposite().getFacet();
-    Vector n1 = triangle1.getNormal();
-    
-    throw new NotImplementedException();
+
+    boolean triangleIsFacingLight1 = triangle1.pointsTo(lightPosition);
+    boolean triangleIsFacingLight2 = triangle2.pointsTo(lightPosition);
+
+    // when both facets are pointing to same direction (light or not light), we know they
+    // are no silhouette edges.
+    return triangleIsFacingLight1 ^ triangleIsFacingLight2;
   }
 
   public void setFacet(HalfEdgeTriangle facet) {

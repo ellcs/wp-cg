@@ -1,22 +1,34 @@
 package computergraphics.framework.scenegraph;
 
 import com.jogamp.opengl.GL2;
-import computergraphics.framework.math.Matrix;
-import computergraphics.framework.math.Vector;
-import computergraphics.framework.mesh.ITriangleMesh;
-import computergraphics.framework.mesh.Triangle;
-import computergraphics.framework.mesh.TriangleMesh;
-import computergraphics.framework.rendering.RenderVertex;
-import computergraphics.framework.rendering.VertexBufferObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-public class JenkeTriangleMeshNode<T, N> extends LeafNode {
+import computergraphics.datastructures.halfedge.HalfEdge;
+import computergraphics.datastructures.halfedge.HalfEdgeTriangle;
+import computergraphics.datastructures.halfedge.HalfEdgeVertex;
+import computergraphics.framework.math.Colors;
+import computergraphics.framework.math.Matrix;
+import computergraphics.framework.math.Vector;
+import computergraphics.framework.mesh.ShadowTriangleMesh;
+import computergraphics.framework.rendering.RenderVertex;
+import computergraphics.framework.rendering.VertexBufferObject;
+
+public class JenkeTriangleMeshNode extends LeafNode {
+
+  public enum NormalType {
+    triangle,
+    vertex
+  }
+
+  private NormalType normalType = NormalType.triangle;
+
   /**
    * Contained triangle mesh.
    */
-  private ITriangleMesh<T, N> mesh;
+  private ShadowTriangleMesh mesh;
 
   /**
    * This node is used to render the shadow polygon mesh
@@ -26,7 +38,12 @@ public class JenkeTriangleMeshNode<T, N> extends LeafNode {
   /**
    * This is the shadow polygon mesh.
    */
-  private TriangleMesh shadowPolygonMesh = new TriangleMesh();
+  private ShadowTriangleMesh shadowPolygonMesh = new ShadowTriangleMesh();
+
+  /**
+   * Position of light source.
+   */
+  private Vector lightPosition;
 
   /**
    * Color used for rendering (RGBA)
@@ -42,12 +59,27 @@ public class JenkeTriangleMeshNode<T, N> extends LeafNode {
    * VBOs
    */
   private VertexBufferObject vbo = new VertexBufferObject();
+  private VertexBufferObject vboSilhouette = new VertexBufferObject();
   private VertexBufferObject vboNormals = new VertexBufferObject();
 
-  public JenkeTriangleMeshNode(ITriangleMesh mesh) {
+  public JenkeTriangleMeshNode(ShadowTriangleMesh mesh, Vector lightPosition) {
     this.mesh = mesh;
+    this.lightPosition = lightPosition;
     vbo.Setup(createRenderVertices(), GL2.GL_TRIANGLES);
-    vboNormals.Setup(createRenderVerticesNormals(), GL2.GL_LINES);
+    vboSilhouette.Setup(createSilhouette(), GL2.GL_LINES);
+//    vboNormals.Setup(createRenderVerticesNormals(), GL2.GL_LINES);
+  }
+
+  private List<RenderVertex> createSilhouette() {
+    List<RenderVertex> renderVertices = new ArrayList<>();
+    Set<HalfEdge> silhouetteEdges = mesh.getSilhouetteEdges(this.lightPosition);
+    for (HalfEdge silhouetteEdge : silhouetteEdges) {
+      Vector start = silhouetteEdge.getStartVertex().getPosition();
+      Vector end = silhouetteEdge.getOpposite().getStartVertex().getPosition();
+      renderVertices.add(new RenderVertex(start, new Vector(1,1,1), Colors.black));
+      renderVertices.add(new RenderVertex(end, new Vector(1,1,1), Colors.black));
+    }
+    return renderVertices;
   }
 
   /**
@@ -55,19 +87,30 @@ public class JenkeTriangleMeshNode<T, N> extends LeafNode {
    */
   private List<RenderVertex> createRenderVertices() {
     List<RenderVertex> renderVertices = new ArrayList<RenderVertex>();
-    for (int i = 0; i < mesh.getNumberOfTriangles(); i++) {
-      Triangle t = mesh.getTriangle(i);
-      for (int j = 0; j < 3; j++) {
-        RenderVertex renderVertex = null;
-        if ( t.getTexCoordIndex(j) >= 0 ){
-          renderVertex = new RenderVertex(mesh.getVertex(t.getVertexIndex(j)).getPosition(),
-              t.getNormal(), color, mesh.getTextureCoordinate(t.getTexCoordIndex(j))  );
-        } else {
-          renderVertex = new RenderVertex(mesh.getVertex(t.getVertexIndex(j)).getPosition(),
-              t.getNormal(), color);
-        }
-        renderVertices.add(renderVertex);
+    int triangleIndex = 0;
+    while(triangleIndex < this.mesh.getNumberOfTriangles()) {
+      HalfEdgeTriangle triangle = this.mesh.getTriangle(triangleIndex);
+      HalfEdgeVertex v0 = getTriangleVertexByIndex(triangle, 0);
+      HalfEdgeVertex v1 = getTriangleVertexByIndex(triangle, 1);
+      HalfEdgeVertex v2 = getTriangleVertexByIndex(triangle, 2);
+
+      Vector p0 = v0.getPosition();
+      Vector p1 = v1.getPosition();
+      Vector p2 = v2.getPosition();
+
+      if (this.normalType.equals(NormalType.triangle)) {
+        renderVertices.add(new RenderVertex(p0, triangle.getNormal(), this.color));
+        renderVertices.add(new RenderVertex(p1, triangle.getNormal(), this.color));
+        renderVertices.add(new RenderVertex(p2, triangle.getNormal(), this.color));
+      } else if (this.normalType.equals(NormalType.vertex)) {
+        renderVertices.add(new RenderVertex(p0, v0.getNormal(), this.color));
+        renderVertices.add(new RenderVertex(p1, v1.getNormal(), this.color));
+        renderVertices.add(new RenderVertex(p2, v2.getNormal(), this.color));
+      } else {
+        throw new IllegalArgumentException("Unknown NormalType: " + this.normalType + ".");
       }
+
+      triangleIndex++;
     }
     return renderVertices;
   }
@@ -80,7 +123,7 @@ public class JenkeTriangleMeshNode<T, N> extends LeafNode {
     double normalScale = 0.1;
     Vector color = new Vector(0.5, 0.5, 0.5, 1);
     for (int i = 0; i < mesh.getNumberOfTriangles(); i++) {
-      Triangle t = mesh.getTriangle(i);
+      HalfEdgeTriangle t = mesh.getTriangle(i);
       Vector p = mesh.getVertex(t.getVertexIndex(0)).getPosition()
           .add(mesh.getVertex(t.getVertexIndex(1)).getPosition())
           .add(mesh.getVertex(t.getVertexIndex(2)).getPosition())
@@ -112,6 +155,8 @@ public class JenkeTriangleMeshNode<T, N> extends LeafNode {
     Vector lightPosition =
         transformedLight.xyz().multiply(1.0f / transformedLight.w());
 
+    gl.glLineWidth(2.5f);
+    vboSilhouette.draw(gl);
     if (mode == RenderMode.REGULAR) {
       drawRegular(gl);
     } else if (mode == RenderMode.DEBUG_SHADOW_VOLUME) {
@@ -138,12 +183,24 @@ public class JenkeTriangleMeshNode<T, N> extends LeafNode {
       Vector lightPosition) {
     mesh.createShadowPolygons(lightPosition, 500, shadowPolygonMesh);
     if (shadowPolygonNode == null) {
-      shadowPolygonNode = new JenkeTriangleMeshNode(shadowPolygonMesh);
+      shadowPolygonNode = new JenkeTriangleMeshNode(shadowPolygonMesh, lightPosition);
       shadowPolygonNode.setParentNode(this);
       shadowPolygonNode.setColor(new Vector(0.25, 0.25, 0.75, 0.25));
       shadowPolygonNode.vbo.Setup(shadowPolygonNode.createRenderVertices(), GL2.GL_TRIANGLES);
     }
     shadowPolygonNode.traverse(gl, RenderMode.REGULAR, modelMatrix);
+  }
+
+  /**
+   * Fetches position as a vector, of given triangle. The vertex is specified trough index.
+   * However, given index is one of the triangle points. {0, 1, 2}
+   */
+  private HalfEdgeVertex getTriangleVertexByIndex(HalfEdgeTriangle triangle, int index) {
+    HalfEdge edge = triangle.getHalfEdge();
+    for (int i = 0; i < index; i++) {
+      edge = edge.getNext();
+    }
+    return edge.getStartVertex();
   }
 
   public void setColor(Vector color) {

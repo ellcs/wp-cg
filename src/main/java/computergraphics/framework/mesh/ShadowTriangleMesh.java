@@ -1,4 +1,4 @@
-package computergraphics.framework.shadows;
+package computergraphics.framework.mesh;
 
 import computergraphics.datastructures.halfedge.HalfEdge;
 import computergraphics.datastructures.halfedge.HalfEdgeTriangle;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * Created by alex on 10/21/16.
  */
-public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfEdgeTriangle> {
+public class ShadowTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfEdgeTriangle> {
 
   List<HalfEdgeVertex> vertices;
 
@@ -25,7 +25,7 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
 
   List<HalfEdgeTriangle> triangles;
 
-  public HalfEdgeTriangleMesh() {
+  public ShadowTriangleMesh() {
     // clear to instantiate
     // instance variables
     clear();
@@ -115,7 +115,7 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
 
   @Override
   public Texture getTexture() {
-    throw new NotImplementedException();
+    return null;
   }
 
   @Override
@@ -216,9 +216,10 @@ public class HalfEdgeTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfE
   }
 
   public Set<HalfEdge> getSilhouetteEdges(Vector lightPosition) {
-    Set<HalfEdge> silhouetteEdges = this.edges.stream()
-            .filter(he -> he.isSilhouetteEdge(lightPosition))
-            .collect(Collectors.toSet());
+    Set<HalfEdge> silhouetteEdges = this.edges
+                                        .stream()
+                                        .filter(he -> he.isSilhouetteEdge(lightPosition))
+                                        .collect(Collectors.toSet());
     return removeOpposites(silhouetteEdges);
   }
 

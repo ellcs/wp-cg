@@ -29,7 +29,7 @@ public class TriangleMeshNode extends LeafNode {
 
   private Vector color;
 
-  public TriangleMeshNode(TriangleMesh triangleMesh) {
+  public TriangleMeshNode(ITriangleMesh triangleMesh) {
     this(triangleMesh, Colors.gray);
   }
 

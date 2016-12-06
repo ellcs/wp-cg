@@ -213,6 +213,7 @@ public class ShadowTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfEdg
   @Override
   public void createShadowPolygons(Vector lightPosition, float extend, ITriangleMesh shadowPolygonMesh) {
     Set<HalfEdge> silhouetteEdges = getSilhouetteEdges(lightPosition);
+    System.out.println("SE: " + silhouetteEdges.size());
     for (HalfEdge silhouetteEdge : silhouetteEdges) {
       Vector p1 = silhouetteEdge.getStartVertex().getPosition();
       Vector p2 = silhouetteEdge.getOpposite().getStartVertex().getPosition();
@@ -228,9 +229,15 @@ public class ShadowTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfEdg
       int idP3 = shadowPolygonMesh.addVertex(p3);
       int idP4 = shadowPolygonMesh.addVertex(p4);
 
-      shadowPolygonMesh.addTriangle(idP3, idP2, idP1);
-      shadowPolygonMesh.addTriangle(idP4, idP2, idP3);
+      shadowPolygonMesh.addTriangle(idP3, idP2, idP1); // gud
+//      shadowPolygonMesh.addTriangle(idP1, idP2, idP3); // gud
+
+      shadowPolygonMesh.addTriangle(idP2, idP3, idP4); // gud
+//      shadowPolygonMesh.addTriangle(idP4, idP3, idP2); // gud
+//      shadowPolygonMesh.addTriangle(idP2, idP4, idP3);
     }
+    System.out.println("SV: " + shadowPolygonMesh.getNumberOfVertices());
+    System.out.println("ST: " + shadowPolygonMesh.getNumberOfTriangles());
   }
 
   public Set<HalfEdge> getSilhouetteEdges(Vector lightPosition) {

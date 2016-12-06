@@ -35,10 +35,6 @@ public class JenkeTriangleMeshNode extends LeafNode {
    */
   private JenkeTriangleMeshNode shadowPolygonNode = null;
 
-  /**
-   * This is the shadow polygon mesh.
-   */
-  private ShadowTriangleMesh shadowPolygonMesh = new ShadowTriangleMesh();
 
   /**
    * Position of light source.
@@ -160,8 +156,8 @@ public class JenkeTriangleMeshNode extends LeafNode {
     Vector lightPosition =
         transformedLight.xyz().multiply(1.0f / transformedLight.w());
 
+    gl.glLineWidth(3.5f);
     if (mode == RenderMode.REGULAR) {
-      gl.glLineWidth(2.5f);
       if (this.showSilhouette) {
         vboSilhouette.draw(gl);
       }
@@ -188,8 +184,10 @@ public class JenkeTriangleMeshNode extends LeafNode {
    */
   public void drawShadowVolume(GL2 gl, Matrix modelMatrix,
       Vector lightPosition) {
-    mesh.createShadowPolygons(lightPosition, 500, shadowPolygonMesh);
+    ShadowTriangleMesh shadowPolygonMesh = new ShadowTriangleMesh();
+    mesh.createShadowPolygons(lightPosition, 300, shadowPolygonMesh);
     if (shadowPolygonNode == null) {
+      shadowPolygonMesh.computeVerticesNormals();
       shadowPolygonMesh.computeTriangleNormals();
       shadowPolygonNode = new JenkeTriangleMeshNode(shadowPolygonMesh, lightPosition, false);
       shadowPolygonNode.setParentNode(this);

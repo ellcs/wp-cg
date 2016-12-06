@@ -3,6 +3,7 @@ package computergraphics.exercises;
 import java.util.ArrayList;
 import java.util.List;
 
+import computergraphics.framework.math.MathHelpers;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.mesh.ObjReader;
 import computergraphics.framework.mesh.ShadowTriangleMesh;
@@ -10,6 +11,7 @@ import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.INode;
 import computergraphics.framework.scenegraph.JenkeTriangleMeshNode;
 import computergraphics.framework.scenegraph.RotationNode;
+import computergraphics.framework.scenegraph.ScaleNode;
 import computergraphics.framework.scenegraph.SphereNode;
 import computergraphics.framework.scenegraph.TimerTickable;
 import computergraphics.framework.scenegraph.TranslationNode;
@@ -26,7 +28,7 @@ public class ShadowScene extends computergraphics.framework.Scene {
 
   public ShadowScene() {
     // Timer timeout and shader mode (PHONG, TEXTURE, NO_LIGHTING)
-    super(5000, Shader.ShaderMode.PHONG, INode.RenderMode.DEBUG_SHADOW_VOLUME);
+    super(25, Shader.ShaderMode.PHONG, INode.RenderMode.SHADOW_VOLUME);
 
     Vector lightPosition = new Vector(1, 1, 1);
     getRoot().setLightPosition(lightPosition);
@@ -36,11 +38,23 @@ public class ShadowScene extends computergraphics.framework.Scene {
     tickableList.add(rotationNode);
 
     ObjReader objReader = new ObjReader();
-    ShadowTriangleMesh triangleMesh = new ShadowTriangleMesh();
-    objReader.read("meshes/cow.obj", triangleMesh);
-    JenkeTriangleMeshNode node = new JenkeTriangleMeshNode(triangleMesh, lightPosition, true);
+    ShadowTriangleMesh cow = new ShadowTriangleMesh();
+    objReader.read("meshes/hemisphere.obj", cow);
+    JenkeTriangleMeshNode cowNode = new JenkeTriangleMeshNode(cow, lightPosition, true);
 
-    getRoot().addChild(node);
+    ShadowTriangleMesh plane = new ShadowTriangleMesh();
+    objReader.read("meshes/square.obj", plane);
+    JenkeTriangleMeshNode square = new JenkeTriangleMeshNode(plane, lightPosition, true);
+
+    ScaleNode scaleNode = new ScaleNode(new Vector(5, 5, 5));
+    scaleNode.addChild(square);
+    RotationNode squareRotation = new RotationNode(new Vector(1, 0, 0), Math.PI/2);
+    squareRotation.addChild(scaleNode);
+    TranslationNode translationNode = new TranslationNode(new Vector(0, -0.5f, 0));
+    translationNode.addChild(squareRotation);
+
+    getRoot().addChild(translationNode);
+    getRoot().addChild(cowNode);
 
     // Light geometry
     TranslationNode lightTranslation =

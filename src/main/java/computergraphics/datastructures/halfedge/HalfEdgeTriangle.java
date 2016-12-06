@@ -64,9 +64,13 @@ public class HalfEdgeTriangle {
    *
    */
   public boolean pointsTo(Vector lightPosition) {
+    return 0 < hessscheNormalForm(lightPosition);
+  }
+
+  public Double hessscheNormalForm(Vector lightPosition) {
     Vector n = this.getNormal();
     Vector x = getHalfEdge().getStartVertex().getPosition();
-    return 0 < (lightPosition.multiply(n) - n.multiply(x));
+    return lightPosition.multiply(n) - n.multiply(x);
   }
 
   /**

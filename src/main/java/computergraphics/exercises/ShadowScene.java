@@ -39,7 +39,7 @@ public class ShadowScene extends computergraphics.framework.Scene {
 
     ObjReader objReader = new ObjReader();
     ShadowTriangleMesh cow = new ShadowTriangleMesh();
-    objReader.read("meshes/hemisphere.obj", cow);
+    objReader.read("meshes/cow.obj", cow);
     JenkeTriangleMeshNode cowNode = new JenkeTriangleMeshNode(cow, lightPosition, true);
 
     ShadowTriangleMesh plane = new ShadowTriangleMesh();
@@ -54,6 +54,7 @@ public class ShadowScene extends computergraphics.framework.Scene {
     translationNode.addChild(squareRotation);
 
     getRoot().addChild(translationNode);
+
     getRoot().addChild(cowNode);
 
     // Light geometry

@@ -73,7 +73,7 @@ public class JenkeTriangleMeshNode extends LeafNode {
 
   private List<RenderVertex> createSilhouette() {
     List<RenderVertex> renderVertices = new ArrayList<>();
-    Set<HalfEdge> silhouetteEdges = mesh.getSilhouetteEdges(this.lightPosition);
+    List<HalfEdge> silhouetteEdges = mesh.getSilhouetteEdges(this.lightPosition);
     for (HalfEdge silhouetteEdge : silhouetteEdges) {
       Vector start = silhouetteEdge.getStartVertex().getPosition();
       Vector end = silhouetteEdge.getOpposite().getStartVertex().getPosition();

@@ -212,7 +212,7 @@ public class ShadowTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfEdg
 
   @Override
   public void createShadowPolygons(Vector lightPosition, float extend, ITriangleMesh shadowPolygonMesh) {
-    Set<HalfEdge> silhouetteEdges = getSilhouetteEdges(lightPosition);
+    List<HalfEdge> silhouetteEdges = getSilhouetteEdges(lightPosition);
     System.out.println("SE: " + silhouetteEdges.size());
     for (HalfEdge silhouetteEdge : silhouetteEdges) {
       Vector p1 = silhouetteEdge.getStartVertex().getPosition();
@@ -236,16 +236,17 @@ public class ShadowTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfEdg
 //      shadowPolygonMesh.addTriangle(idP4, idP3, idP2); // gud
 //      shadowPolygonMesh.addTriangle(idP2, idP4, idP3);
     }
-    System.out.println("SV: " + shadowPolygonMesh.getNumberOfVertices());
-    System.out.println("ST: " + shadowPolygonMesh.getNumberOfTriangles());
+//    System.out.println("SV: " + shadowPolygonMesh.getNumberOfVertices());
+//    System.out.println("ST: " + shadowPolygonMesh.getNumberOfTriangles());
   }
 
-  public Set<HalfEdge> getSilhouetteEdges(Vector lightPosition) {
+  public List<HalfEdge> getSilhouetteEdges(Vector lightPosition) {
     Set<HalfEdge> silhouetteEdges = this.edges
                                         .stream()
                                         .filter(he -> he.isSilhouetteEdge(lightPosition))
                                         .collect(Collectors.toSet());
-    return removeOpposites(silhouetteEdges);
+    silhouetteEdges = removeOpposites(silhouetteEdges);
+    return sortEdges(silhouetteEdges, lightPosition);
   }
 
   /**
@@ -260,6 +261,22 @@ public class ShadowTriangleMesh implements ITriangleMesh<HalfEdgeVertex, HalfEdg
       }
     }
     return unique;
+  }
+
+  /**
+   * Filter half edge or its opposite, depending on the hessscheNormalForm value.
+   * 
+   */
+  private List<HalfEdge> sortEdges(Set<HalfEdge> edgesToSort, Vector lightSource) {
+    List<HalfEdge> sortedEdges = new ArrayList<>();
+    for (HalfEdge halfedge : edgesToSort) {
+      if (0 < halfedge.getFacet().hessscheNormalForm(lightSource)) {
+        sortedEdges.add(halfedge);
+      } else {
+        sortedEdges.add(halfedge.getOpposite());
+      }
+    }
+    return sortedEdges;
   }
 
   public Set<HalfEdge> getEdgesWithoutOpposite() {

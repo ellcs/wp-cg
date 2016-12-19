@@ -47,11 +47,14 @@ public class PrincipalComponentAnalysis {
     points.add(point);
   }
 
+  public void addAll(List<Vector> points) {
+    this.points.addAll(points);
+  }
+
   /**
    * Apply the PCA, compute tangentU, tangentV and normal.
    */
   public void applyPCA() {
-
     if (points.size() < 3) {
       System.out.println("Need a least 3 points for PCA");
       return;
@@ -95,6 +98,18 @@ public class PrincipalComponentAnalysis {
   public Vector getEigenVector(int index) {
     assert (index >= 0 && index < 3);
     return eigenVectors[index];
+  }
+
+  public Vector getBiggestEigenvector() {
+    if (eigenValues.x() < eigenValues.z() && eigenValues.y() < eigenValues.z()) {
+      return eigenVectors[2];
+    } else if (eigenValues.x() < eigenValues.y() && eigenValues.z() < eigenValues.y()) {
+      return eigenVectors[1];
+    } else if (eigenValues.z() < eigenValues.x() && eigenValues.y() < eigenValues.x()) {
+      return eigenVectors[0];
+    } else {
+      throw new IllegalArgumentException("This shouldn't happen.");
+    }
   }
 
   /**

@@ -47,7 +47,7 @@ public class BspNode extends LeafNode {
     this.points = points;
     this.eye = eye;
     vboPoints.Setup(CreateVBOPoints(), GL.GL_POINTS);
-    vboBack2FrontPath.Setup(CreateVBOBack2Front(back2FrontSorted), GL.GL_LINE_STRIP);
+//    vboBack2FrontPath.Setup(CreateVBOBack2Front(back2FrontSorted), GL.GL_LINE_STRIP);
     vboPlanes.Setup(CreateVBOPlanes(rootNode, 0.7f), GL.GL_LINES);
     vboElements.Setup(CreateVBOElements(rootNode), GL.GL_LINES);
   }
@@ -64,7 +64,7 @@ public class BspNode extends LeafNode {
       }
 
       if (showBackToFront) {
-        vboBack2FrontPath.draw(gl);
+//        vboBack2FrontPath.draw(gl);
       }
 
       if (showElements) {
@@ -108,7 +108,8 @@ public class BspNode extends LeafNode {
     if (node == null) {
       return renderVertices;
     }
-    Vector tangent = new Vector(node.getN().get(1), -node.getN().get(0), 0).multiply(scale);
+    double xOfN = node.getN().get(1);
+    Vector tangent = new Vector(xOfN, -node.getN().get(0), 0).multiply(scale);
     renderVertices.add(new RenderVertex(node.getP().add(tangent), new Vector(0, 0, 1), new Vector(1, 1, 1, 1)));
     renderVertices.add(new RenderVertex(node.getP().subtract(tangent), new Vector(0, 0, 1), new Vector(1, 1, 1, 1)));
     renderVertices.add(new RenderVertex(node.getP(), new Vector(0, 0, 1), new Vector(1, 1, 1, 1)));

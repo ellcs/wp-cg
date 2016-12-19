@@ -63,6 +63,17 @@ public class BspTreeNode {
   /**
    * Add an element to a specified subset (front or back).
    */
+  public void AddElement(Vector vector, int index) {
+    if (!this.IsPositive(vector)) {
+      elementsNeg.add(index);
+    } else {
+      elementsPos.add(index);
+    }
+  }
+
+  /**
+   * Add an element to a specified subset (front or back).
+   */
   public void AddElement(Orientation orientation, int index) {
     if (orientation == Orientation.NEGATIVE) {
       elementsNeg.add(index);

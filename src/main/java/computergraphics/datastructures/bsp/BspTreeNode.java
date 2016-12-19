@@ -1,6 +1,7 @@
 package computergraphics.datastructures.bsp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import computergraphics.math.Vector;
@@ -118,5 +119,14 @@ public class BspTreeNode {
 
   public Vector getN() {
     return n;
+  }
+
+  @Override
+  public String toString() {
+    return "BspTreeNode{" +
+            "children=" + Arrays.toString(children) +
+            ", elementsPos=" + elementsPos +
+            ", elementsNeg=" + elementsNeg +
+            '}';
   }
 }

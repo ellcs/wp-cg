@@ -40,7 +40,6 @@ public class BspScene extends Scene {
     super.init(gl);
     getRoot().setLightPosition(new Vector(1, 1, 1));
     getRoot().setAnimated(true);
-//    getRoot().SetBackgroundColor(new Vector(0.25, 0.25, 0.25, 1));
     gl.glLineWidth(5);
     gl.glPointSize(5);
 
@@ -57,6 +56,7 @@ public class BspScene extends Scene {
     BspTreeToolsDummy tools = new BspTreeToolsDummy();
     BspTreeNode rootNode = tools.createBspTree(null, points, pointIndices);
 
+    System.out.println(rootNode.toString());
     // Add result to scne graph
     if (rootNode != null) {
       Vector observer = new Vector(1, 1, 0);
@@ -69,16 +69,16 @@ public class BspScene extends Scene {
   @Override
   public void keyPressed(int keyCode) {
     switch (keyCode) {
-    case 'p':
+    case '1':
       node.showPoints = !node.showPoints;
       break;
-    case 'e':
+    case '2':
       node.showElements = !node.showElements;
       break;
-    case 'l':
+    case '3':
       node.showPlanes = !node.showPlanes;
       break;
-    case 'b':
+    case '4':
       node.showBackToFront = !node.showBackToFront;
       break;
     }

@@ -47,7 +47,7 @@ public class BspNode extends LeafNode {
     this.points = points;
     this.eye = eye;
     vboPoints.Setup(CreateVBOPoints(), GL.GL_POINTS);
-//    vboBack2FrontPath.Setup(CreateVBOBack2Front(back2FrontSorted), GL.GL_LINE_STRIP);
+    vboBack2FrontPath.Setup(CreateVBOBack2Front(back2FrontSorted), GL.GL_LINE_STRIP);
     vboPlanes.Setup(CreateVBOPlanes(rootNode, 0.7f), GL.GL_LINES);
     vboElements.Setup(CreateVBOElements(rootNode), GL.GL_LINES);
   }
@@ -64,7 +64,7 @@ public class BspNode extends LeafNode {
       }
 
       if (showBackToFront) {
-//        vboBack2FrontPath.draw(gl);
+        vboBack2FrontPath.draw(gl);
       }
 
       if (showElements) {

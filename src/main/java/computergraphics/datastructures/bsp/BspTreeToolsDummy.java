@@ -1,6 +1,7 @@
 package computergraphics.datastructures.bsp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import computergraphics.math.PrincipalComponentAnalysis;
@@ -19,17 +20,14 @@ public class BspTreeToolsDummy {
    *          if indices used in the current recursive call
    */
   public BspTreeNode createBspTree(BspTreeNode parentNode, List<Vector> allPoints, List<Integer> pointIndices) {
-    if (pointIndices.size() == 0) {
-      throw new IllegalArgumentException("NOPE!");
-    }
     if (parentNode == null) {
       parentNode = new BspTreeNode();
     }
 
-    System.out.println("pi: " + pointIndices.size());
     if (pointIndices.size() == 1 || pointIndices.size() == 0) {
       return null;
     }
+    System.out.println("pi: " + pointIndices.size());
 
     // default centroid (average of two points) and normals (difference) are
     // set here. these are valid, when there are only two points left.
@@ -40,7 +38,8 @@ public class BspTreeToolsDummy {
 
     // when there are more then two points, we use pca in order get our
     // centroid and our normal (biggest eigenvektor).
-    if (allPoints.size() > 2) {
+    if (pointIndices.size() > 2) {
+      System.out.println("foobar");
       PrincipalComponentAnalysis pca = new PrincipalComponentAnalysis();
       pca.addAll(allPoints);
       pca.applyPCA();
@@ -50,15 +49,14 @@ public class BspTreeToolsDummy {
     parentNode.setN(normal);
     parentNode.setP(centroid);
 
-
-    System.out.println("Pos: " + parentNode.getNumberOfElements(BspTreeNode.Orientation.POSITIVE));
-    System.out.println("Neg: " + parentNode.getNumberOfElements(BspTreeNode.Orientation.NEGATIVE));
     // assign all points to pos or neg in parent node
     for (int i = 0; i < pointIndices.size(); i++) {
       Vector point = allPoints.get(i);
       Integer index = pointIndices.get(i);
       parentNode.AddElement(point, index);
     }
+    System.out.println("Pos: " + parentNode.getNumberOfElements(BspTreeNode.Orientation.POSITIVE));
+    System.out.println("Neg: " + parentNode.getNumberOfElements(BspTreeNode.Orientation.NEGATIVE));
 
     recurse(parentNode, allPoints, BspTreeNode.Orientation.POSITIVE);
     recurse(parentNode, allPoints, BspTreeNode.Orientation.NEGATIVE);
@@ -89,12 +87,25 @@ public class BspTreeToolsDummy {
    *          List of points to be considered
    * @param eye
    *          Observer position
-   * @return Sorted (back-to-front) list of points
+   * @return Sorted (back-to-front) list of points.
    */
   public List<Integer> getBackToFront(BspTreeNode node, List<Vector> points, Vector eye) {
-
-    // YOUR CODE GOES HERE!
-
-    return null;
+    List<Integer> accu = new ArrayList<>();
+    if (node != null) {
+      if (node.IsPositive(eye)) {
+        accu.addAll(getBackToFront(node.GetChild(BspTreeNode.Orientation.NEGATIVE), points, eye));
+        if (node.getNumberOfElements(BspTreeNode.Orientation.NEGATIVE) == 1) {
+          return Arrays.asList(node.getElement(BspTreeNode.Orientation.NEGATIVE, 0));
+        }
+        if (node.getNumberOfElements(BspTreeNode.Orientation.POSITIVE) == 1) {
+          return Arrays.asList(node.getElement(BspTreeNode.Orientation.POSITIVE, 0));
+        }
+        accu.addAll(getBackToFront(node.GetChild(BspTreeNode.Orientation.POSITIVE), points, eye));
+      } else {
+        accu.addAll(getBackToFront(node.GetChild(BspTreeNode.Orientation.POSITIVE), points, eye));
+        accu.addAll(getBackToFront(node.GetChild(BspTreeNode.Orientation.NEGATIVE), points, eye));
+      }
+    }
+    return accu;
   }
 }

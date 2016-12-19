@@ -1,4 +1,4 @@
-package computergraphics.framework.math;
+package computergraphics.math;
 
 /**
  * Created by alex on 9/24/16.

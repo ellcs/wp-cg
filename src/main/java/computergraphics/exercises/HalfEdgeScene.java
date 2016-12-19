@@ -3,13 +3,12 @@ package computergraphics.exercises;
 import java.util.ArrayList;
 import java.util.List;
 
-import computergraphics.framework.math.Colors;
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Colors;
+import computergraphics.math.Vector;
 import computergraphics.framework.mesh.HalfEdgeTriangleMesh;
 import computergraphics.framework.mesh.ObjReader;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.*;
-import computergraphics.framework.scenegraph.meshmodels.CowNode;
 
 /**
  * Created by alex on 10/4/16.

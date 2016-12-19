@@ -1,7 +1,6 @@
 package computergraphics.datastructures.halfedge;
 
-import computergraphics.framework.math.Vector;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import computergraphics.math.Vector;
 
 /**
  * A half edge has references to the next edge within the current facet, the

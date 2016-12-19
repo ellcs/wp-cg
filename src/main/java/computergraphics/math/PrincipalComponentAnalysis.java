@@ -3,7 +3,7 @@
  * Hochschule für Angewandte Wissenschaften (HAW), Hamburg
  * Lecture demo program.
  */
-package computergraphics.framework.math;
+package computergraphics.math;
 
 import java.util.ArrayList;
 import java.util.List;

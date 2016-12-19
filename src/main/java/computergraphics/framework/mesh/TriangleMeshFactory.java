@@ -1,6 +1,6 @@
 package computergraphics.framework.mesh;
 
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 
 public class TriangleMeshFactory {
   /**

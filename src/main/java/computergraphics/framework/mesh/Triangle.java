@@ -6,7 +6,7 @@
  */
 package computergraphics.framework.mesh;
 
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 
 /**
  * Representation of a triangle consisting of three indices. The indices

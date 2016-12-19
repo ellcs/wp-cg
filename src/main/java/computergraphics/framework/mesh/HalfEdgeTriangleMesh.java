@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import computergraphics.datastructures.halfedge.HalfEdge;
 import computergraphics.datastructures.halfedge.HalfEdgeTriangle;
 import computergraphics.datastructures.halfedge.HalfEdgeVertex;
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 import computergraphics.framework.rendering.Texture;
 
 /**

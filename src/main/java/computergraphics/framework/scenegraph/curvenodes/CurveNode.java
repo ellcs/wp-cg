@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import computergraphics.curves.AbstractCurve;
-import computergraphics.framework.math.Matrix;
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Matrix;
+import computergraphics.math.Vector;
 import computergraphics.framework.rendering.RenderVertex;
 import computergraphics.framework.rendering.VertexBufferObject;
 import computergraphics.framework.scenegraph.LeafNode;

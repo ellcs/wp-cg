@@ -1,6 +1,6 @@
 package computergraphics.framework.mesh;
 
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 
 /**
  * Represents a vertex in 3-space with position and normal.

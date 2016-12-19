@@ -1,8 +1,8 @@
 package computergraphics.framework.scenegraph.curvenodes;
 
 import computergraphics.curves.AbstractCurve;
-import computergraphics.framework.math.Colors;
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Colors;
+import computergraphics.math.Vector;
 import computergraphics.framework.scenegraph.InnerNode;
 import computergraphics.framework.scenegraph.LineNode;
 import computergraphics.framework.scenegraph.SphereNode;

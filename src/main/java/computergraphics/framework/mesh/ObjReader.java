@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import computergraphics.framework.AssetPath;
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 
 /**
  * Read OBJ file and fill triangle mesh with the content.

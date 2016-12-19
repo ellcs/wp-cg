@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 import computergraphics.curves.HermiteSpline;
 import computergraphics.framework.Scene;
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.INode;
 import computergraphics.framework.scenegraph.INode.RenderMode;

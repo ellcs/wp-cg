@@ -3,8 +3,7 @@ package computergraphics.framework.mesh;
 import computergraphics.datastructures.halfedge.HalfEdge;
 import computergraphics.datastructures.halfedge.HalfEdgeTriangle;
 import computergraphics.datastructures.halfedge.HalfEdgeVertex;
-import computergraphics.framework.math.Vector;
-import computergraphics.framework.mesh.ITriangleMesh;
+import computergraphics.math.Vector;
 import computergraphics.framework.rendering.Texture;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

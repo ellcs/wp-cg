@@ -1,6 +1,6 @@
 package computergraphics.framework.rendering;
 
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 
 /**
  * Helping data structure to represent a render vertex in a @VertexBufferObject.

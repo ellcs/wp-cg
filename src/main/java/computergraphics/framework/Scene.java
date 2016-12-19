@@ -14,7 +14,7 @@ import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.fixedfunc.GLMatrixFunc;
 import com.jogamp.opengl.glu.GLU;
 
-import computergraphics.framework.math.Matrix;
+import computergraphics.math.Matrix;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.rendering.Shader.ShaderMode;
 import computergraphics.framework.rendering.ShaderAttributes;

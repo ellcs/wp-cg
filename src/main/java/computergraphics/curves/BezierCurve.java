@@ -2,7 +2,7 @@ package computergraphics.curves;
 
 import java.util.List;
 
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 
 /**
  * Created by alex on 11/15/16.

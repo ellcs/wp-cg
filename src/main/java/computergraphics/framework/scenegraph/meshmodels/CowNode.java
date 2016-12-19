@@ -1,6 +1,6 @@
 package computergraphics.framework.scenegraph.meshmodels;
 
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 import computergraphics.framework.mesh.ObjReader;
 import computergraphics.framework.mesh.Triangle;
 import computergraphics.framework.mesh.TriangleMesh;

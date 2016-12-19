@@ -5,7 +5,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.ArrayList;
 import java.util.List;
 
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 import computergraphics.framework.rendering.Texture;
 
 /**

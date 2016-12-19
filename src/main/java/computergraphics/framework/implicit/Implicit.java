@@ -3,7 +3,7 @@ package computergraphics.framework.implicit;
 import java.util.ArrayList;
 import java.util.List;
 
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 import computergraphics.framework.mesh.ITriangleMesh;
 import computergraphics.framework.mesh.Triangle;
 import computergraphics.framework.mesh.Vertex;

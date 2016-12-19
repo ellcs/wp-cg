@@ -1,4 +1,4 @@
-package computergraphics.framework.math;
+package computergraphics.math;
 
 import org.junit.Before;
 import org.junit.Test;

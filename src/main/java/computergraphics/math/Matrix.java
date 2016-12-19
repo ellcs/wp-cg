@@ -1,4 +1,4 @@
-package computergraphics.framework.math;
+package computergraphics.math;
 
 /**
  * Representation of a matrix with arbitrary dimension.

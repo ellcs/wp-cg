@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import computergraphics.framework.math.Colors;
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Colors;
+import computergraphics.math.Vector;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.INode;
 import computergraphics.framework.scenegraph.INode.RenderMode;

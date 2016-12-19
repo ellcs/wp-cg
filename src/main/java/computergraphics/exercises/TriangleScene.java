@@ -3,11 +3,10 @@ package computergraphics.exercises;
 import java.util.ArrayList;
 import java.util.List;
 
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 import computergraphics.framework.mesh.ObjReader;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.INode;
-import computergraphics.framework.scenegraph.LineNode;
 import computergraphics.framework.scenegraph.RotationNode;
 import computergraphics.framework.scenegraph.SphereNode;
 import computergraphics.framework.scenegraph.TimerTickable;

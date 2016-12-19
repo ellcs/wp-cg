@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.jogamp.opengl.GL2;
 
-import computergraphics.framework.math.Matrix;
+import computergraphics.math.Matrix;
 
 public class InnerNode extends INode {
 

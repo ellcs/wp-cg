@@ -6,8 +6,8 @@
  */
 package computergraphics.framework.scenegraph;
 
-import computergraphics.framework.math.Matrix;
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Matrix;
+import computergraphics.math.Vector;
 
 /**
  * Represents a camera.

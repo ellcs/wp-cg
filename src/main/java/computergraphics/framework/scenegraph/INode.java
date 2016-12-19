@@ -8,7 +8,7 @@ package computergraphics.framework.scenegraph;
 
 import com.jogamp.opengl.GL2;
 
-import computergraphics.framework.math.Matrix;
+import computergraphics.math.Matrix;
 
 /**
  * Parent class for all scene graph nodes.

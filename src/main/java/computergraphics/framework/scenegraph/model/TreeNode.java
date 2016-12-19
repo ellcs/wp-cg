@@ -2,9 +2,9 @@ package computergraphics.framework.scenegraph.model;
 
 import com.jogamp.opengl.GL2;
 
-import computergraphics.framework.math.Colors;
-import computergraphics.framework.math.Matrix;
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Colors;
+import computergraphics.math.Matrix;
+import computergraphics.math.Vector;
 import computergraphics.framework.scenegraph.CylinderNode;
 import computergraphics.framework.scenegraph.InnerNode;
 import computergraphics.framework.scenegraph.RotationNode;

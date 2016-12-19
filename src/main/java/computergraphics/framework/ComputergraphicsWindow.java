@@ -19,7 +19,7 @@ import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.awt.GLJPanel;
 import com.jogamp.opengl.util.FPSAnimator;
 
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 
 /**
  * This class represents a view for 3D content.

@@ -5,7 +5,7 @@
  * Base framework for "WP Computergrafik".
  */
 
-package computergraphics.framework.math;
+package computergraphics.math;
 
 /**
  * Contains various helper classes.

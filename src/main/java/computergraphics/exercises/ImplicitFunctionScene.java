@@ -5,7 +5,7 @@ import java.util.List;
 
 import computergraphics.framework.implicit.Implicit;
 import computergraphics.framework.implicit.Lambda;
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 import computergraphics.framework.mesh.ObjReader;
 import computergraphics.framework.mesh.TriangleMesh;
 import computergraphics.framework.rendering.Shader;

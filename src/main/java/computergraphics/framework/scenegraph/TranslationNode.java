@@ -8,8 +8,8 @@ package computergraphics.framework.scenegraph;
 
 import com.jogamp.opengl.GL2;
 
-import computergraphics.framework.math.Vector;
-import computergraphics.framework.math.Matrix;
+import computergraphics.math.Vector;
+import computergraphics.math.Matrix;
 
 /**
  * Translate all child nodes.

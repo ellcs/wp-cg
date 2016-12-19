@@ -1,4 +1,4 @@
-package computergraphics.framework.math;
+package computergraphics.math;
 
 import java.io.Serializable;
 import java.util.Arrays;

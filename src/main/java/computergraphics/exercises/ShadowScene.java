@@ -3,8 +3,7 @@ package computergraphics.exercises;
 import java.util.ArrayList;
 import java.util.List;
 
-import computergraphics.framework.math.MathHelpers;
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 import computergraphics.framework.mesh.ObjReader;
 import computergraphics.framework.mesh.ShadowTriangleMesh;
 import computergraphics.framework.rendering.Shader;

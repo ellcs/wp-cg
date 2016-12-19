@@ -1,6 +1,6 @@
 package computergraphics.framework.implicit;
 
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 
 /**
  * Created by alex on 11/4/16.

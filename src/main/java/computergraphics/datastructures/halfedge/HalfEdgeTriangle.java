@@ -1,7 +1,6 @@
 package computergraphics.datastructures.halfedge;
 
-import computergraphics.framework.math.Vector;
-import computergraphics.framework.mesh.Vertex;
+import computergraphics.math.Vector;
 
 /**
  * A facet has a reference to one of its half edges. This datastructure

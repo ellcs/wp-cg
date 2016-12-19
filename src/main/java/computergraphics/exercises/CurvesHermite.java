@@ -8,13 +8,11 @@
 package computergraphics.exercises;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import computergraphics.curves.HermiteCurve;
-import computergraphics.curves.HermiteSpline;
 import computergraphics.framework.Scene;
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.INode;
 import computergraphics.framework.scenegraph.INode.RenderMode;

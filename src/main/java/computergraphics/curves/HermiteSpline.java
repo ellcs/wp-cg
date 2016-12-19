@@ -1,6 +1,6 @@
 package computergraphics.curves;
 
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 
 import java.util.ArrayList;
 import java.util.Arrays;

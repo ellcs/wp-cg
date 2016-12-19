@@ -5,12 +5,11 @@ import com.jogamp.opengl.GL2;
 import java.util.ArrayList;
 import java.util.List;
 
-import computergraphics.framework.math.Colors;
-import computergraphics.framework.math.Matrix;
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Colors;
+import computergraphics.math.Matrix;
+import computergraphics.math.Vector;
 import computergraphics.framework.mesh.ITriangleMesh;
 import computergraphics.framework.mesh.Triangle;
-import computergraphics.framework.mesh.TriangleMesh;
 import computergraphics.framework.mesh.Vertex;
 import computergraphics.framework.rendering.RenderVertex;
 import computergraphics.framework.rendering.VertexBufferObject;

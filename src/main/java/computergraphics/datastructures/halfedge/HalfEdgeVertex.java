@@ -6,7 +6,7 @@
  */
 package computergraphics.datastructures.halfedge;
 
-import computergraphics.framework.math.Vector;
+import computergraphics.math.Vector;
 
 /**
  * Representation of a vertex.

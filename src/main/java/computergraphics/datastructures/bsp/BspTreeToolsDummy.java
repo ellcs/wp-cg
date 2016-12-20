@@ -1,7 +1,6 @@
 package computergraphics.datastructures.bsp;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import computergraphics.math.PrincipalComponentAnalysis;
@@ -98,11 +97,24 @@ public class BspTreeToolsDummy {
     if (node != null) {
       if (node.IsPositive(eye)) {
         accu.addAll(getBackToFront(node.GetChild(BspTreeNode.Orientation.NEGATIVE), points, eye));
+        accu.addAll(getAllIndices(node));
         accu.addAll(getBackToFront(node.GetChild(BspTreeNode.Orientation.POSITIVE), points, eye));
       } else {
         accu.addAll(getBackToFront(node.GetChild(BspTreeNode.Orientation.POSITIVE), points, eye));
+        accu.addAll(getAllIndices(node));
         accu.addAll(getBackToFront(node.GetChild(BspTreeNode.Orientation.NEGATIVE), points, eye));
       }
+    }
+    return accu;
+  }
+
+  private List<Integer> getAllIndices(BspTreeNode node) {
+    List<Integer> accu = new ArrayList<>();
+    for (int i = 0; i < node.getNumberOfElements(BspTreeNode.Orientation.POSITIVE); i++) {
+      accu.add(node.getElement(BspTreeNode.Orientation.POSITIVE, i));
+    }
+    for (int i = 0; i < node.getNumberOfElements(BspTreeNode.Orientation.NEGATIVE); i++) {
+      accu.add(node.getElement(BspTreeNode.Orientation.NEGATIVE, i));
     }
     return accu;
   }

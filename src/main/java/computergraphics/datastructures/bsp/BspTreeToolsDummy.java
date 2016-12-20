@@ -72,7 +72,7 @@ public class BspTreeToolsDummy {
       parentNode.SetChild(BspTreeNode.Orientation.POSITIVE, createBspTree(null, allPoints, posIndices));
     }
 
-    if (posIndices.size() == 1) {
+    if (negIndices.size() == 1) {
       parentNode.AddElement(BspTreeNode.Orientation.NEGATIVE, negIndices.get(0));
     } else {
       parentNode.SetChild(BspTreeNode.Orientation.NEGATIVE, createBspTree(null, allPoints, negIndices));

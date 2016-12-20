@@ -31,50 +31,54 @@ public class BspTreeToolsDummy {
 
     // default centroid (average of two points) and normals (difference) are
     // set here. these are valid, when there are only two points left.
-    Vector v0 = allPoints.get(0);
-    Vector v1 = allPoints.get(1);
+    Vector v0 = allPoints.get(pointIndices.get(0));
+    Vector v1 = allPoints.get(pointIndices.get(1));
     Vector centroid = v0.add(v1).multiply(0.5f);
     Vector normal = v0.subtract(v1).getNormalized();
 
     // when there are more then two points, we use pca in order get our
     // centroid and our normal (biggest eigenvektor).
     if (pointIndices.size() > 2) {
-      System.out.println("foobar");
       PrincipalComponentAnalysis pca = new PrincipalComponentAnalysis();
-      pca.addAll(allPoints);
+
+      for (Integer index : pointIndices) {
+        pca.add(allPoints.get(index));
+      }
       pca.applyPCA();
       centroid = pca.getCentroid();
       normal = pca.getBiggestEigenvector();
     }
-    parentNode.setN(normal);
     parentNode.setP(centroid);
+    parentNode.setN(normal);
+
+    List<Integer> posIndices = new ArrayList<>();
+    List<Integer> negIndices = new ArrayList<>();
 
     // assign all points to pos or neg in parent node
-    for (int i = 0; i < pointIndices.size(); i++) {
-      Vector point = allPoints.get(i);
-      Integer index = pointIndices.get(i);
-      parentNode.AddElement(point, index);
+    for (Integer i : pointIndices) {
+      Vector p = allPoints.get(i);
+      if (parentNode.IsPositive(p)) {
+        posIndices.add(i);
+      } else {
+        negIndices.add(i);
+      }
     }
-    System.out.println("Pos: " + parentNode.getNumberOfElements(BspTreeNode.Orientation.POSITIVE));
-    System.out.println("Neg: " + parentNode.getNumberOfElements(BspTreeNode.Orientation.NEGATIVE));
+    System.out.println("Pos: " + posIndices.size() + " " + posIndices.toString());
+    System.out.println("Neg: " + negIndices.size() + " " + negIndices.toString());
 
-    recurse(parentNode, allPoints, BspTreeNode.Orientation.POSITIVE);
-    recurse(parentNode, allPoints, BspTreeNode.Orientation.NEGATIVE);
+    if (posIndices.size() == 1) {
+      parentNode.AddElement(BspTreeNode.Orientation.POSITIVE, posIndices.get(0));
+    } else {
+      parentNode.SetChild(BspTreeNode.Orientation.POSITIVE, createBspTree(null, allPoints, posIndices));
+    }
+
+    if (posIndices.size() == 1) {
+      parentNode.AddElement(BspTreeNode.Orientation.NEGATIVE, negIndices.get(0));
+    } else {
+      parentNode.SetChild(BspTreeNode.Orientation.NEGATIVE, createBspTree(null, allPoints, negIndices));
+    }
 
     return parentNode;
-  }
-
-  /**
-   * Fetches all indices for given orientation, from parentNode and sets a child for given orientation.
-   */
-  private void recurse(BspTreeNode parentNode, List<Vector> allPoints, BspTreeNode.Orientation orientation) {
-    BspTreeNode child = new BspTreeNode();
-    List<Integer> indicies = new ArrayList<>();
-    for (int i = 0; i < parentNode.getNumberOfElements(orientation); i++) {
-      int posIndex = parentNode.getElement(orientation, i);
-      indicies.add(posIndex);
-    }
-    parentNode.SetChild(orientation, createBspTree(child, allPoints, indicies));
   }
 
   /**
@@ -94,12 +98,6 @@ public class BspTreeToolsDummy {
     if (node != null) {
       if (node.IsPositive(eye)) {
         accu.addAll(getBackToFront(node.GetChild(BspTreeNode.Orientation.NEGATIVE), points, eye));
-        if (node.getNumberOfElements(BspTreeNode.Orientation.NEGATIVE) == 1) {
-          return Arrays.asList(node.getElement(BspTreeNode.Orientation.NEGATIVE, 0));
-        }
-        if (node.getNumberOfElements(BspTreeNode.Orientation.POSITIVE) == 1) {
-          return Arrays.asList(node.getElement(BspTreeNode.Orientation.POSITIVE, 0));
-        }
         accu.addAll(getBackToFront(node.GetChild(BspTreeNode.Orientation.POSITIVE), points, eye));
       } else {
         accu.addAll(getBackToFront(node.GetChild(BspTreeNode.Orientation.POSITIVE), points, eye));

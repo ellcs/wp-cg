@@ -123,7 +123,7 @@ public class BspTreeNode {
 
   @Override
   public String toString() {
-    return "BspTreeNode{" +
+    return "BspTreeNode{" +  "\n" +
             "children=" + Arrays.toString(children) +
             ", elementsPos=" + elementsPos +
             ", elementsNeg=" + elementsNeg +

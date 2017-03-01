@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wp-cg.iml" filepath="$PROJECT_DIR$/.idea/modules/wp-cg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wp-cg_main.iml" filepath="$PROJECT_DIR$/.idea/modules/wp-cg_main.iml" group="wp-cg" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wp-cg_test.iml" filepath="$PROJECT_DIR$/.idea/modules/wp-cg_test.iml" group="wp-cg" />
+    </modules>
+  </component>
+</project>

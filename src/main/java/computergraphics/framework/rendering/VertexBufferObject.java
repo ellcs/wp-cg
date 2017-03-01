@@ -57,7 +57,7 @@ public class VertexBufferObject {
     colorBuffer = createColorBuffer(gl);
     indexBuffer = createIndexBuffer();
     Shader.checkGlError(gl);
-    System.out.println("Created VBO buffers (vertex, normal, color, index).");
+//    System.out.println("Created VBO buffers (vertex, normal, color, index).");
   }
 
   /**
@@ -135,7 +135,7 @@ public class VertexBufferObject {
    */
   public void draw(GL2 gl) {
     if (positionBuffer == null || normalBuffer == null || colorBuffer == null) {
-      init(gl);
+    init(gl);
     }
 
     gl.glEnableVertexAttribArray(

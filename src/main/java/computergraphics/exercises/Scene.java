@@ -7,6 +7,8 @@
 
 package computergraphics.exercises;
 
+import com.jogamp.opengl.GL2;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -109,7 +111,6 @@ public class Scene extends computergraphics.framework.Scene {
     translationNode.addChild(scaleNode);
     scaleNode.addChild(treeNode);
   }
-
 
   @Override
   public void keyPressed(int keyCode) {

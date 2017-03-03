@@ -72,11 +72,12 @@ public class PointNode extends LeafNode implements TimerTickable {
 //      i = i - 0.1f;
 //      gl.glDepthMask(true);
       gl.glPointSize(i);
+      gl.glEnable(GL2.GL_BLEND);
       gl.glEnable(GL2.GL_POINT_SMOOTH);
-//      gl.glBegin(GL2.GL_POINTS);
-//      gl.glVertex3d(0,0,0);
-//      gl.glEnd();
-      vbo.draw(gl);
+      gl.glBegin(GL2.GL_POINTS);
+      gl.glVertex3d(0,0,0);
+      gl.glEnd();
+//      vbo.draw(gl);
     }
   }
 

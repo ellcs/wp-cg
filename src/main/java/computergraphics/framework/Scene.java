@@ -143,6 +143,7 @@ public abstract class Scene extends JFrame {
 
     // Blending
     gl.glEnable(GL2.GL_BLEND);
+    gl.glEnable(GL2.GL_POINT_SMOOTH);
     gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
 
     Shader.checkGlError(gl);

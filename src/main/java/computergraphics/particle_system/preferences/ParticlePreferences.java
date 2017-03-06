@@ -8,7 +8,7 @@ import computergraphics.framework.math.Vector;
 public class ParticlePreferences {
 
     public static class Creation {
-        public double startSpeed;
+        public Double startSpeed;
         public Vector startDirection;
         public Vector startForce;
 
@@ -29,7 +29,7 @@ public class ParticlePreferences {
     }
 
     public static class Dead {
-        public int maximumLifetime;
+        public Integer maximumLifetime;
         public Vector deadColor;
     }
 

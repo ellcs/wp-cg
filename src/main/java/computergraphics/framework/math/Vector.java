@@ -12,6 +12,10 @@ public class Vector implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
+  public static Vector zero() {
+      return new Vector(0,0,0);
+  }
+
   /**
    * Array contaising the values of the vector. Length of the array matches the
    * vector dimension.

@@ -134,9 +134,7 @@ public class VertexBufferObject {
    * Draw using the VBO
    */
   public void draw(GL2 gl) {
-    if (positionBuffer == null || normalBuffer == null || colorBuffer == null) {
     init(gl);
-    }
 
     gl.glEnableVertexAttribArray(
         ShaderAttributes.getInstance().getVertexLocation());
@@ -164,16 +162,20 @@ public class VertexBufferObject {
     }
 
     Shader.checkGlError(gl);
+
+    invalidate(gl);
   }
 
   /**
    * Delete all buffers.
    */
-  public void invalidate() {
+  public void invalidate(GL2 gl) {
     positionBuffer = null;
     normalBuffer = null;
     colorBuffer = null;
 
-    System.out.println("TODO: Free allocated mem.");
+    gl.glDisableVertexAttribArray(ShaderAttributes.getInstance().getVertexLocation());
+    gl.glDisableVertexAttribArray(ShaderAttributes.getInstance().getNormalLocation());
+    gl.glDisableVertexAttribArray(ShaderAttributes.getInstance().getColorLocation());
   }
 }

@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface IEmitter {
 
-    List<RenderVertex> getRenderVertecies();
+    List<RenderVertex> getRenderVerticies();
 
     void update(float deltaTime);
 }

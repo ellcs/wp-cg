@@ -1,5 +1,6 @@
 package computergraphics.particle_system;
 
+import computergraphics.framework.math.Colors;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.RenderVertex;
 
@@ -11,17 +12,34 @@ public class Particle {
     /**
      * Contains position, normal and color.
      */
-    public RenderVertex renderVertex;
+    private RenderVertex renderVertex;
 
     /**
      * Current direction of this particle.
      */
-    public Vector direction;
+    private Vector direction;
 
     /**
      * Current speed of this particle.
      */
-    public double speed;
-    
+    private double speed;
+
+    /**
+     * Lifetime in milliseconds.
+     */
+    private float lifetime = 0f;
+
+    public Particle(Vector position) {
+        this.renderVertex = new RenderVertex(position, Vector.zero(), Colors.darkGreen);
+    }
+
+    public void update(float deltaTime) {
+        this.lifetime+= deltaTime;
+    }
+
+    public RenderVertex getRenderVertex() {
+        return this.renderVertex;
+    }
+
 
 }

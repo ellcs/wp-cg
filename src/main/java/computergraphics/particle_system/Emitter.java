@@ -62,14 +62,21 @@ public class Emitter implements IEmitter {
         sortParticles();
     }
 
+    @Override
+    public boolean drawEmitterBox() {
+        return this.emitterPreferences.drawEmitterBox;
+    }
+
+    @Override
+    public Vector getEmitterBox() {
+        return this.emitterPreferences.emitterSize;
+    }
+
     private void updateAllParticles(long deltaTime) {
         for (Particle particle : this.particles) {
             particle.update(deltaTime);
         }
-        // for all particles p:
-        // p.update(deltaTime);
     }
-
 
     private void removeDeadParticles() {
         this.particles.removeAll(getDeadParticles());

@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import computergraphics.datastructures.halfedge.HalfEdgeTriangle;
-import computergraphics.framework.mesh.HalfEdgeTriangleMesh;
 
 import static junit.framework.TestCase.assertEquals;
 

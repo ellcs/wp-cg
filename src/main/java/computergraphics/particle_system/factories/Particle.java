@@ -18,15 +18,7 @@ public class Particle {
      */
     RenderVertex renderVertex;
 
-    /**
-     * Current direction of this particle.
-     */
-    Vector direction;
-
-    /**
-     * Current speed of this particle.
-     */
-    double speed;
+    Vector actualForce;
 
     /**
      * Lifetime in milliseconds.
@@ -37,6 +29,8 @@ public class Particle {
 
     public void update(long deltaTime) {
         this.lifetime+= deltaTime;
+        Vector movementInDeltaTime = this.actualForce.multiply(deltaTime);
+        this.renderVertex.position = this.renderVertex.position.add(movementInDeltaTime);
     }
 
     public RenderVertex getRenderVertex() {

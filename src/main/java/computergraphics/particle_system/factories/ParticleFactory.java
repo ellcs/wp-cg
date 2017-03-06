@@ -37,7 +37,12 @@ public class ParticleFactory {
         newParticle.renderVertex = new RenderVertex(position, Vector.zero(), Colors.darkGreen);
         setOwnMaximumLifetime(newParticle);
         setStartColor(newParticle);
+        setActualForce(newParticle);
         return newParticle;
+    }
+
+    private void setActualForce(Particle particle) {
+        particle.actualForce = this.particlePreferences.creation.startForce;
     }
 
     private void setOwnMaximumLifetime(Particle particle) {

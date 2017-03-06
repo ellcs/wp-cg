@@ -14,7 +14,7 @@ public class EmitterPreferences {
 
     /**
      * The maximum amount of particles, which might be created by the
-     * emitter.
+     * emitter. When maximum reached, no other particles will be spawned.
      */
     public Integer maximumParticles;
 
@@ -33,6 +33,8 @@ public class EmitterPreferences {
      * Within these ranges, the particles are created.
      */
     public Vector emitterSize;
+
+    public boolean drawEmitterBox = false;
 
     /**
      * All particles are always in that box. When a particle leaves the

@@ -27,9 +27,13 @@ public class VectorHelper {
     }
 
     public Vector getRandomVector() {
-        float x = r.nextFloat();
-        float z = r.nextFloat();
-        float y = r.nextFloat();
+        // nextFloat is between 0.0 and 1.0
+        // we use nextInt instead and divide it by 1000f
+        // so we get small values, which are bigger then one :)
+        int bigPrime = 105929;
+        float x = r.nextFloat() * bigPrime;
+        float z = r.nextFloat() * bigPrime;
+        float y = r.nextFloat() * bigPrime;
         Vector v = new Vector(x, y, z);
         return v;
     }

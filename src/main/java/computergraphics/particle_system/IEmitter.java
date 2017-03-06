@@ -1,5 +1,6 @@
 package computergraphics.particle_system;
 
+import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.RenderVertex;
 
 import java.util.List;
@@ -12,4 +13,8 @@ public interface IEmitter {
     List<RenderVertex> getRenderVerticies();
 
     void update(long deltaTime);
+
+    boolean drawEmitterBox();
+
+    Vector getEmitterBox();
 }

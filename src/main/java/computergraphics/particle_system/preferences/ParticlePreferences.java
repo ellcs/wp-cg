@@ -29,7 +29,7 @@ public class ParticlePreferences {
     }
 
     public static class Dead {
-        public Integer maximumLifetime;
+        public long maximumLifetime;
         public Vector deadColor;
     }
 

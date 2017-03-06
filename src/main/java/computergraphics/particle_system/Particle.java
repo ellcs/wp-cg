@@ -27,13 +27,13 @@ public class Particle {
     /**
      * Lifetime in milliseconds.
      */
-    private float lifetime = 0f;
+    private long lifetime = 0;
 
     public Particle(Vector position) {
         this.renderVertex = new RenderVertex(position, Vector.zero(), Colors.darkGreen);
     }
 
-    public void update(float deltaTime) {
+    public void update(long deltaTime) {
         this.lifetime+= deltaTime;
     }
 

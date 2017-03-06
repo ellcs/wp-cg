@@ -42,14 +42,14 @@ public class Emitter implements IEmitter {
      * Updates all particles, removes dead ones and creates new ones.
      * @param deltaTime is the last t
      */
-    public void update(float deltaTime) {
+    public void update(long deltaTime) {
         updateAllParticles(deltaTime);
         removeDeadParticles();
         createNewParticles(deltaTime);
         sortParticles();
     }
 
-    private void updateAllParticles(float deltaTime) {
+    private void updateAllParticles(long deltaTime) {
         for (Particle particle : this.particles) {
             particle.update(deltaTime);
         }
@@ -61,14 +61,11 @@ public class Emitter implements IEmitter {
 
     }
 
-    private void createNewParticles(float deltaTime) {
+    private void createNewParticles(long deltaTime) {
         float minPerDeltaTime = this.emitterPreferences.spawnRate.minPerMilliSec * deltaTime;
         float maxPerDeltaTime = this.emitterPreferences.spawnRate.maxPerMilliSec * deltaTime;
         int amountToCreate = (int) ((r.nextFloat() + minPerDeltaTime) % maxPerDeltaTime);
-        System.out.println("dt:" + deltaTime);
-        System.out.println("min pdt: " + minPerDeltaTime);
-        System.out.println("max pdt: " + maxPerDeltaTime);
-        System.out.println("amount to create: " + amountToCreate);
+
         for (int i = 0; i < amountToCreate; i++) {
             createNewParticle();
         }
@@ -81,10 +78,13 @@ public class Emitter implements IEmitter {
     }
 
     private Vector getRandomVectorInRange(Vector range) {
+        if (range == null) {
+            throw new IllegalArgumentException("'range' can not be null.");
+        }
         Vector v = getRandomVector();
         v.set(0, v.x() % range.x());
-        v.set(1, v.z() % range.z());
-        v.set(2, v.y() % range.y());
+        v.set(1, v.y() % range.y());
+        v.set(2, v.z() % range.z());
         return v;
     }
 

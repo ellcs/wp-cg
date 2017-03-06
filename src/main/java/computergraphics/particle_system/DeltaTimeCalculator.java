@@ -5,18 +5,18 @@ package computergraphics.particle_system;
  */
 public class DeltaTimeCalculator {
 
-    float timeAtLastFrame;
+    long timeAtLastFrame;
 
     /**
      * This is delta time.
      */
-    float timeSinceLastFrame;
+    long timeSinceLastFrame;
 
     public DeltaTimeCalculator() {
         this.timeAtLastFrame = currentTime();
     }
 
-    private float currentTime() {
+    private long currentTime() {
         return System.currentTimeMillis();
     }
 
@@ -28,7 +28,7 @@ public class DeltaTimeCalculator {
         this.timeAtLastFrame = currentTime();
     }
 
-    public float getDeltaTime() {
+    public long getDeltaTime() {
         return timeSinceLastFrame;
     }
 }

@@ -11,5 +11,5 @@ public interface IEmitter {
 
     List<RenderVertex> getRenderVerticies();
 
-    void update(float deltaTime);
+    void update(long deltaTime);
 }

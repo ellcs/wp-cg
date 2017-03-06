@@ -1,5 +1,6 @@
 package computergraphics.exercises;
 
+import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.INode;
 import computergraphics.framework.scenegraph.TimerTickable;
@@ -23,8 +24,9 @@ public class RainParticleSystem extends computergraphics.framework.Scene {
         super(40, Shader.ShaderMode.PHONG, INode.RenderMode.REGULAR);
 
         EmitterPreferences emitterPreferences = new EmitterPreferences();
-        emitterPreferences.spawnRate.maxPerMilliSec = 1000f;
-        emitterPreferences.spawnRate.minPerMilliSec = 10f;
+        emitterPreferences.emitterSize = new Vector(1,1,1);
+        emitterPreferences.spawnRate.maxPerMilliSec = 2f;
+        emitterPreferences.spawnRate.minPerMilliSec = 0.5f;
 
         ParticlePreferences particlePreferences = new ParticlePreferences();
 

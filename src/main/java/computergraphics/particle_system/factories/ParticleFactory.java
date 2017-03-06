@@ -37,12 +37,27 @@ public class ParticleFactory {
         newParticle.renderVertex = new RenderVertex(position, Vector.zero(), Colors.darkGreen);
         setOwnMaximumLifetime(newParticle);
         setStartColor(newParticle);
-        setActualForce(newParticle);
+        setActualSpeed(newParticle);
+        setForces(newParticle);
         return newParticle;
     }
 
-    private void setActualForce(Particle particle) {
-        particle.actualForce = this.particlePreferences.creation.startForce;
+    private void setForces(Particle particle) {
+        int amountOfForces = this.particlePreferences.life.amountOfForces;
+        Vector range = this.particlePreferences.life.forceBoxSize;
+        range.addSelf(this.particlePreferences.life.forceBoxPosition);
+        Vector[] forces = new Vector[amountOfForces];
+        for (int i = 0; i < amountOfForces; i++) {
+            Vector force = vectorHelper.getRandomVectorInRange(range);
+            force.normalize();
+            force.multiplySelf(this.particlePreferences.life.forceLength);
+            forces[i] = force;
+        }
+        particle.forces = forces;
+    }
+
+    private void setActualSpeed(Particle particle) {
+        particle.actualSpeed = this.particlePreferences.creation.startSpeed;
     }
 
     private void setOwnMaximumLifetime(Particle particle) {

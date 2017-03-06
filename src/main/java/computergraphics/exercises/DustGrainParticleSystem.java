@@ -5,7 +5,6 @@ import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.INode;
 import computergraphics.framework.scenegraph.TimerTickable;
-import computergraphics.framework.scenegraph.TranslationNode;
 import computergraphics.framework.scenegraph.particle_system.EmitterNode;
 import computergraphics.particle_system.Emitter;
 import computergraphics.particle_system.preferences.EmitterPreferences;
@@ -17,38 +16,37 @@ import java.util.List;
 /**
  * Created by ellcs on 06.03.17.
  */
-public class RainParticleSystem extends computergraphics.framework.Scene {
+public class DustGrainParticleSystem extends computergraphics.framework.Scene {
 
     List<TimerTickable> tickableList = new ArrayList<>();
     boolean paused = false;
 
-    public RainParticleSystem() {
+    public DustGrainParticleSystem() {
         // Timer timeout and shader mode (PHONG, TEXTURE, NO_LIGHTING)
         super(3, Shader.ShaderMode.PHONG, INode.RenderMode.REGULAR);
 
         EmitterPreferences emitterPreferences = new EmitterPreferences();
-        emitterPreferences.maximumParticles = 350;
-        emitterPreferences.emitterSize = new Vector(1,0.2,1);
+        emitterPreferences.maximumParticles = 400;
+        emitterPreferences.emitterSize = new Vector(2,2,2);
         emitterPreferences.drawEmitterBox = true;
         emitterPreferences.spawnRate.maxPerMilliSec = 50f;
         emitterPreferences.spawnRate.minPerMilliSec = 35f;
 
         ParticlePreferences particlePreferences = new ParticlePreferences();
-        particlePreferences.particleSize = 2f;
-        particlePreferences.creation.startColor = Colors.blue;
-        particlePreferences.creation.startSpeed = new Vector(0.0001, -0.009, 0);
-        particlePreferences.dead.minimumLifetimeInMilliSec = 2000;
+        particlePreferences.particleSize = 2.5f;
+        particlePreferences.creation.startColor = Colors.white;
+        particlePreferences.creation.startSpeed = new Vector(0.00001, 0.000001, 0);
+        particlePreferences.life.amountOfForces = 2;
+        particlePreferences.life.forceLength = 0.0001f;
+        particlePreferences.life.forceBoxSize = new Vector(1,1,1);
+        particlePreferences.dead.minimumLifetimeInMilliSec = 1500;
         particlePreferences.dead.maximumLifetimeInMilliSec = particlePreferences.dead.minimumLifetimeInMilliSec;
 
         Emitter e = new Emitter(emitterPreferences, particlePreferences);
         EmitterNode emitterNode = new EmitterNode(e);
         this.tickableList.add(emitterNode);
 
-//        getRoot().addChild(emitterNode);
-
-        TranslationNode translationNode = new TranslationNode(new Vector(-1, 1, 0));
-        translationNode.addChild(emitterNode);
-        getRoot().addChild(translationNode);
+        getRoot().addChild(emitterNode);
     }
 
     @Override
@@ -70,7 +68,7 @@ public class RainParticleSystem extends computergraphics.framework.Scene {
     }
 
     public static void main(String[] args) {
-        new RainParticleSystem();
+        new DustGrainParticleSystem();
     }
 
 }

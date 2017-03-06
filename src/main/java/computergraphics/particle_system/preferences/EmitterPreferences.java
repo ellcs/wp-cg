@@ -1,7 +1,6 @@
 package computergraphics.particle_system.preferences;
 
 import computergraphics.framework.math.Vector;
-import computergraphics.particle_system.Emitter;
 
 /**
  * Created by ellcs on 03.03.17.
@@ -35,11 +34,5 @@ public class EmitterPreferences {
     public Vector emitterSize;
 
     public boolean drawEmitterBox = false;
-
-    /**
-     * All particles are always in that box. When a particle leaves the
-     * partileBoxSize, it dies.
-     */
-    public Vector particleBoxSize;
 
 }

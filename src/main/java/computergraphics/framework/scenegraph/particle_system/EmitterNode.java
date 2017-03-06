@@ -14,7 +14,7 @@ import static com.jogamp.opengl.GL.GL_LINES;
 /**
  * Created by ellcs on 06.03.17.
  */
-public class EmitterNode extends LeafNode implements TimerTickable{
+public class EmitterNode extends LeafNode implements TimerTickable {
 
     IEmitter emitter;
 
@@ -97,7 +97,7 @@ public class EmitterNode extends LeafNode implements TimerTickable{
     @Override
     public void drawGL(GL2 gl, RenderMode mode, Matrix modelMatrix) {
         createVbo();
-        gl.glPointSize(3);
+        gl.glPointSize(this.emitter.getParticleSize());
         if (mode == RenderMode.REGULAR) {
             vbo.draw(gl);
             drawEmitterBox(gl);

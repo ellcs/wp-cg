@@ -17,4 +17,6 @@ public interface IEmitter {
     boolean drawEmitterBox();
 
     Vector getEmitterBox();
+
+    float getParticleSize();
 }

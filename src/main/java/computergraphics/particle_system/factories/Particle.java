@@ -2,7 +2,6 @@ package computergraphics.particle_system.factories;
 
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.RenderVertex;
-import computergraphics.particle_system.helpers.RandomHelper;
 
 /**
  * Created by ellcs on 03.03.17.
@@ -11,14 +10,14 @@ import computergraphics.particle_system.helpers.RandomHelper;
  */
 public class Particle {
 
-    private RandomHelper randomHelper;
-
     /**
      * Contains position, normal and color.
      */
     RenderVertex renderVertex;
 
-    Vector actualForce;
+    Vector actualSpeed;
+
+    Vector[] forces;
 
     /**
      * Lifetime in milliseconds.
@@ -29,8 +28,25 @@ public class Particle {
 
     public void update(long deltaTime) {
         this.lifetime+= deltaTime;
-        Vector movementInDeltaTime = this.actualForce.multiply(deltaTime);
+        updateSpeed(deltaTime);
+        Vector movementInDeltaTime = this.actualSpeed.multiply(deltaTime);
         this.renderVertex.position = this.renderVertex.position.add(movementInDeltaTime);
+    }
+
+    /**
+     * Updates the general speed.
+     *
+     * There are multiple forces:
+     *
+     *     F = l / t*t
+     *
+     * By multiplying <code>deltaTime</code> as t, we modify the speed.
+     */
+    private void updateSpeed(long deltaTime) {
+        for (Vector force : this.forces) {
+            force = force.subtract(this.renderVertex.position);
+            this.actualSpeed.addSelf(force.multiply(deltaTime));
+        }
     }
 
     public RenderVertex getRenderVertex() {

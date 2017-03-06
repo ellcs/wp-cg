@@ -72,6 +72,11 @@ public class Emitter implements IEmitter {
         return this.emitterPreferences.emitterSize;
     }
 
+    @Override
+    public float getParticleSize() {
+        return this.particlePreferences.particleSize;
+    }
+
     private void updateAllParticles(long deltaTime) {
         for (Particle particle : this.particles) {
             particle.update(deltaTime);

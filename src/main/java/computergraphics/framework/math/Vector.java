@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * Representation of a vector with arbitraty dimension.
+ * Representation of a VectorHelper with arbitraty dimension.
  * 
  * @author Philipp Jenke
  */
@@ -17,16 +17,16 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Array contaising the values of the vector. Length of the array matches the
-   * vector dimension.
+   * Array contaising the values of the VectorHelper. Length of the array matches the
+   * VectorHelper dimension.
    */
   private double[] values;
 
   /**
-   * Create a vector.
+   * Create a VectorHelper.
    * 
    * @param dimension
-   *          Dimension of the created vector.
+   *          Dimension of the created VectorHelper.
    */
   public Vector(int dimension) {
     values = new double[dimension];
@@ -83,7 +83,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Copy coordinates of other vector.
+   * Copy coordinates of other VectorHelper.
    * 
    * @param other
    *          Vector to copy from.
@@ -100,7 +100,7 @@ public class Vector implements Serializable {
   /**
    * Getter for the dimension.
    * 
-   * @return Dimension of the vector.
+   * @return Dimension of the VectorHelper.
    */
   public int getDimension() {
     return values.length;
@@ -130,7 +130,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Subtract other vector, return result as new vector.
+   * Subtract other VectorHelper, return result as new VectorHelper.
    * 
    * @param other
    *          Vector to be subtracted.
@@ -152,7 +152,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Add other vector, return result as new vector.
+   * Add other VectorHelper, return result as new VectorHelper.
    * 
    * @param other
    *          Vector to be added.
@@ -170,16 +170,16 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Getter for norm of the vector.
+   * Getter for norm of the VectorHelper.
    * 
-   * @return Norm (length) of the vector.
+   * @return Norm (length) of the VectorHelper.
    */
   public double getNorm() {
     return Math.sqrt(getSqrNorm());
   }
 
   /**
-   * Getter for squared norm of the vector.
+   * Getter for squared norm of the VectorHelper.
    * 
    * @return Squared norm (squared length).
    */
@@ -192,11 +192,11 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Multiply other vector, compute scalar product.
+   * Multiply other VectorHelper, compute scalar product.
    * 
    * @param other
    *          Vector to be mutiplied.
-   * @return Scalar product of the two vector.
+   * @return Scalar product of the two VectorHelper.
    */
   public double multiply(Vector other) {
     if (other == null || other.getDimension() != getDimension()) {
@@ -210,11 +210,11 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Scale vector, return result as new vector.
+   * Scale VectorHelper, return result as new VectorHelper.
    * 
    * @param factor
    *          Scaling factor.
-   * @return Scaled vector.
+   * @return Scaled VectorHelper.
    */
   public Vector multiply(double factor) {
     Vector result = new Vector(getDimension());
@@ -225,10 +225,10 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Compute the inner product of the vector with another vector.
+   * Compute the inner product of the VectorHelper with another VectorHelper.
    * 
    * @param other
-   *          Other vector
+   *          Other VectorHelper
    * @return Resulting matrix.
    */
   public Matrix innerProduct(Vector other) {
@@ -243,21 +243,21 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Create a normalized version of the vector, return as result.
+   * Create a normalized version of the VectorHelper, return as result.
    * 
-   * @return Normalized vector.
+   * @return Normalized VectorHelper.
    */
   public Vector getNormalized() {
     final double d = getNorm();
     if (Math.abs(d) < MathHelpers.EPSILON) {
-      System.out.println("Cannot normalize zero-vector!");
+      System.out.println("Cannot normalize zero-VectorHelper!");
       return this;
     }
     return this.multiply(1.0 / d);
   }
 
   /**
-   * Normalize the vector.
+   * Normalize the VectorHelper.
    */
   public void normalize() {
     double norm = getNorm();
@@ -271,7 +271,7 @@ public class Vector implements Serializable {
    * 
    * @param other
    *          Vector to be computed with
-   * @return Cross product result vector.
+   * @return Cross product result VectorHelper.
    */
   public Vector cross(final Vector other) {
     if (getDimension() != 3 || other.getDimension() != 3) {
@@ -291,7 +291,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Add another vector to this-object, change this coordinates.
+   * Add another VectorHelper to this-object, change this coordinates.
    * 
    * @param other
    *          Vector to be added.
@@ -306,7 +306,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Subtract another vector from this-object, change this coordinates.
+   * Subtract another VectorHelper from this-object, change this coordinates.
    * 
    * @param other
    *          Vector to be added.
@@ -321,7 +321,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Scale vector, change this.
+   * Scale VectorHelper, change this.
    * 
    * @param d
    *          Scaling factor.
@@ -364,7 +364,7 @@ public class Vector implements Serializable {
    * 
    * @param precision
    *          Number of digits after the . or ,
-   * @return String representation of the vector.
+   * @return String representation of the VectorHelper.
    */
   public String toString(int precision) {
     String result = "( ";
@@ -411,7 +411,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Set the coordinates of a 3D vector.
+   * Set the coordinates of a 3D VectorHelper.
    */
   public void set(double x, double y, double z) {
     set(0, x);
@@ -436,7 +436,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Create a new vector from the first 3 coordinates.
+   * Create a new VectorHelper from the first 3 coordinates.
    */
   public Vector xyz() {
     return new Vector(x(), y(), z());

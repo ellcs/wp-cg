@@ -105,7 +105,7 @@ public class PrincipalComponentAnalysis {
   }
 
   /**
-   * Return vector of eigenvalues; smallest first.
+   * Return VectorHelper of eigenvalues; smallest first.
    */
   public Vector getEigenValues() {
     return eigenValues;

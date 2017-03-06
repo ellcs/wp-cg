@@ -1,13 +1,15 @@
 package computergraphics.particle_system;
 
-import computergraphics.framework.math.Colors;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.RenderVertex;
+import computergraphics.particle_system.factories.Particle;
+import computergraphics.particle_system.factories.ParticleFactory;
+import computergraphics.particle_system.helpers.RandomHelper;
+import computergraphics.particle_system.helpers.VectorHelper;
 import computergraphics.particle_system.preferences.EmitterPreferences;
 import computergraphics.particle_system.preferences.ParticlePreferences;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -20,6 +22,11 @@ public class Emitter implements IEmitter {
     private EmitterPreferences emitterPreferences;
     private ParticlePreferences particlePreferences;
 
+    private ParticleFactory particleFactory;
+
+    private RandomHelper randomHelper;
+    private VectorHelper vectorHelper;
+
     private Random r;
 
     private List<Particle> particles;
@@ -28,7 +35,13 @@ public class Emitter implements IEmitter {
         this.emitterPreferences = preferences;
         this.particlePreferences = particlePreferences;
         this.r = new Random(System.currentTimeMillis() * 321221);
+        this.vectorHelper = new VectorHelper(r);
+        this.randomHelper = new RandomHelper(r);
 //        this.particles = new Particle[preferences.maximumParticles];
+        this.particleFactory = new ParticleFactory(particlePreferences,
+                emitterPreferences,
+                randomHelper,
+                vectorHelper);
         this.particles = new ArrayList<>();
     }
 
@@ -57,43 +70,39 @@ public class Emitter implements IEmitter {
         // p.update(deltaTime);
     }
 
-    private void removeDeadParticles() {
 
+    private void removeDeadParticles() {
+        this.particles.removeAll(getDeadParticles());
+    }
+
+    private List<Particle> getDeadParticles() {
+        return this.particles.stream().filter(Particle::lifetimeExceeded).collect(Collectors.toList());
     }
 
     private void createNewParticles(long deltaTime) {
-        float minPerDeltaTime = this.emitterPreferences.spawnRate.minPerMilliSec * deltaTime;
-        float maxPerDeltaTime = this.emitterPreferences.spawnRate.maxPerMilliSec * deltaTime;
-        int amountToCreate = (int) ((r.nextFloat() + minPerDeltaTime) % maxPerDeltaTime);
-
+        int amountToCreate = amountToCreate(deltaTime);
         for (int i = 0; i < amountToCreate; i++) {
             createNewParticle();
         }
     }
 
+    /**
+     * Get depending on the passed time, the amount of particles to be created.
+     */
+    private int amountToCreate(long deltaTime) {
+        float minPerDeltaTime = this.emitterPreferences.spawnRate.minPerMilliSec * deltaTime;
+        float maxPerDeltaTime = this.emitterPreferences.spawnRate.maxPerMilliSec * deltaTime;
+        return (int) ((r.nextFloat() + minPerDeltaTime) % maxPerDeltaTime);
+    }
+
     private void createNewParticle() {
-        Vector position = getRandomVectorInRange(this.emitterPreferences.emitterSize);
-        Particle p = new Particle(position);
-        this.particles.add(p);
-    }
-
-    private Vector getRandomVectorInRange(Vector range) {
-        if (range == null) {
-            throw new IllegalArgumentException("'range' can not be null.");
+        if (!maximumAmountOfParticlesReached()) {
+            this.particles.add(particleFactory.createParticle());
         }
-        Vector v = getRandomVector();
-        v.set(0, v.x() % range.x());
-        v.set(1, v.y() % range.y());
-        v.set(2, v.z() % range.z());
-        return v;
     }
 
-    private Vector getRandomVector() {
-        float x = r.nextFloat();
-        float z = r.nextFloat();
-        float y = r.nextFloat();
-        Vector v = new Vector(x, y, z);
-        return v;
+    private boolean maximumAmountOfParticlesReached() {
+        return this.emitterPreferences.maximumParticles <= this.particles.size();
     }
 
     /**

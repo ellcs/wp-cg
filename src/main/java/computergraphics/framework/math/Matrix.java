@@ -133,11 +133,11 @@ public class Matrix {
   }
 
   /**
-   * Multiply this with vector, return result as new vector.
+   * Multiply this with VectorHelper, return result as new VectorHelper.
    * 
    * @param other
    *          Vector to be multiplied
-   * @return New vector containing the result.
+   * @return New VectorHelper containing the result.
    */
   public Vector multiply(Vector other) {
     if (getNumberOfColumns() != other.getDimension()) {

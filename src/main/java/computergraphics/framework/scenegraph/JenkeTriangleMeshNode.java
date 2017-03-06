@@ -198,7 +198,7 @@ public class JenkeTriangleMeshNode extends LeafNode {
   }
 
   /**
-   * Fetches position as a vector, of given triangle. The vertex is specified trough index.
+   * Fetches position as a VectorHelper, of given triangle. The vertex is specified trough index.
    * However, given index is one of the triangle points. {0, 1, 2}
    */
   private HalfEdgeVertex getTriangleVertexByIndex(HalfEdgeTriangle triangle, int index) {

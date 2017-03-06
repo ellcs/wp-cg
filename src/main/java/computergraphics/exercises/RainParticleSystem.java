@@ -1,5 +1,6 @@
 package computergraphics.exercises;
 
+import computergraphics.framework.math.Colors;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.INode;
@@ -18,17 +19,22 @@ import java.util.List;
 public class RainParticleSystem extends computergraphics.framework.Scene {
 
     List<TimerTickable> tickableList = new ArrayList<>();
+    boolean paused = false;
 
     public RainParticleSystem() {
         // Timer timeout and shader mode (PHONG, TEXTURE, NO_LIGHTING)
         super(40, Shader.ShaderMode.PHONG, INode.RenderMode.REGULAR);
 
         EmitterPreferences emitterPreferences = new EmitterPreferences();
+        emitterPreferences.maximumParticles = 40;
         emitterPreferences.emitterSize = new Vector(1,1,1);
-        emitterPreferences.spawnRate.maxPerMilliSec = 2f;
-        emitterPreferences.spawnRate.minPerMilliSec = 0.5f;
+        emitterPreferences.spawnRate.maxPerMilliSec = 0.5f;
+        emitterPreferences.spawnRate.minPerMilliSec = 0.01f;
 
         ParticlePreferences particlePreferences = new ParticlePreferences();
+        particlePreferences.creation.startColor = Colors.transparentAzure;
+        particlePreferences.dead.minimumLifetimeInMilliSec = 1000;
+        particlePreferences.dead.maximumLifetimeInMilliSec = 3000;
 
 
         Emitter e = new Emitter(emitterPreferences, particlePreferences);
@@ -40,11 +46,16 @@ public class RainParticleSystem extends computergraphics.framework.Scene {
 
     @Override
     public void keyPressed(int keyCode) {
-
+        if (keyCode == 'p') {
+            paused = !paused;
+        }
     }
 
     @Override
     public void timerTick(int counter) {
+        if (paused)
+            return;
+
         for (TimerTickable timerTickable : tickableList) {
             timerTickable.timerTick(counter);
         }

@@ -1,37 +1,39 @@
-package computergraphics.particle_system;
+package computergraphics.particle_system.factories;
 
-import computergraphics.framework.math.Colors;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.RenderVertex;
+import computergraphics.particle_system.helpers.RandomHelper;
 
 /**
  * Created by ellcs on 03.03.17.
+ *
+ * All arguments are package private, so the Factory can set the values :)
  */
 public class Particle {
+
+    private RandomHelper randomHelper;
 
     /**
      * Contains position, normal and color.
      */
-    private RenderVertex renderVertex;
+    RenderVertex renderVertex;
 
     /**
      * Current direction of this particle.
      */
-    private Vector direction;
+    Vector direction;
 
     /**
      * Current speed of this particle.
      */
-    private double speed;
+    double speed;
 
     /**
      * Lifetime in milliseconds.
      */
-    private long lifetime = 0;
+    long lifetime = 0;
 
-    public Particle(Vector position) {
-        this.renderVertex = new RenderVertex(position, Vector.zero(), Colors.darkGreen);
-    }
+    long ownMaximumLifetime;
 
     public void update(long deltaTime) {
         this.lifetime+= deltaTime;
@@ -41,5 +43,8 @@ public class Particle {
         return this.renderVertex;
     }
 
+    public boolean lifetimeExceeded() {
+        return this.lifetime > this.ownMaximumLifetime;
+    }
 
 }

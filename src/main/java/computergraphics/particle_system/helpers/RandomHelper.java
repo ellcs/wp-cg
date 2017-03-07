@@ -16,4 +16,8 @@ public class RandomHelper {
     public long randomBetween(long min, long max) {
         return (this.r.nextLong() + min) % max;
     }
+
+    public double randomBetween(double min, double max) {
+        return (this.r.nextDouble() + min) % max;
+    }
 }

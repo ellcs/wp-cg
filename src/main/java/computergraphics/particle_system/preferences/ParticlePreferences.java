@@ -26,6 +26,7 @@ public class ParticlePreferences {
 
     public static class Creation {
         public Vector startSpeed;
+        public Vector maxStartSpeed;
         public Vector startColor;
     }
 

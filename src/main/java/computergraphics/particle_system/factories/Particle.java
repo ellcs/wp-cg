@@ -15,6 +15,8 @@ public class Particle {
      */
     RenderVertex renderVertex;
 
+    Vector colorDifferenceInMilliSec;
+
     Vector actualSpeed;
 
     Vector[] forces;
@@ -28,9 +30,20 @@ public class Particle {
 
     public void update(long deltaTime) {
         this.lifetime+= deltaTime;
-        updateSpeed(deltaTime);
+//        updateSpeed(deltaTime);
+        updateLocation(deltaTime);
+        updateColor(deltaTime);
+    }
+
+    private void updateColor(long deltaTime) {
+        Vector color = this.renderVertex.color;
+        Vector colorDifference = colorDifferenceInMilliSec.multiply(deltaTime);
+        this.renderVertex.color = color.add(colorDifference);
+    }
+
+    private void updateLocation(long deltaTime) {
         Vector movementInDeltaTime = this.actualSpeed.multiply(deltaTime);
-        this.renderVertex.position = this.renderVertex.position.add(movementInDeltaTime);
+        this.renderVertex.position.addSelf(movementInDeltaTime);
     }
 
     /**

@@ -35,6 +35,7 @@ public class ParticleFactory {
         Particle newParticle = new Particle();
         Vector position = vectorHelper.getRandomVectorInRange(this.emitterPreferences.emitterSize);
         newParticle.renderVertex = new RenderVertex(position, Vector.zero(), Colors.darkGreen);
+        setColorDifferenceInMillisec(newParticle);
         setOwnMaximumLifetime(newParticle);
         setStartColor(newParticle);
         setActualSpeed(newParticle);
@@ -43,17 +44,23 @@ public class ParticleFactory {
     }
 
     private void setForces(Particle particle) {
-        int amountOfForces = this.particlePreferences.life.amountOfForces;
-        Vector range = this.particlePreferences.life.forceBoxSize;
-        range.addSelf(this.particlePreferences.life.forceBoxPosition);
-        Vector[] forces = new Vector[amountOfForces];
-        for (int i = 0; i < amountOfForces; i++) {
-            Vector force = vectorHelper.getRandomVectorInRange(range);
-            force.normalize();
-            force.multiplySelf(this.particlePreferences.life.forceLength);
-            forces[i] = force;
-        }
-        particle.forces = forces;
+        particle.forces = new Vector[1];
+        particle.forces[0] = this.particlePreferences.life.force.dublicate();
+//        int amountOfForces = this.particlePreferences.life.amountOfForces;
+//        Vector range = this.particlePreferences.life.forceBoxSize;
+//        range.addSelf(this.particlePreferences.life.forceBoxPosition);
+//        Vector[] forces = new Vector[amountOfForces];
+//        for (int i = 0; i < amountOfForces; i++) {
+//            Vector force = vectorHelper.getRandomVectorInRange(range);
+//            force.normalize();
+//            force.multiplySelf(this.particlePreferences.life.forceLength);
+//            forces[i] = force;
+//        }
+//        particle.forces = forces;
+    }
+
+    private void setColorDifferenceInMillisec(Particle particle) {
+        particle.colorDifferenceInMilliSec = this.particlePreferences.life.minimumColorDifferenceInMillisec;
     }
 
     private void setActualSpeed(Particle particle) {

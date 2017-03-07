@@ -97,6 +97,10 @@ public class Vector implements Serializable {
     }
   }
 
+  public Vector dublicate() {
+     return new Vector(this);
+  }
+
   /**
    * Getter for the dimension.
    * 

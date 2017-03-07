@@ -39,24 +39,25 @@ public class ParticleFactory {
         setOwnMaximumLifetime(newParticle);
         setStartColor(newParticle);
         setActualSpeed(newParticle);
+        setWeight(newParticle);
         setForces(newParticle);
         return newParticle;
     }
 
+    private void setWeight(Particle particle) {
+        particle.weight = this.particlePreferences.life.weight;
+    }
+
     private void setForces(Particle particle) {
-        particle.forces = new Vector[1];
-        particle.forces[0] = this.particlePreferences.life.force.dublicate();
-//        int amountOfForces = this.particlePreferences.life.amountOfForces;
-//        Vector range = this.particlePreferences.life.forceBoxSize;
-//        range.addSelf(this.particlePreferences.life.forceBoxPosition);
-//        Vector[] forces = new Vector[amountOfForces];
-//        for (int i = 0; i < amountOfForces; i++) {
-//            Vector force = vectorHelper.getRandomVectorInRange(range);
-//            force.normalize();
-//            force.multiplySelf(this.particlePreferences.life.forceLength);
-//            forces[i] = force;
-//        }
-//        particle.forces = forces;
+        int amountOfForces = this.particlePreferences.life.amountOfForces;
+        Vector range = this.particlePreferences.life.forceBoxSize;
+        range.addSelf(this.particlePreferences.life.forceBoxPosition);
+        Vector[] forces = new Vector[amountOfForces];
+        for (int i = 0; i < amountOfForces; i++) {
+            Vector force = vectorHelper.getRandomVectorInRange(range);
+            forces[i] = force;
+        }
+        particle.forces = forces;
     }
 
     private void setColorDifferenceInMillisec(Particle particle) {
@@ -64,7 +65,7 @@ public class ParticleFactory {
     }
 
     private void setActualSpeed(Particle particle) {
-        particle.actualSpeed = this.particlePreferences.creation.startSpeed;
+        particle.actualSpeed = this.particlePreferences.creation.startSpeed.dublicate();
     }
 
     private void setOwnMaximumLifetime(Particle particle) {

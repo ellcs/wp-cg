@@ -21,6 +21,8 @@ public class Particle {
 
     Vector[] forces;
 
+    float weight;
+
     /**
      * Lifetime in milliseconds.
      */
@@ -30,7 +32,7 @@ public class Particle {
 
     public void update(long deltaTime) {
         this.lifetime+= deltaTime;
-//        updateSpeed(deltaTime);
+        updateSpeed(deltaTime);
         updateLocation(deltaTime);
         updateColor(deltaTime);
     }
@@ -56,8 +58,10 @@ public class Particle {
      * By multiplying <code>deltaTime</code> as t, we modify the speed.
      */
     private void updateSpeed(long deltaTime) {
+        float inversedWeight = 1f/this.weight;
         for (Vector force : this.forces) {
             force = force.subtract(this.renderVertex.position);
+            force = force.multiply(inversedWeight);
             this.actualSpeed.addSelf(force.multiply(deltaTime));
         }
     }

@@ -1,4 +1,4 @@
-package computergraphics.particle_system.factories;
+package computergraphics.particle_system.particle;
 
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.RenderVertex;

@@ -61,7 +61,7 @@ public class TriangleMeshNode extends LeafNode {
   }
 
   /**
-   * Fetches position as a VectorHelper, of given triangle. The vertex is specified trough index.
+   * Fetches position as a VectorService, of given triangle. The vertex is specified trough index.
    * However, given index is one of the triangle points. {0, 1, 2}
    */
   private Vector getTriangleVectorByIndex(Triangle triangle, int index) {

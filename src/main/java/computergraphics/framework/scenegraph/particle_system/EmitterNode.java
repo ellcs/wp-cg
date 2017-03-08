@@ -6,7 +6,7 @@ import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.VertexBufferObject;
 import computergraphics.framework.scenegraph.LeafNode;
 import computergraphics.framework.scenegraph.TimerTickable;
-import computergraphics.particle_system.DeltaTimeCalculator;
+import computergraphics.particle_system.services.DeltaTimeCalculatorService;
 import computergraphics.particle_system.IEmitter;
 
 import static com.jogamp.opengl.GL.GL_LINES;
@@ -20,12 +20,12 @@ public class EmitterNode extends LeafNode implements TimerTickable {
 
     VertexBufferObject vbo;
 
-    DeltaTimeCalculator timeCalculator;
+    DeltaTimeCalculatorService timeCalculator;
 
     public EmitterNode(IEmitter emitter) {
         this.emitter = emitter;
         this.vbo = new VertexBufferObject();
-        this.timeCalculator = new DeltaTimeCalculator();
+        this.timeCalculator = new DeltaTimeCalculatorService();
         createVbo();
     }
 
@@ -98,6 +98,7 @@ public class EmitterNode extends LeafNode implements TimerTickable {
     public void drawGL(GL2 gl, RenderMode mode, Matrix modelMatrix) {
         createVbo();
         gl.glPointSize(this.emitter.getParticleSize());
+        gl.glEnable(GL2.GL_POINT_SMOOTH);
         if (mode == RenderMode.REGULAR) {
             vbo.draw(gl);
             drawEmitterBox(gl);

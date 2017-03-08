@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * Representation of a VectorHelper with arbitraty dimension.
+ * Representation of a VectorService with arbitraty dimension.
  * 
  * @author Philipp Jenke
  */
@@ -17,16 +17,16 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Array contaising the values of the VectorHelper. Length of the array matches the
-   * VectorHelper dimension.
+   * Array contaising the values of the VectorService. Length of the array matches the
+   * VectorService dimension.
    */
   private double[] values;
 
   /**
-   * Create a VectorHelper.
+   * Create a VectorService.
    * 
    * @param dimension
-   *          Dimension of the created VectorHelper.
+   *          Dimension of the created VectorService.
    */
   public Vector(int dimension) {
     values = new double[dimension];
@@ -83,7 +83,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Copy coordinates of other VectorHelper.
+   * Copy coordinates of other VectorService.
    * 
    * @param other
    *          Vector to copy from.
@@ -104,7 +104,7 @@ public class Vector implements Serializable {
   /**
    * Getter for the dimension.
    * 
-   * @return Dimension of the VectorHelper.
+   * @return Dimension of the VectorService.
    */
   public int getDimension() {
     return values.length;
@@ -134,7 +134,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Subtract other VectorHelper, return result as new VectorHelper.
+   * Subtract other VectorService, return result as new VectorService.
    * 
    * @param other
    *          Vector to be subtracted.
@@ -156,7 +156,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Add other VectorHelper, return result as new VectorHelper.
+   * Add other VectorService, return result as new VectorService.
    * 
    * @param other
    *          Vector to be added.
@@ -164,7 +164,7 @@ public class Vector implements Serializable {
    */
   public Vector add(Vector other) {
     if (other == null || other.getDimension() != getDimension()) {
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException("Other: " + other);
     }
     Vector result = new Vector(getDimension());
     for (int index = 0; index < getDimension(); index++) {
@@ -174,16 +174,16 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Getter for norm of the VectorHelper.
+   * Getter for norm of the VectorService.
    * 
-   * @return Norm (length) of the VectorHelper.
+   * @return Norm (length) of the VectorService.
    */
   public double getNorm() {
     return Math.sqrt(getSqrNorm());
   }
 
   /**
-   * Getter for squared norm of the VectorHelper.
+   * Getter for squared norm of the VectorService.
    * 
    * @return Squared norm (squared length).
    */
@@ -196,11 +196,11 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Multiply other VectorHelper, compute scalar product.
+   * Multiply other VectorService, compute scalar product.
    * 
    * @param other
    *          Vector to be mutiplied.
-   * @return Scalar product of the two VectorHelper.
+   * @return Scalar product of the two VectorService.
    */
   public double multiply(Vector other) {
     if (other == null || other.getDimension() != getDimension()) {
@@ -214,11 +214,11 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Scale VectorHelper, return result as new VectorHelper.
+   * Scale VectorService, return result as new VectorService.
    * 
    * @param factor
    *          Scaling factor.
-   * @return Scaled VectorHelper.
+   * @return Scaled VectorService.
    */
   public Vector multiply(double factor) {
     Vector result = new Vector(getDimension());
@@ -229,10 +229,10 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Compute the inner product of the VectorHelper with another VectorHelper.
+   * Compute the inner product of the VectorService with another VectorService.
    * 
    * @param other
-   *          Other VectorHelper
+   *          Other VectorService
    * @return Resulting matrix.
    */
   public Matrix innerProduct(Vector other) {
@@ -247,21 +247,21 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Create a normalized version of the VectorHelper, return as result.
+   * Create a normalized version of the VectorService, return as result.
    * 
-   * @return Normalized VectorHelper.
+   * @return Normalized VectorService.
    */
   public Vector getNormalized() {
     final double d = getNorm();
     if (Math.abs(d) < MathHelpers.EPSILON) {
-      System.out.println("Cannot normalize zero-VectorHelper!");
+      System.out.println("Cannot normalize zero-VectorService!");
       return this;
     }
     return this.multiply(1.0 / d);
   }
 
   /**
-   * Normalize the VectorHelper.
+   * Normalize the VectorService.
    */
   public void normalize() {
     double norm = getNorm();
@@ -275,7 +275,7 @@ public class Vector implements Serializable {
    * 
    * @param other
    *          Vector to be computed with
-   * @return Cross product result VectorHelper.
+   * @return Cross product result VectorService.
    */
   public Vector cross(final Vector other) {
     if (getDimension() != 3 || other.getDimension() != 3) {
@@ -295,7 +295,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Add another VectorHelper to this-object, change this coordinates.
+   * Add another VectorService to this-object, change this coordinates.
    * 
    * @param other
    *          Vector to be added.
@@ -310,7 +310,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Subtract another VectorHelper from this-object, change this coordinates.
+   * Subtract another VectorService from this-object, change this coordinates.
    * 
    * @param other
    *          Vector to be added.
@@ -325,7 +325,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Scale VectorHelper, change this.
+   * Scale VectorService, change this.
    * 
    * @param d
    *          Scaling factor.
@@ -368,7 +368,7 @@ public class Vector implements Serializable {
    * 
    * @param precision
    *          Number of digits after the . or ,
-   * @return String representation of the VectorHelper.
+   * @return String representation of the VectorService.
    */
   public String toString(int precision) {
     String result = "( ";
@@ -415,7 +415,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Set the coordinates of a 3D VectorHelper.
+   * Set the coordinates of a 3D VectorService.
    */
   public void set(double x, double y, double z) {
     set(0, x);
@@ -440,7 +440,7 @@ public class Vector implements Serializable {
   }
 
   /**
-   * Create a new VectorHelper from the first 3 coordinates.
+   * Create a new VectorService from the first 3 coordinates.
    */
   public Vector xyz() {
     return new Vector(x(), y(), z());

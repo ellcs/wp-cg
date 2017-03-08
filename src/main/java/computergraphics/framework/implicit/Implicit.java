@@ -161,7 +161,7 @@ public class Implicit {
   }
 
   /**
-   * Interpolates a VectorHelper between two vectors point1 and point2 with the weights of value1 and value2.
+   * Interpolates a VectorService between two vectors point1 and point2 with the weights of value1 and value2.
    * @param value1 is the weight of point1.
    * @param value2 is the weight of point2.
    */

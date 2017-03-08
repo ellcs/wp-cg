@@ -1,9 +1,9 @@
-package computergraphics.particle_system;
+package computergraphics.particle_system.services;
 
 /**
  * Created by ellcs on 06.03.17.
  */
-public class DeltaTimeCalculator {
+public class DeltaTimeCalculatorService {
 
     long timeAtLastFrame;
 
@@ -12,7 +12,7 @@ public class DeltaTimeCalculator {
      */
     long timeSinceLastFrame;
 
-    public DeltaTimeCalculator() {
+    public DeltaTimeCalculatorService() {
         this.timeAtLastFrame = currentTime();
     }
 

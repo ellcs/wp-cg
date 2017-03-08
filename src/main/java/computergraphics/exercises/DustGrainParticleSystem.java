@@ -19,21 +19,25 @@ public class DustGrainParticleSystem extends ParticleScene {
         super(3, Shader.ShaderMode.PHONG, INode.RenderMode.REGULAR);
 
         emitterPreferences = new EmitterPreferences();
-        emitterPreferences.maximumParticles = 200;
+        emitterPreferences.maximumParticles = 70;
         emitterPreferences.emitterSize = new Vector(1,1,1);
         emitterPreferences.drawEmitterBox = true;
         emitterPreferences.spawnRate.maxPerMilliSec = 10f;
         emitterPreferences.spawnRate.minPerMilliSec = 5f;
 
         particlePreferences = new ParticlePreferences();
-        particlePreferences.particleSize = 1f;
-        particlePreferences.creation.startColor = Colors.white;
+        particlePreferences.particleSize = 1.5f;
+        particlePreferences.creation.startColors = new Vector[] {
+                Colors.white,
+                Colors.white.subtract(new Vector(50,50,50,0.3)),
+        };
         // add random vector for the startSpeed
         // then they fly curves :)
 //        particlePreferences.creation.startSpeed = new Vector(0.00001, 0.00001, 0.00001);
-        particlePreferences.creation.startSpeed = new Vector(0, 0, 0);
+        particlePreferences.creation.startSpeed = new Vector(0.0001, 0.0001, 0.0001);
         particlePreferences.life.minimumColorDifferenceInMillisec = new Vector(-0.05, -0.05, -0.05, -0.001);
-        particlePreferences.life.weight = 1000000;
+        particlePreferences.life.maximumColorDifferenceInMillisec = new Vector(-0.01, -0.01, -0.01, -0.01);
+        particlePreferences.life.weight = 5000000;
         particlePreferences.life.amountOfForces = 3;
         particlePreferences.life.forceBoxSize = new Vector(1,1,1);
         particlePreferences.dead.minimumLifetimeInMilliSec = 2500;

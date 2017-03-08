@@ -42,7 +42,7 @@ public class Camera {
   private Vector ref;
 
   /**
-   * Up-VectorHelper of the camera.
+   * Up-VectorService of the camera.
    */
   private Vector up;
 
@@ -87,14 +87,14 @@ public class Camera {
    */
   public void updateExtrinsicCameraParams(float alpha, float beta) {
     Vector dir = eye.subtract(ref);
-    // Rotate around up-VectorHelper
+    // Rotate around up-VectorService
     eye = Matrix.getRotationMatrix3(up, alpha).multiply(dir).add(ref);
-    // Rotate around side-VectorHelper
+    // Rotate around side-VectorService
     dir = eye.subtract(ref);
     Vector side = dir.cross(up);
     side.normalize();
     eye = Matrix.getRotationMatrix3(side, -beta).multiply(dir).add(ref);
-    // Fix up-VectorHelper
+    // Fix up-VectorService
     dir = ref.subtract(eye);
     side = dir.cross(up);
     side.normalize();

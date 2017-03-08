@@ -1,4 +1,4 @@
-package computergraphics.particle_system.helpers;
+package computergraphics.particle_system.services;
 
 import computergraphics.framework.math.Vector;
 
@@ -7,12 +7,15 @@ import java.util.Random;
 /**
  * Created by ellcs on 06.03.17.
  */
-public class VectorHelper {
+public class VectorService {
 
     Random r;
 
-    public VectorHelper(Random r) {
+    RandomService randomHelper;
+
+    public VectorService(Random r, RandomService randomService) {
         this.r = r;
+        this.randomHelper = randomService;
     }
 
     public Vector getRandomVectorInRange(Vector range) {
@@ -36,5 +39,19 @@ public class VectorHelper {
         float y = r.nextFloat() * bigPrime;
         Vector v = new Vector(x, y, z);
         return v;
+    }
+
+    public Vector getRandomVectorBetween(Vector min, Vector max) {
+        if (min.getDimension() != max.getDimension()) {
+            throw new IllegalArgumentException("Not same dimensions");
+        }
+        double x = randomHelper.randomBetween(min.x(), max.x());
+        double y = randomHelper.randomBetween(min.y(), max.y());
+        double z = randomHelper.randomBetween(min.z(), max.z());
+        if (min.getDimension() == 4) {
+            double w = randomHelper.randomBetween(min.w(), max.w());
+            return new Vector(x,y,z,w);
+        }
+        return new Vector(x,y,z);
     }
 }

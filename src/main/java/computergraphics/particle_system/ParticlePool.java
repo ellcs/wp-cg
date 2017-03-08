@@ -1,6 +1,6 @@
 package computergraphics.particle_system;
 
-import computergraphics.particle_system.factories.Particle;
+import computergraphics.particle_system.particle.Particle;
 
 /**
  * Created by ellcs on 06.03.17.

@@ -2,10 +2,10 @@ package computergraphics.particle_system;
 
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.RenderVertex;
-import computergraphics.particle_system.factories.Particle;
-import computergraphics.particle_system.factories.ParticleFactory;
-import computergraphics.particle_system.helpers.RandomHelper;
-import computergraphics.particle_system.helpers.VectorHelper;
+import computergraphics.particle_system.particle.Particle;
+import computergraphics.particle_system.particle.ParticleFactory;
+import computergraphics.particle_system.services.RandomService;
+import computergraphics.particle_system.services.VectorService;
 import computergraphics.particle_system.preferences.EmitterPreferences;
 import computergraphics.particle_system.preferences.ParticlePreferences;
 
@@ -24,8 +24,8 @@ public class Emitter implements IEmitter {
 
     private ParticleFactory particleFactory;
 
-    private RandomHelper randomHelper;
-    private VectorHelper vectorHelper;
+    private RandomService randomHelper;
+    private VectorService vectorHelper;
 
     private Random r;
 
@@ -35,9 +35,8 @@ public class Emitter implements IEmitter {
         this.emitterPreferences = preferences;
         this.particlePreferences = particlePreferences;
         this.r = new Random(System.currentTimeMillis() * 321221);
-        this.vectorHelper = new VectorHelper(r);
-        this.randomHelper = new RandomHelper(r);
-//        this.particles = new Particle[preferences.maximumParticles];
+        this.randomHelper = new RandomService(r);
+        this.vectorHelper = new VectorService(r, this.randomHelper);
         this.particleFactory = new ParticleFactory(particlePreferences,
                 emitterPreferences,
                 randomHelper,

@@ -1,10 +1,10 @@
-package computergraphics.particle_system.factories;
+package computergraphics.particle_system.particle;
 
 import computergraphics.framework.math.Colors;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.RenderVertex;
-import computergraphics.particle_system.helpers.RandomHelper;
-import computergraphics.particle_system.helpers.VectorHelper;
+import computergraphics.particle_system.services.RandomService;
+import computergraphics.particle_system.services.VectorService;
 import computergraphics.particle_system.preferences.EmitterPreferences;
 import computergraphics.particle_system.preferences.ParticlePreferences;
 
@@ -17,14 +17,14 @@ public class ParticleFactory {
 
     EmitterPreferences emitterPreferences;
 
-    RandomHelper randomHelper;
+    RandomService randomHelper;
 
-    VectorHelper vectorHelper;
+    VectorService vectorHelper;
 
     public ParticleFactory(ParticlePreferences particlePreferences,
                            EmitterPreferences emitterPreferences,
-                           RandomHelper randomHelper,
-                           VectorHelper vectorHelper) {
+                           RandomService randomHelper,
+                           VectorService vectorHelper) {
         this.particlePreferences = particlePreferences;
         this.emitterPreferences = emitterPreferences;
         this.randomHelper = randomHelper;
@@ -49,19 +49,29 @@ public class ParticleFactory {
     }
 
     private void setForces(Particle particle) {
-        int amountOfForces = this.particlePreferences.life.amountOfForces;
+//        int amountOfForces = this.particlePreferences.life.amountOfForces;
+//        Vector range = this.particlePreferences.life.forceBoxSize;
+//        range.addSelf(this.particlePreferences.life.forceBoxPosition);
+//        Vector[] forces = new Vector[amountOfForces];
+//        for (int i = 0; i < amountOfForces; i++) {
+//            Vector force = vectorHelper.getRandomVectorInRange(range);
+//            forces[i] = force;
+//        }
+        particle.forces = new Vector[1];
         Vector range = this.particlePreferences.life.forceBoxSize;
-        range.addSelf(this.particlePreferences.life.forceBoxPosition);
-        Vector[] forces = new Vector[amountOfForces];
-        for (int i = 0; i < amountOfForces; i++) {
-            Vector force = vectorHelper.getRandomVectorInRange(range);
-            forces[i] = force;
-        }
-        particle.forces = forces;
+        particle.forces[0] = vectorHelper.getRandomVectorInRange(range);
     }
 
     private void setColorDifferenceInMillisec(Particle particle) {
-        particle.colorDifferenceInMilliSec = this.particlePreferences.life.minimumColorDifferenceInMillisec;
+        Vector minimumColorDifference = this.particlePreferences.life.minimumColorDifferenceInMillisec;
+        Vector maximumColorDifference = this.particlePreferences.life.minimumColorDifferenceInMillisec;
+        // when they're equal use one :)
+        if (minimumColorDifference.equals(maximumColorDifference)) {
+            particle.colorDifferenceInMilliSec = minimumColorDifference.dublicate();
+        } else {
+            Vector colorDifference = this.vectorHelper.getRandomVectorBetween(minimumColorDifference, maximumColorDifference);
+            particle.colorDifferenceInMilliSec = colorDifference;
+        }
     }
 
     private void setActualSpeed(Particle particle) {
@@ -75,7 +85,8 @@ public class ParticleFactory {
     }
 
     private void setStartColor(Particle particle) {
-        Vector startColor = this.particlePreferences.creation.startColor;
-        particle.renderVertex.color = startColor;
+        Vector[] startColors = this.particlePreferences.creation.startColors;;
+        int randomIndex = randomHelper.getRandomIndex(startColors.length);
+        particle.renderVertex.color = startColors[randomIndex].dublicate();
     }
 }

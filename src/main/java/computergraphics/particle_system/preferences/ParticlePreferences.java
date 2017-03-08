@@ -27,7 +27,7 @@ public class ParticlePreferences {
     public static class Creation {
         public Vector startSpeed;
         public Vector maxStartSpeed;
-        public Vector startColor;
+        public Vector[] startColors;
     }
 
     public static class Life {
@@ -40,8 +40,8 @@ public class ParticlePreferences {
          *
          * Default: <code>Vector(0,0,0)</code>
          */
-        public Vector minimumColorDifferenceInMillisec = Vector.zero();
-//        public Vector maximumColorDifferenceInMillisec = Vector.zero();
+        public Vector minimumColorDifferenceInMillisec;
+        public Vector maximumColorDifferenceInMillisec;
 
         /**
          * The amount of forces created in the <code>forceBoxSize</code>.
@@ -53,8 +53,6 @@ public class ParticlePreferences {
          * Default: <code>Vector.zero()</code>
          */
         public Vector forceBoxPosition = Vector.zero();
-
-        public float forceLength = 0.0001f;
 
         public float weight = 1f;
 

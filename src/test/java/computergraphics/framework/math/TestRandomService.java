@@ -40,7 +40,7 @@ public class TestRandomService {
 
   @Test
   public void testRandomBetween_SameNumber_ReturnSameNumber_WithLong() {
-    for (long l = -3000; l < 3000; l++) {
+    for (long l = 0; l < 3000; l++) {
       assertEquals(l, randomService.randomBetween(l, l));
     }
   }
@@ -48,9 +48,19 @@ public class TestRandomService {
   @Test
   public void testRandomBetween_SameNumber_ReturnSameNumber_WithDouble() {
     double delta = 0.00001;
-    for (double d = -15; d < 15; d++) {
+    for (double d = 0; d < 15; d++) {
       assertEquals(d, randomService.randomBetween(d, d), delta);
     }
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testRandomBetween_oneIsNegative_WithLong() {
+    randomService.randomBetween(-1l, 1l);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testRandomBetween_oneIsNegative_WithDouble() {
+    randomService.randomBetween(-1.0, 1.0);
   }
 
   @Test(expected = IllegalArgumentException.class)

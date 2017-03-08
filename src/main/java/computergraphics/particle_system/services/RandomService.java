@@ -14,12 +14,12 @@ public class RandomService {
     }
 
     public long randomBetween(long min, long max) {
-        isSmaller(min, max);
-        return ((this.r.nextLong() % max)  + min) % max;
+        isValid(min, max);
+        return ((this.r.nextLong() % max) + min) % max;
     }
 
     public double randomBetween(double min, double max) {
-        isSmaller(min, max);
+        isValid(min, max);
         return ((this.r.nextDouble() % max)  + min) % max;
     }
 
@@ -27,15 +27,19 @@ public class RandomService {
         return Math.abs(r.nextInt(max));
     }
 
-    private void isSmaller(long min, long max) {
+    private void isValid(long min, long max) {
         if (min > max) {
             throw new IllegalArgumentException("Min is bigger then Max");
+        } else if (min < 0 || max < 0) {
+            throw new IllegalArgumentException("Min or max is negative.");
         }
     }
 
-    private void isSmaller(double min, double max) {
+    private void isValid(double min, double max) {
         if (min > max) {
             throw new IllegalArgumentException("Min is bigger then Max");
+        } else if (min < 0 || max < 0) {
+            throw new IllegalArgumentException("Min or max is negative.");
         }
     }
 }

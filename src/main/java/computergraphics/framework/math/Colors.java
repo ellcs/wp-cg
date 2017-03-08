@@ -11,6 +11,7 @@ public final class Colors {
 
   // Colors are supplied in
   public static final Vector red = new Vector(4, 0.05, 0.05, 1);
+  public static final Vector darkRed = new Vector(2, 0.05, 0.05, 1);
   public static final Vector gray = new Vector(0.7, 0.7, 0.7, 1);
   public static final Vector darkGreen = new Vector(0.05, 0.45, 0.05, 1);
   //123;104;238

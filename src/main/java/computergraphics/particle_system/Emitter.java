@@ -35,8 +35,8 @@ public class Emitter implements IEmitter {
         this.emitterPreferences = preferences;
         this.particlePreferences = particlePreferences;
         this.r = new Random(System.currentTimeMillis() * 321221);
-        this.vectorHelper = new VectorHelper(r);
         this.randomHelper = new RandomHelper(r);
+        this.vectorHelper = new VectorHelper(r, randomHelper);
 //        this.particles = new Particle[preferences.maximumParticles];
         this.particleFactory = new ParticleFactory(particlePreferences,
                 emitterPreferences,

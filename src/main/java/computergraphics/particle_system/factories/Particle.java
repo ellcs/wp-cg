@@ -26,12 +26,12 @@ public class Particle {
     /**
      * Lifetime in milliseconds.
      */
-    long lifetime = 0;
+    long lifetimeInMilliSec = 0;
 
-    long ownMaximumLifetime;
+    long ownMaximumLifetimeInMilliSec;
 
     public void update(long deltaTime) {
-        this.lifetime+= deltaTime;
+        this.lifetimeInMilliSec += deltaTime;
         updateSpeed(deltaTime);
         updateLocation(deltaTime);
         updateColor(deltaTime);
@@ -71,7 +71,7 @@ public class Particle {
     }
 
     public boolean lifetimeExceeded() {
-        return this.lifetime > this.ownMaximumLifetime;
+        return this.lifetimeInMilliSec > this.ownMaximumLifetimeInMilliSec;
     }
 
 }

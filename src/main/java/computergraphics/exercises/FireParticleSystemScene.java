@@ -27,8 +27,8 @@ public class FireParticleSystemScene extends ParticleScene {
 
         particlePreferences = new ParticlePreferences();
         particlePreferences.particleSize = 5f;
-        particlePreferences.creation.startColor = Colors.red;
-        particlePreferences.creation.startSpeed = new Vector(0, 0, 0);
+        particlePreferences.creation.minStartColor = Colors.red;
+        particlePreferences.creation.minStartSpeed = new Vector(0, 0, 0);
         particlePreferences.life.minimumColorDifferenceInMillisec = new Vector(-0.0005, 0, 0, -0.01);
         particlePreferences.life.weight = 1000000000;
         particlePreferences.life.amountOfForces = 2;

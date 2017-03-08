@@ -7,11 +7,11 @@ import computergraphics.framework.math.Vector;
  */
 public class ParticlePreferences {
 
-    public Creation creation;
+    public CreationPreferences creation;
 
-    public Life life;
+    public LifePreferences life;
 
-    public Dead dead;
+    public DeadPreferences dead;
 
     /**
      * Default is 3f.
@@ -19,18 +19,30 @@ public class ParticlePreferences {
     public float particleSize = 3;
 
     public ParticlePreferences() {
-        this.creation = new Creation();
-        this.life = new Life();
-        this.dead = new Dead();
+        this.creation = new CreationPreferences();
+        this.life = new LifePreferences();
+        this.dead = new DeadPreferences();
     }
 
-    public static class Creation {
-        public Vector startSpeed;
+    /**
+     * Preferences of the start properties of a particle.
+     */
+    public static class CreationPreferences {
+        public Vector minStartSpeed;
         public Vector maxStartSpeed;
-        public Vector startColor;
+
+        /**
+         * Default: <code>(0,0,0)</code>
+         */
+        public Vector minStartColor = Vector.zero();
+
+        /**
+         * Default: <code>(0,0,0)</code>
+         */
+        public Vector maxStartColor = Vector.zero();
     }
 
-    public static class Life {
+    public static class LifePreferences {
 
         /**
          * In order to change the color of particles over time, set these
@@ -41,7 +53,7 @@ public class ParticlePreferences {
          * Default: <code>Vector(0,0,0)</code>
          */
         public Vector minimumColorDifferenceInMillisec = Vector.zero();
-//        public Vector maximumColorDifferenceInMillisec = Vector.zero();
+        public Vector maximumColorDifferenceInMillisec = Vector.zero();
 
         /**
          * The amount of forces created in the <code>forceBoxSize</code>.
@@ -54,8 +66,9 @@ public class ParticlePreferences {
          */
         public Vector forceBoxPosition = Vector.zero();
 
-        public float forceLength = 0.0001f;
-
+        /**
+         * Default: <code>1</code>
+         */
         public float weight = 1f;
 
         /**
@@ -69,7 +82,7 @@ public class ParticlePreferences {
         public Vector forceBoxSize = new Vector(1,1,1);
     }
 
-    public static class Dead {
+    public static class DeadPreferences {
         public long minimumLifetimeInMilliSec;
         public long maximumLifetimeInMilliSec;
     }

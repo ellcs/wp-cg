@@ -11,8 +11,11 @@ public class VectorHelper {
 
     Random r;
 
-    public VectorHelper(Random r) {
+    RandomHelper randomHelper;
+
+    public VectorHelper(Random r, RandomHelper randomHelper) {
         this.r = r;
+        this.randomHelper = randomHelper;
     }
 
     public Vector getRandomVectorInRange(Vector range) {
@@ -36,5 +39,15 @@ public class VectorHelper {
         float y = r.nextFloat() * bigPrime;
         Vector v = new Vector(x, y, z);
         return v;
+    }
+
+    /**
+     * Returns a new <code>Vector</code> between <code>min</code> and <code>max</code>.
+     */
+    public Vector getVectorBetween(Vector min, Vector max) {
+        double x = randomHelper.randomBetween(min.x(), max.x());
+        double y = randomHelper.randomBetween(min.y(), max.y());
+        double z = randomHelper.randomBetween(min.z(), max.z());
+        return new Vector(x, y, z);
     }
 }

@@ -29,9 +29,9 @@ public class RainParticleSystem extends ParticleScene {
 
         particlePreferences = new ParticlePreferences();
         particlePreferences.particleSize = 2f;
-        particlePreferences.creation.minStartColor = Colors.blue;
+        particlePreferences.creation.startColor = Colors.blue;
         particlePreferences.life.minimumColorDifferenceInMillisec = new Vector(0, 0, 0, 0);
-        particlePreferences.creation.minStartSpeed = new Vector(0.00005, -0.0009, 0);
+        particlePreferences.creation.startSpeed = new Vector(0.00005, -0.0009, 0);
         particlePreferences.dead.minimumLifetimeInMilliSec = 3000;
         particlePreferences.dead.maximumLifetimeInMilliSec = particlePreferences.dead.minimumLifetimeInMilliSec;
 

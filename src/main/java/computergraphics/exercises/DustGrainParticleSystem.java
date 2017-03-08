@@ -27,15 +27,15 @@ public class DustGrainParticleSystem extends ParticleScene {
 
         particlePreferences = new ParticlePreferences();
         particlePreferences.particleSize = 1f;
-        particlePreferences.creation.minStartColor = Colors.white;
-        // add random vector for the minStartSpeed
+        particlePreferences.creation.startColor = Colors.white;
+        // add random vector for the startSpeed
         // then they fly curves :)
-         particlePreferences.creation.minStartSpeed = new Vector(0.0001, 0.0001, 0.0001);
-//        particlePreferences.creation.minStartSpeed = new Vector(0, 0, 0);
+//        particlePreferences.creation.startSpeed = new Vector(0.00001, 0.00001, 0.00001);
+        particlePreferences.creation.startSpeed = new Vector(0, 0, 0);
         particlePreferences.life.minimumColorDifferenceInMillisec = new Vector(-0.05, -0.05, -0.05, -0.001);
-        particlePreferences.life.weight = 10000000;
+        particlePreferences.life.weight = 1000000;
         particlePreferences.life.amountOfForces = 3;
-        particlePreferences.life.forceBoxSize = emitterPreferences.emitterSize.dublicate();
+        particlePreferences.life.forceBoxSize = new Vector(1,1,1);
         particlePreferences.dead.minimumLifetimeInMilliSec = 2500;
         particlePreferences.dead.maximumLifetimeInMilliSec = particlePreferences.dead.minimumLifetimeInMilliSec;
 

@@ -65,19 +65,17 @@ public class ParticleFactory {
     }
 
     private void setActualSpeed(Particle particle) {
-        particle.actualSpeed = this.particlePreferences.creation.minStartSpeed.dublicate();
+        particle.actualSpeed = this.particlePreferences.creation.startSpeed.dublicate();
     }
 
     private void setOwnMaximumLifetime(Particle particle) {
         long min = this.particlePreferences.dead.minimumLifetimeInMilliSec;
         long max = this.particlePreferences.dead.maximumLifetimeInMilliSec;
-        particle.ownMaximumLifetimeInMilliSec = this.randomHelper.randomBetween(min, max);
+        particle.ownMaximumLifetime = this.randomHelper.randomBetween(min, max);
     }
 
     private void setStartColor(Particle particle) {
-        Vector minStartColor = this.particlePreferences.creation.minStartColor;
-        Vector maxStartColor = this.particlePreferences.creation.maxStartColor;
-        Vector startColor = vectorHelper.getVectorBetween(minStartColor, maxStartColor);
+        Vector startColor = this.particlePreferences.creation.startColor;
         particle.renderVertex.color = startColor;
     }
 }

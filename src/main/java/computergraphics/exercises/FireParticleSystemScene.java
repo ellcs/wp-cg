@@ -30,17 +30,17 @@ public class FireParticleSystemScene extends ParticleScene {
         particlePreferences.creation.startColors = new Vector[] {
                 Colors.fireRed,
                 Colors.red,
-                Colors.yellow
+                Colors.brightRed
         };
-        particlePreferences.creation.startSpeed = new Vector(0, 0.001, 0);
+        particlePreferences.creation.startSpeed = new Vector(0, 0.000, 0);
         particlePreferences.life.minimumColorDifferenceInMillisec = new Vector(-0.0005, 0, 0, -0.01);
-        particlePreferences.life.maximumColorDifferenceInMillisec = new Vector(-0.0003, 0, 0, -0.001);
+        particlePreferences.life.maximumColorDifferenceInMillisec = new Vector(-0.0003, -0.003, 0, -0.001);
         particlePreferences.life.weight = 1000000000;
         particlePreferences.life.amountOfForces = 1;
-        particlePreferences.life.forceBoxPosition = new Vector(0,0.1,0);
-        particlePreferences.life.forceBoxSize = new Vector(2,0.3,2);
+        particlePreferences.life.forceBoxPosition = new Vector(0,1,0);
+        particlePreferences.life.forceBoxSize = emitterPreferences.emitterSize.dublicate();
         particlePreferences.dead.minimumLifetimeInMilliSec = 300;
-        particlePreferences.dead.maximumLifetimeInMilliSec = 400;
+        particlePreferences.dead.maximumLifetimeInMilliSec = 700;
 
         Emitter e = new Emitter(emitterPreferences, particlePreferences);
         EmitterNode emitterNode = new EmitterNode(e);

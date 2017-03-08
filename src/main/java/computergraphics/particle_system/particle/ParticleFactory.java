@@ -49,17 +49,18 @@ public class ParticleFactory {
     }
 
     private void setForces(Particle particle) {
-//        int amountOfForces = this.particlePreferences.life.amountOfForces;
-//        Vector range = this.particlePreferences.life.forceBoxSize;
-//        range.addSelf(this.particlePreferences.life.forceBoxPosition);
-//        Vector[] forces = new Vector[amountOfForces];
-//        for (int i = 0; i < amountOfForces; i++) {
-//            Vector force = vectorHelper.getRandomVectorInRange(range);
-//            forces[i] = force;
-//        }
-        particle.forces = new Vector[1];
+        int amountOfForces = this.particlePreferences.life.amountOfForces;
         Vector range = this.particlePreferences.life.forceBoxSize;
-        particle.forces[0] = vectorHelper.getRandomVectorInRange(range);
+        range.addSelf(this.particlePreferences.life.forceBoxPosition);
+        Vector[] forces = new Vector[amountOfForces];
+        for (int i = 0; i < amountOfForces; i++) {
+            Vector force = vectorHelper.getRandomVectorInRange(range);
+            forces[i] = force;
+        }
+        particle.forces = forces;
+//        particle.forces = new Vector[1];
+//        Vector range = this.particlePreferences.life.forceBoxSize.dublicate();
+//        particle.forces[0] = vectorHelper.getRandomVectorInRange(range).add(this.particlePreferences.life.forceBoxPosition);
     }
 
     private void setColorDifferenceInMillisec(Particle particle) {

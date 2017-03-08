@@ -11,6 +11,7 @@ public final class Colors {
 
   // Colors are supplied in
   // checkout: http://prideout.net/archive/colors.php
+  public static final Vector brightRed = new Vector(255, 1.95, 0, 1);
   public static final Vector fireRed = new Vector(	255, 1, 0, 1);
   public static final Vector red = new Vector(4, 0.05, 0.05, 1);
   public static final Vector gray = new Vector(0.7, 0.7, 0.7, 1);

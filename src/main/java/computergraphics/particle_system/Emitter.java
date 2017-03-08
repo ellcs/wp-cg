@@ -58,7 +58,6 @@ public class Emitter implements IEmitter {
         updateAllParticles(deltaTime);
         removeDeadParticles();
         createNewParticles(deltaTime);
-        sortParticles();
     }
 
     @Override
@@ -114,13 +113,6 @@ public class Emitter implements IEmitter {
 
     private boolean maximumAmountOfParticlesReached() {
         return this.emitterPreferences.maximumParticles <= this.particles.size();
-    }
-
-    /**
-     * Sorts the particles depending on the distance to the camera.
-     */
-    private void sortParticles() {
-
     }
 
 }

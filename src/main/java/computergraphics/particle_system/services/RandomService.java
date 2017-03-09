@@ -30,7 +30,7 @@ public class RandomService {
     private void isValid(long min, long max) {
         if (min > max) {
             throw new IllegalArgumentException("Min is bigger then Max");
-        } else if (min < 0 || max < 0) {
+        } else if (min <= 0 || max <= 0) {
             throw new IllegalArgumentException("Min or max is negative.");
         }
     }

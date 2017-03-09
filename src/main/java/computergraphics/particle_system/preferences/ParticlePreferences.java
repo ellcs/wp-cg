@@ -51,6 +51,9 @@ public class ParticlePreferences {
         public int amountOfForces = 0;
 
 
+        /**
+         * If weight is set to zero, forces will be ignored. :)
+         */
         public float weight = 1f;
 
         /**

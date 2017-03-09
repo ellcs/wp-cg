@@ -14,7 +14,7 @@ public class EmitterPreferences {
 
     /**
      * The maximum amount of particles, which might be created by the
-     * emitter. When maximum reached, no other particles will be spawned.
+     * emitterRange. When maximum reached, no other particles will be spawned.
      */
     public Integer maximumParticles;
 
@@ -29,7 +29,7 @@ public class EmitterPreferences {
 
     public ParticleSpawnRate spawnRate;
 
-    public Range emitter;
+    public Range emitterRange;
 
     public boolean drawEmitterBox = false;
 

@@ -10,10 +10,10 @@ public class Range {
     Vector position;
     Vector size;
 
-    public Range(Vector position, Vector range) {
-        checkAllPositive(range);
+    public Range(Vector position, Vector size) {
+        checkAllPositive(size);
         this.position = position;
-        this.size = range;
+        this.size = size;
     }
 
     public Vector getPosition() {

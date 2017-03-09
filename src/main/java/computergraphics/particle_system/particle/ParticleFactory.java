@@ -45,7 +45,7 @@ public class ParticleFactory {
     }
 
     private void setPositionAndColor(Particle particle) {
-        Vector position = vectorHelper.getRandomVectorInRange(this.emitterPreferences.emitter);
+        Vector position = vectorHelper.getRandomVectorInRange(this.emitterPreferences.emitterRange);
         particle.renderVertex = new RenderVertex(position, Vector.zero(), Colors.darkGreen);
     }
 
@@ -54,6 +54,9 @@ public class ParticleFactory {
     }
 
     private void setForce(Particle particle) {
+        if (this.particlePreferences.life.weight == 0.0) {
+            return;
+        }
         Range startForceRange = this.particlePreferences.life.forceRange;
         Vector randomForce = vectorHelper.getRandomVectorInRange(startForceRange);
 

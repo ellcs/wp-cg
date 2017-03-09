@@ -1,6 +1,5 @@
 package computergraphics.particle_system;
 
-import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.RenderVertex;
 import computergraphics.particle_system.particle.Particle;
 import computergraphics.particle_system.particle.ParticleFactory;
@@ -66,8 +65,8 @@ public class Emitter implements IEmitter {
     }
 
     @Override
-    public Vector getEmitterBox() {
-        return this.emitterPreferences.emitter.getSum();
+    public Range getEmitterRange() {
+        return this.emitterPreferences.emitterRange;
     }
 
     @Override

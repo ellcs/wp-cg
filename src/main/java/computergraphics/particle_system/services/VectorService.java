@@ -21,6 +21,7 @@ public class VectorService {
 
     public Vector getRandomVectorInRange(Range range) {
         checkNotNull(range);
+
         Vector randomVector = getRandomVectorInRange(range.getSize());
         return randomVector.add(range.getPosition());
     }
@@ -28,9 +29,14 @@ public class VectorService {
     public Vector getRandomVectorInRange(Vector range) {
         checkNotNull(range);
         Vector v = getRandomVector();
-        v.set(0, v.x() % range.x());
-        v.set(1, v.y() % range.y());
-        v.set(2, v.z() % range.z());
+
+        double x = range.x() == 0.0 ? 0 : v.x() % range.x();
+        double y = range.y() == 0.0 ? 0 : v.y() % range.y();
+        double z = range.z() == 0.0 ? 0 : v.z() % range.z();
+
+        v.set(0, x);
+        v.set(1, y);
+        v.set(2, z);
         return v;
     }
 

@@ -38,9 +38,9 @@ public abstract class ParticleScene extends computergraphics.framework.Scene  {
 
     @Override
     public void keyPressed(int keyCode) {
-        if (keyCode == 'p') {
+        if (keyCode == 'p' || keyCode == 'P') {
             paused = !paused;
-        } else if (keyCode == 'b') {
+        } else if (keyCode == 'b' || keyCode == 'B') {
             emitterPreferences.drawEmitterBox = !emitterPreferences.drawEmitterBox;
         }
     }

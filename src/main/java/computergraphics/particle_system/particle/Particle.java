@@ -3,6 +3,8 @@ package computergraphics.particle_system.particle;
 import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.RenderVertex;
 
+import java.util.Arrays;
+
 /**
  * Created by ellcs on 03.03.17.
  *
@@ -58,6 +60,9 @@ public class Particle {
      * By multiplying <code>deltaTime</code> as t, we modify the speed.
      */
     private void updateSpeed(long deltaTime) {
+        if (forces == null)
+            return;
+
         float inversedWeight = 1f/this.weight;
         for (Vector force : this.forces) {
             force = force.subtract(this.renderVertex.position);
@@ -74,4 +79,16 @@ public class Particle {
         return this.lifetime > this.ownMaximumLifetime;
     }
 
+    @Override
+    public String toString() {
+        return "Particle{" +
+                "renderVertex=" + renderVertex +
+                ", colorDifferenceInMilliSec=" + colorDifferenceInMilliSec +
+                ", actualSpeed=" + actualSpeed +
+                ", forces=" + Arrays.toString(forces) +
+                ", weight=" + weight +
+                ", lifetime=" + lifetime +
+                ", ownMaximumLifetime=" + ownMaximumLifetime +
+                '}';
+    }
 }

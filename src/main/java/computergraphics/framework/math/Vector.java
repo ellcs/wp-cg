@@ -383,7 +383,7 @@ public class Vector implements Serializable {
   public String toString() {
     String content = "( ";
     for (int index = 0; index < getDimension(); index++) {
-      content += String.format("%4.3f ", get(index));
+      content += String.format("%4.7f ", get(index));
     }
     content += ")\n";
     return content;

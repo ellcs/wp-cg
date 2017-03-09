@@ -6,6 +6,7 @@ import computergraphics.framework.math.Vector;
 import computergraphics.framework.rendering.VertexBufferObject;
 import computergraphics.framework.scenegraph.LeafNode;
 import computergraphics.framework.scenegraph.TimerTickable;
+import computergraphics.particle_system.Range;
 import computergraphics.particle_system.services.DeltaTimeCalculatorService;
 import computergraphics.particle_system.IEmitter;
 
@@ -44,50 +45,52 @@ public class EmitterNode extends LeafNode implements TimerTickable {
      */
     private void drawEmitterBox(GL2 gl) {
         if (this.emitter.drawEmitterBox()) {
-            Vector emitterBox = this.emitter.getEmitterBox();
+            Range emitterRange = this.emitter.getEmitterRange();
+            Vector position = emitterRange.getPosition();
+            Vector sum = emitterRange.getSum();
 
             gl.glLineWidth(2.5f);
             gl.glColor3f((float) this.color.get(0), (float) this.color.get(1), (float) this.color.get(2));
             gl.glBegin(GL_LINES);
 
             // side one:
-            gl.glVertex3f((float) 0, (float) 0, (float) 0);
-            gl.glVertex3f((float) emitterBox.x(), (float) 0, (float) 0);
+            gl.glVertex3f((float) position.x(), (float) position.y(), (float) position.z());
+            gl.glVertex3f((float) sum.x(), (float) position.y(), (float) position.z());
 
-            gl.glVertex3f((float) emitterBox.x(), (float) 0, (float) 0);
-            gl.glVertex3f((float) emitterBox.x(), (float) emitterBox.y(), (float) 0);
+            gl.glVertex3f((float) sum.x(), (float) position.y(), (float) position.z());
+            gl.glVertex3f((float) sum.x(), (float) sum.y(), (float) position.z());
 
-            gl.glVertex3f((float) emitterBox.x(), (float) emitterBox.y(), (float) 0);
-            gl.glVertex3f((float) 0, (float) emitterBox.y(), (float) 0);
+            gl.glVertex3f((float) sum.x(), (float) sum.y(), (float) position.z());
+            gl.glVertex3f((float) position.x(), (float) sum.y(), (float) position.z());
 
-            gl.glVertex3f((float) 0, (float) emitterBox.y(), (float) 0);
-            gl.glVertex3f((float) 0, (float) 0, (float) 0);
+            gl.glVertex3f((float) position.x(), (float) sum.y(), (float) position.z());
+            gl.glVertex3f((float) position.x(), (float) position.y(), (float) position.z());
 
             // side two:
-            gl.glVertex3f((float) 0, (float) 0, (float) emitterBox.z());
-            gl.glVertex3f((float) emitterBox.x(), (float) 0, (float) emitterBox.z());
+            gl.glVertex3f((float) position.x(), (float) position.y(), (float) sum.z());
+            gl.glVertex3f((float) sum.x(), (float) position.y(), (float) sum.z());
 
-            gl.glVertex3f((float) emitterBox.x(), (float) 0, (float) emitterBox.z());
-            gl.glVertex3f((float) emitterBox.x(), (float) emitterBox.y(), (float) emitterBox.z());
+            gl.glVertex3f((float) sum.x(), (float) position.y(), (float) sum.z());
+            gl.glVertex3f((float) sum.x(), (float) sum.y(), (float) sum.z());
 
-            gl.glVertex3f((float) emitterBox.x(), (float) emitterBox.y(), (float) emitterBox.z());
-            gl.glVertex3f((float) 0, (float) emitterBox.y(), (float) emitterBox.z());
+            gl.glVertex3f((float) sum.x(), (float) sum.y(), (float) sum.z());
+            gl.glVertex3f((float) position.x(), (float) sum.y(), (float) sum.z());
 
-            gl.glVertex3f((float) 0, (float) emitterBox.y(), (float) emitterBox.z());
-            gl.glVertex3f((float) 0, (float) 0, (float) emitterBox.z());
+            gl.glVertex3f((float) position.x(), (float) sum.y(), (float) sum.z());
+            gl.glVertex3f((float) position.x(), (float) position.y(), (float) sum.z());
 
             // connection of sides
-            gl.glVertex3f((float) 0, (float) 0, (float) 0);
-            gl.glVertex3f((float) 0, (float) 0, (float) emitterBox.z());
+            gl.glVertex3f((float) position.x(), (float) position.y(), (float) position.z());
+            gl.glVertex3f((float) position.x(), (float) position.y(), (float) sum.z());
 
-            gl.glVertex3f((float) emitterBox.x(), (float) 0, (float) 0);
-            gl.glVertex3f((float) emitterBox.x(), (float) 0, (float) emitterBox.z());
+            gl.glVertex3f((float) sum.x(), (float) position.y(), (float) position.z());
+            gl.glVertex3f((float) sum.x(), (float) position.y(), (float) sum.z());
 
-            gl.glVertex3f((float) emitterBox.x(), (float) emitterBox.y(), (float) 0);
-            gl.glVertex3f((float) emitterBox.x(), (float) emitterBox.y(), (float) emitterBox.z());
+            gl.glVertex3f((float) sum.x(), (float) sum.y(), (float) position.z());
+            gl.glVertex3f((float) sum.x(), (float) sum.y(), (float) sum.z());
 
-            gl.glVertex3f((float) 0, (float) emitterBox.y(), (float) 0);
-            gl.glVertex3f((float) 0, (float) emitterBox.y(), (float) emitterBox.z());
+            gl.glVertex3f((float) position.x(), (float) sum.y(), (float) position.z());
+            gl.glVertex3f((float) position.x(), (float) sum.y(), (float) sum.z());
 
             gl.glEnd();
 

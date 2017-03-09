@@ -37,7 +37,10 @@ public class RainParticleSystem extends ParticleScene {
         particlePreferences.creation.startSpeed = 0.001;
         particlePreferences.creation.startDirectionRange = new Range(new Vector(0,-1,0), new Vector(0,0.01,0));
 
-        particlePreferences.life.weight = 10000000;
+        // nice values for the weight:
+//         particlePreferences.life.weight = 1000000;
+         particlePreferences.life.weight = 0;
+//        particlePreferences.life.weight = 10000000;
         particlePreferences.life.minimumColorDifferenceInMilliSec = new Vector(0, 0, 0, 0);
         particlePreferences.life.maximumColorDifferenceInMilliSec = new Vector(0, 0, 0, 0);
         particlePreferences.life.forceRange = new Range(new Vector(3,0,0), new Vector(0.3,0.3,0.3));

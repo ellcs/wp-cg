@@ -98,7 +98,7 @@ public class EmitterNode extends LeafNode implements TimerTickable {
     public void drawGL(GL2 gl, RenderMode mode, Matrix modelMatrix) {
         createVbo();
         gl.glPointSize(this.emitter.getParticleSize());
-        gl.glEnable(GL2.GL_POINT_SMOOTH);
+//        gl.glEnable(GL2.GL_POINT_SMOOTH);
         if (mode == RenderMode.REGULAR) {
             vbo.draw(gl);
             drawEmitterBox(gl);

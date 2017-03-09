@@ -1,6 +1,7 @@
 package computergraphics.particle_system.preferences;
 
 import computergraphics.framework.math.Vector;
+import computergraphics.particle_system.Range;
 
 /**
  * Created by ellcs on 03.03.17.
@@ -28,10 +29,7 @@ public class EmitterPreferences {
 
     public ParticleSpawnRate spawnRate;
 
-    /**
-     * Within these ranges, the particles are created.
-     */
-    public Vector emitterSize;
+    public Range emitter;
 
     public boolean drawEmitterBox = false;
 

@@ -22,7 +22,7 @@ public class RainParticleSystem extends ParticleScene {
 
         emitterPreferences = new EmitterPreferences();
         emitterPreferences.maximumParticles = 2000;
-        emitterPreferences.emitterSize = new Vector(1,0.2,1);
+//        emitterPreferences.emitterSize = new Vector(1,0.2,1);
         emitterPreferences.drawEmitterBox = true;
         emitterPreferences.spawnRate.maxPerMilliSec = 100f;
         emitterPreferences.spawnRate.minPerMilliSec = 35f;
@@ -33,10 +33,13 @@ public class RainParticleSystem extends ParticleScene {
                 Colors.blue,
                 Colors.darkBlue
         };
+        particlePreferences.creation.startSpeed = 0.0001;
+//        particlePreferences.creation.startDirectionBoxSize = new Vector(1,1,1);
+//        particlePreferences.creation.startDirectionBoxPosition = new Vector(1,1,1);
         particlePreferences.life.amountOfForces = 0;
-        particlePreferences.life.minimumColorDifferenceInMillisec = new Vector(0, 0, 0, 0);
-        particlePreferences.life.maximumColorDifferenceInMillisec = new Vector(0, 0, 0, 0);
-        particlePreferences.creation.startSpeed = new Vector(0.00005, -0.0009, 0);
+        particlePreferences.life.minimumColorDifferenceInMilliSec = new Vector(0, 0, 0, 0);
+        particlePreferences.life.maximumColorDifferenceInMilliSec = new Vector(0, 0, 0, 0);
+//        particlePreferences.creation.startDirectionBoxSize = new Vector(0.00005, -0.0009, 0);
         particlePreferences.dead.minimumLifetimeInMilliSec = 3000;
         particlePreferences.dead.maximumLifetimeInMilliSec = particlePreferences.dead.minimumLifetimeInMilliSec;
 

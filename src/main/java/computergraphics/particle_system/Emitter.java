@@ -67,7 +67,7 @@ public class Emitter implements IEmitter {
 
     @Override
     public Vector getEmitterBox() {
-        return this.emitterPreferences.emitterSize;
+        return this.emitterPreferences.emitter.getSum();
     }
 
     @Override

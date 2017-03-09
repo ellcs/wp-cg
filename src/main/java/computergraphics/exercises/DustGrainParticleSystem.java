@@ -6,6 +6,7 @@ import computergraphics.framework.rendering.Shader;
 import computergraphics.framework.scenegraph.INode;
 import computergraphics.framework.scenegraph.particle_system.EmitterNode;
 import computergraphics.particle_system.Emitter;
+import computergraphics.particle_system.Range;
 import computergraphics.particle_system.preferences.EmitterPreferences;
 import computergraphics.particle_system.preferences.ParticlePreferences;
 
@@ -20,7 +21,7 @@ public class DustGrainParticleSystem extends ParticleScene {
 
         emitterPreferences = new EmitterPreferences();
         emitterPreferences.maximumParticles = 70;
-        emitterPreferences.emitterSize = new Vector(1,1,1);
+        emitterPreferences.emitter = new Range(new Vector(0,0,0), new Vector(1,1,1));
         emitterPreferences.drawEmitterBox = true;
         emitterPreferences.spawnRate.maxPerMilliSec = 10f;
         emitterPreferences.spawnRate.minPerMilliSec = 5f;
@@ -31,15 +32,16 @@ public class DustGrainParticleSystem extends ParticleScene {
                 Colors.white,
                 Colors.white.subtract(new Vector(50,50,50,0.3)),
         };
-        // add random vector for the startSpeed
+        // add random vector for the startDirectionBoxSize
         // then they fly curves :)
-//        particlePreferences.creation.startSpeed = new Vector(0.00001, 0.00001, 0.00001);
-        particlePreferences.creation.startSpeed = new Vector(0.0001, 0.0001, 0.0001);
-        particlePreferences.life.minimumColorDifferenceInMillisec = new Vector(-0.05, -0.05, -0.05, -0.001);
-        particlePreferences.life.maximumColorDifferenceInMillisec = new Vector(-0.01, -0.01, -0.01, -0.01);
+//        particlePreferences.creation.startDirectionBoxSize = new Vector(0.00001, 0.00001, 0.00001);
+        particlePreferences.creation.startSpeed = 0.0001;
+        particlePreferences.creation.startDirectionRange = emitterPreferences.emitter;
+        particlePreferences.life.minimumColorDifferenceInMilliSec = new Vector(-0.05, -0.05, -0.05, -0.001);
+        particlePreferences.life.maximumColorDifferenceInMilliSec = new Vector(-0.01, -0.01, -0.01, -0.01);
         particlePreferences.life.weight = 5000000;
         particlePreferences.life.amountOfForces = 3;
-        particlePreferences.life.forceBoxSize = new Vector(1,1,1);
+        particlePreferences.life.forceRange = emitterPreferences.emitter;
         particlePreferences.dead.minimumLifetimeInMilliSec = 2500;
         particlePreferences.dead.maximumLifetimeInMilliSec = particlePreferences.dead.minimumLifetimeInMilliSec;
 

@@ -1,6 +1,7 @@
 package computergraphics.particle_system.services;
 
 import computergraphics.framework.math.Vector;
+import computergraphics.particle_system.Range;
 
 import java.util.Random;
 
@@ -18,10 +19,14 @@ public class VectorService {
         this.randomHelper = randomService;
     }
 
+    public Vector getRandomVectorInRange(Range range) {
+        checkNotNull(range);
+        Vector randomVector = getRandomVectorInRange(range.getSize());
+        return randomVector.add(range.getPosition());
+    }
+
     public Vector getRandomVectorInRange(Vector range) {
-        if (range == null) {
-            throw new IllegalArgumentException("'range' can not be null.");
-        }
+        checkNotNull(range);
         Vector v = getRandomVector();
         v.set(0, v.x() % range.x());
         v.set(1, v.y() % range.y());
@@ -42,6 +47,8 @@ public class VectorService {
     }
 
     public Vector getRandomVectorBetween(Vector min, Vector max) {
+        checkNotNull(min);
+        checkNotNull(max);
         if (min.getDimension() != max.getDimension()) {
             throw new IllegalArgumentException("Not same dimensions");
         }
@@ -53,5 +60,11 @@ public class VectorService {
             return new Vector(x,y,z,w);
         }
         return new Vector(x,y,z);
+    }
+
+    private void checkNotNull(Object vector) {
+        if (vector == null) {
+            throw new IllegalArgumentException("object is null.");
+        }
     }
 }

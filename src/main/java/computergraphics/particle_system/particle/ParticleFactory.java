@@ -79,6 +79,7 @@ public class ParticleFactory {
     private void setActualSpeed(Particle particle) {
         double speed = this.particlePreferences.creation.startSpeed;
         Vector startDirection = vectorHelper.getRandomVectorInRange(this.particlePreferences.creation.startDirectionRange);
+        ------- Normalize!!!
         Vector startSpeed = startDirection.multiply(speed);
         particle.actualSpeed = startSpeed;
     }

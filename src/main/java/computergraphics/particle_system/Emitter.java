@@ -50,8 +50,8 @@ public class Emitter implements IEmitter {
     }
 
     /**
-     * Updates all particles, removes dead ones and creates new ones.
-     * @param deltaTime is the last t
+     * Updates all particles, removes dead
+     * ones and creates new ones.
      */
     public void update(long deltaTime) {
         updateAllParticles(deltaTime);

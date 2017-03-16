@@ -36,11 +36,11 @@ public class DustGrainParticleSystem extends ParticleScene {
         // add random vector for the startDirectionBoxSize
         // then they fly curves :)
 //        particlePreferences.creation.startDirectionBoxSize = new Vector(0.00001, 0.00001, 0.00001);
-        particlePreferences.creation.startSpeed = 0.0003;
+        particlePreferences.creation.startSpeed = 0.0002;
         particlePreferences.creation.startDirectionRange = emitterPreferences.emitterRange;
         particlePreferences.life.minimumColorDifferenceInMilliSec = new Vector(-0.05, -0.05, -0.05, -0.0005);
 //        particlePreferences.life.minimumColorDifferenceInMilliSec = new Vector(0, 0, 0, 0);
-        particlePreferences.life.weight = 4000000;
+        particlePreferences.life.weight = 6000000;
         particlePreferences.life.amountOfForces = 3;
         particlePreferences.life.forceRange = emitterPreferences.emitterRange;
         particlePreferences.dead.minimumLifetimeInMilliSec = 5000;
